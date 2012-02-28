@@ -1,0 +1,122 @@
+﻿<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <RootNamespace>cs_elbot</RootNamespace>
+    <AssemblyName>cs-elbot</AssemblyName>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{B56F4655-1BC5-4014-86E7-3429CC521001}</ProjectGuid>
+    <StartupObject>
+    </StartupObject>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
+    <OutputPath>..\..\..\_bots\</OutputPath>
+    <Optimize>true</Optimize>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DebugSymbols>True</DebugSymbols>
+    <DebugType>Full</DebugType>
+    <CheckForOverflowUnderflow>True</CheckForOverflowUnderflow>
+    <UseVSHostingProcess>false</UseVSHostingProcess>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
+    <OutputPath>obj\Release\</OutputPath>
+    <Optimize>True</Optimize>
+    <DefineConstants>TRACE</DefineConstants>
+    <DebugSymbols>False</DebugSymbols>
+    <DebugType>None</DebugType>
+    <CheckForOverflowUnderflow>False</CheckForOverflowUnderflow>
+    <UseVSHostingProcess>false</UseVSHostingProcess>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="MySql.Data, Version=5.1.7.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d, processorArchitecture=MSIL" />
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="AdvancedCommunication\AFKCommandHandler.cs" />
+    <Compile Include="AdvancedCommunication\AltAdvertsHandler.cs" />
+    <Compile Include="AdvancedCommunication\BANCommandHandler.cs" />
+    <Compile Include="AdvancedCommunication\CancelTrade.cs" />
+    <Compile Include="AdvancedCommunication\AssessThreat.cs" />
+    <Compile Include="AdvancedCommunication\UseItemCommandHandler.cs" />
+    <Compile Include="AdvancedCommunication\ISOnlineCommandHandler.cs" />
+    <Compile Include="AdvancedCommunication\PRIZECommandHandler.cs" />
+    <Compile Include="AdvancedCommunication\GAMBLECommandHandler.cs" />
+    <Compile Include="AdvancedCommunication\DepositCommandHandler.cs" />
+    <Compile Include="AdvancedCommunication\WithdrawCommandHandler.cs" />
+    <Compile Include="AdvancedCommunication\OpenStorage.cs" />
+    <Compile Include="AdvancedCommunication\GiveToCommandHandler.cs" />
+    <Compile Include="AdvancedCommunication\GotoCommandHandler.cs" />
+    <Compile Include="AdvancedCommunication\INVRCommandHandler.cs" />
+    <Compile Include="AdvancedCommunication\QuitCommandHandler.cs" />
+    <Compile Include="AdvancedCommunication\ReserveCommandHandler.cs" />
+    <Compile Include="AdvancedCommunication\UseObjectCommandHandler.cs" />
+    <Compile Include="AdvancedCommunication\WearCommandHandler.cs" />
+    <Compile Include="AdvancedCommunication\SitStandCommandHandler.cs" />
+    <Compile Include="AdvancedCommunication\WhosIsTrading.cs" />
+    <Compile Include="AdvancedCommunication\LaunchCommandHandler.cs" />
+    <Compile Include="AdvancedCommunication\STOCommandHandler.cs" />
+    <Compile Include="AdvancedCommunication\DESCRIBECommandHandler.cs" />
+    <Compile Include="AdvancedCommunication\ELTCCommandHandler.cs" />
+    <Compile Include="AdvancedCommunication\housekeeping.cs" />
+    <Compile Include="AdvancedCommunication\MOVECommandHandler.cs" />
+    <Compile Include="AdvancedCommunication\RETRADECommandHandler.cs" />
+    <Compile Include="AdvancedCommunication\rules.cs" />
+    <Compile Include="AdvancedCommunication\TextCommandsHandler.cs" />
+    <Compile Include="BasicCommunication\AutoShutdown.cs" />
+    <Compile Include="BasicCommunication\ChangeMap.cs" />
+    <Compile Include="BasicCommunication\NewMinute.cs" />
+    <Compile Include="AdvancedCommunication\GTCommandHandler.cs" />
+    <Compile Include="TradeHandler.cs" />
+    <Compile Include="errorHandler.cs" />
+    <Compile Include="perks.cs" />
+    <Compile Include="Main.cs" />
+    <Compile Include="AssemblyInfo.cs" />
+    <Compile Include="Logger.cs" />
+    <Compile Include="Settings.cs" />
+    <Compile Include="CLI.cs" />
+    <Compile Include="stats.cs" />
+    <Compile Include="Storage.cs" />
+    <Compile Include="TCPWrapper.cs" />
+    <Compile Include="BasicCommunication\HeartBeat.cs" />
+    <Compile Include="BasicCommunication\Ping.cs" />
+    <Compile Include="BasicCommunication\Login.cs" />
+    <Compile Include="BasicCommunication\RawText.cs" />
+    <Compile Include="Logging\CommandLogger.cs" />
+    <Compile Include="Logging\MessageLogger.cs" />
+    <Compile Include="BasicCommunication\MessageParser.cs" />
+    <Compile Include="Logging\LoginLogger.cs" />
+    <Compile Include="AdvancedCommunication\PMHandler.cs" />
+    <Compile Include="CommandCreator.cs" />
+    <Compile Include="AdvancedCommunication\HelpCommandHandler.cs" />
+    <Compile Include="AdvancedCommunication\SAYCommandHandler.cs" />
+    <Compile Include="AdvancedCommunication\AdminHelpCommandHandler.cs" />
+    <Compile Include="AdvancedCommunication\PMCommandHandler.cs" />
+    <Compile Include="AdvancedCommunication\BuddyHandler.cs" />
+    <Compile Include="MySqlManager.cs" />
+    <Compile Include="Inventory.cs" />
+    <Compile Include="AdvancedCommunication\AdvHelpCommandHandler.cs" />
+    <Compile Include="AdvancedCommunication\INVLISTCommandHandler.cs" />
+    <Compile Include="AdvancedCommunication\GiveCommandHandler.cs" />
+    <Compile Include="AdvancedCommunication\INVCommandHandler.cs" />
+    <Compile Include="AdvancedCommunication\BUYCommandHandler.cs" />
+    <Compile Include="AdvancedCommunication\WANTEDCommandHandler.cs" />
+    <Compile Include="AdvancedCommunication\LOCCommandHandler.cs" />
+    <Compile Include="TCPClient.cs" />
+    <Compile Include="AdvancedCommunication\ABOUTCommandHandler.cs" />
+    <Compile Include="AdvancedCommunication\DONATECommandHandler.cs" />
+    <Compile Include="AdvancedCommunication\DROPCommandHandler.cs" />
+    <Compile Include="AdvancedCommunication\PUTONSALECommandHandler.cs" />
+    <Compile Include="AdvancedCommunication\ACCEPTMECommandHandler.cs" />
+    <Compile Include="AdvancedCommunication\KICKMECommandHandler.cs" />
+    <Compile Include="AdvancedCommunication\GuildMembers.cs" />
+    <Compile Include="AdvancedCommunication\GreetPlayers.cs" />
+    <Compile Include="AdvancedCommunication\AdvertHandler.cs" />
+    <Compile Include="AdvancedCommunication\ActorHandler.cs" />
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.Targets" />
+</Project>
