@@ -103,15 +103,15 @@ namespace cs_elbot
 
             if (ServerPort == 2000) //live
             {
-                URL = "http://dogpound.embril.net/" + Loginname + ".php";
+                URL = "http://bots.el-services.net/" + Loginname + ".php";
             }
             else if (ServerPort == 2002) //pk
             {
-                URL = "http://dogpound.embril.net/pk/" + Loginname + ".php";
+                URL = "http://bots.el-services.net/pk/" + Loginname + ".php";
             }
             else if (ServerPort == 2001) //test
             {
-                URL = "http://dogpound.embril.net/bot_test/" + Loginname + ".php";
+                URL = "http://bots.el-services.net/test/" + Loginname + ".php";
             }
             else
             {

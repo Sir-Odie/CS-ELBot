@@ -10,7 +10,7 @@
     </StartupObject>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
-    <OutputPath>..\..\..\_bots\</OutputPath>
+    <OutputPath>obj\Debug\</OutputPath>
     <Optimize>true</Optimize>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <DebugSymbols>True</DebugSymbols>

@@ -73,10 +73,10 @@ namespace cs_elbot.AdvancedCommunication
                 TheTCPWrapper.Send(CommandCreator.SEND_PM(e.username, "[Artem Makhutov (Artem) and Gregory Fenton (LabRat)".PadRight(linsize, ' ')));
                 TheTCPWrapper.Send(CommandCreator.SEND_PM(e.username, "[Artem's homepage: http://www.makhutov.org/el".PadRight(linsize, ' ')));
                 TheTCPWrapper.Send(CommandCreator.SEND_PM(e.username, "[labRat's homepage: http://www.labby.co.uk".PadRight(linsize, ' ')));
-                TheTCPWrapper.Send(CommandCreator.SEND_PM(e.username, "[DogBreath's homepage: http://forum.embril.net".PadRight(linsize, ' ')));
+                TheTCPWrapper.Send(CommandCreator.SEND_PM(e.username, "[DogBreath's homepage: http://forum.el-services.net".PadRight(linsize, ' ')));
                 TheTCPWrapper.Send(CommandCreator.SEND_PM(e.username, "[".PadRight(linsize, '-')));
                 TheTCPWrapper.Send(CommandCreator.SEND_PM(e.username, "[Special thanks to draavell my faithful assistant :)".PadRight(linsize, ' ')));
-                TheTCPWrapper.Send(CommandCreator.SEND_PM(e.username, "[Special thanks to Krrick for the web hosting.".PadRight(linsize, ' ')));
+                TheTCPWrapper.Send(CommandCreator.SEND_PM(e.username, "[Special thanks to VinoVeritas for the web hosting.".PadRight(linsize, ' ')));
                 TheTCPWrapper.Send(CommandCreator.SEND_PM(e.username, "[".PadRight(linsize, '-')));
                 TheTCPWrapper.Send(CommandCreator.SEND_PM(e.username, ("[My bot owner(s) is(are) " + TheMySqlManager.botowner(Settings.botid).ToString()).PadRight(linsize, ' ')));
                 TheTCPWrapper.Send(CommandCreator.SEND_PM(e.username, "[" + Settings.URL.PadRight(linsize-1, ' ')));
