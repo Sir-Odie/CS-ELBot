@@ -96,10 +96,17 @@ namespace cs_elbot.AdvancedCommunication
                 string connectionStatus = TheMySqlManager.getConnectionStatus(botName);
 
                 //botToLaunch.StartInfo.FileName = "C:/Users/Jomama/Documents/testbots/" + botName + "/cs-elbot.exe";
-                if (connectionStatus == "ALREADY CONNECTED")
+                if (connectionStatus == "ALREADY LOGGED IN")
                 {
                     TheTCPWrapper.Send(CommandCreator.SEND_PM(e.username, "[It appears that " + botName + " is already logged on!"));
                     TheTCPWrapper.Send(CommandCreator.SEND_PM(e.username, "[If " + botName + " isn't really logged on, please contact your bot administrator!"));
+                    return;
+                }
+
+                if (connectionStatus == "STARTED")
+                {
+                    TheTCPWrapper.Send(CommandCreator.SEND_PM(e.username, "[It appears that " + botName + " is started but not logged on!"));
+                    TheTCPWrapper.Send(CommandCreator.SEND_PM(e.username, "[If " + botName + " isn't logged on soon, please contact your bot administrator!"));
                     return;
                 }
 

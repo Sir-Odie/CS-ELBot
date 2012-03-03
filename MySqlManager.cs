@@ -4468,7 +4468,7 @@ namespace cs_elbot
         {
             MySqlConnection MyConnection = new MySqlConnection("Server=" + MainClass.SqlServer + ";Port=" + MainClass.SqlPort.ToString() + ";Database=" + MainClass.SqlDatabase + ";Uid=" + MainClass.SqlUsername + ";Pwd=" + MainClass.SqlPassword + ";");
             MyConnection.Open();
-            string connectionStatus = "ALREADY CONNECTED";
+            string connectionStatus = "ALREADY LOGGED IN";
             int connectedToServer = 0;
 
             string sql = "SELECT connectedToServer FROM bots WHERE name=?name LIMIT 1;";
@@ -4506,6 +4506,10 @@ namespace cs_elbot
             {
                 connectionStatus = "ALREADY PENDING";
             }
+            else if (connectedToServer == 3)
+            {
+                connectionStatus = "STARTED";
+            }
             MyConnection.Close();
             return connectionStatus;
         }
@@ -4516,7 +4520,14 @@ namespace cs_elbot
             raw_sql(sql);
             return;
         }
-        public void ImLoggedIn(int botID)
+        public void ImStarted(int botID)
+        {
+            string sql = "UPDATE bots SET connectedToServer = 3 WHERE botid = " + botID.ToString();
+            TheLogger.Debug(sql + "\n");
+            raw_sql(sql);
+            return;
+        }
+	public void ImLoggedIn(int botID)
         {
             string sql = "UPDATE bots SET connectedToServer = 1 WHERE botid = " + botID.ToString();
             TheLogger.Debug(sql + "\n");

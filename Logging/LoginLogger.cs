@@ -35,7 +35,7 @@ namespace cs_elbot.Logging
 			TheLogger = MyLogger;
 			TheLogin = MyLogin;
 			TheTCPWrapper = MyTCPWrapper;
-            TheMySqlManager = MyMySqlManager;
+            		TheMySqlManager = MyMySqlManager;
 			this.TheLogin.Got_LOG_IN_OK += new BasicCommunication.Login.Got_LOG_IN_OK_EventHandler(LOG_IN_OK);
 			this.TheLogin.Got_LOG_IN_NOT_OK += new BasicCommunication.Login.Got_LOG_IN_NOT_OK_EventHandler(LOG_IN_NOT_OK);
 		}
@@ -43,6 +43,7 @@ namespace cs_elbot.Logging
 		private void LOG_IN_OK(object sender, EventArgs e)
 		{
 			TheLogger.Log("Logged in to the account!");
+			TheMySqlManager.ImLoggedIn(Settings.botid);
             string[] names = TheMySqlManager.pmmonitorlist(Settings.botid).Split('|');
             foreach (string name in names)
             {

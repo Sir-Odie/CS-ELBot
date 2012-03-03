@@ -116,7 +116,7 @@ namespace cs_elbot
             botType = MyMySqlManager.getBotType(Settings.botid);
             //Console.WriteLine("Bot type: " + botType);
 
-            MyMySqlManager.ImLoggedIn(Settings.botid);
+            MyMySqlManager.ImStarted(Settings.botid);
             Settings.URL = MyMySqlManager.getURL() + Settings.Loginname + ".php";
 
 
