@@ -2680,14 +2680,14 @@ namespace cs_elbot
                 }
                 catch (MySqlException oMySQLException)
                 {
-                    TheLogger.Log("ExecSql Error in {0} due to : " + oMySQLException.Message + "\n");
+                    TheLogger.Log("ExecSql Error in " + oMySQLException.TargetSite + " due to : " + oMySQLException.Message + "\n");
                     TheLogger.Log("ExecSql by SQL : " + sql
                         + "\n");
                     myErrorHandler.errorWriter(oMySQLException);
                 }
                 catch (Exception oException)
                 {
-                    TheLogger.Log("ExecSql Error in {0} due to : " + oException.Message + "\n");
+                    TheLogger.Log("ExecSql Error in " + oException.TargetSite + " due to : " + oException.Message + "\n");
                     TheLogger.Log("ExecSql by SQL : " + sql + "\n");
                     myErrorHandler.errorWriter(oException);
                 }

@@ -12,14 +12,14 @@ namespace cs_elbot
 
         public void errorWriter(Exception oException)
         {
-            TheLogger.Log("ExecSql Error in {0} due to : " + oException.Message + "\n");
+            TheLogger.Log("ExecSql Error in " + oException.TargetSite + " due to : " + oException.Message + "\n");
             string errorText = oException.ToString();
             errorWriter(errorText);
         }
 
         public void errorWriter(MySqlException oMySQLException)
         {
-            TheLogger.Log("ExecSql Error in {0} due to : " + oMySQLException.Message + "\n");
+            TheLogger.Log("ExecSql Error in " + oMySQLException.TargetSite + " due to : " + oMySQLException.Message + "\n");
             string errorText = oMySQLException.ToString();
             errorWriter(errorText);
         }
@@ -41,12 +41,12 @@ namespace cs_elbot
             }
             catch (MySqlException oMySQLException)
             {
-                TheLogger.Log("ExecSql Error in {0} due to : " + oMySQLException.Message + "\n");
+                TheLogger.Log("ExecSql Error in " + oMySQLException.TargetSite + " due to : " + oMySQLException.Message + "\n");
                 TheLogger.Log("ExecSql by SQL : " + insertCommand + "\n");
             }
             catch (Exception oException)
             {
-                TheLogger.Log("ExecSql Error in {0} due to : " + oException.Message + "\n");
+                TheLogger.Log("ExecSql Error in " + oException.TargetSite + " due to : " + oException.Message + "\n");
                 TheLogger.Log("ExecSql by SQL : " + insertCommand + "\n");
             }
             finally
