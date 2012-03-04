@@ -21,7 +21,7 @@ using System;
 namespace cs_elbot.AdvancedCommunication
 {
 	/// <summary>
-	/// description of GiveCommandHandler.
+	/// description of BUYCommandHandler.
 	/// </summary>
 	public class BUYCommandHandler
 	{

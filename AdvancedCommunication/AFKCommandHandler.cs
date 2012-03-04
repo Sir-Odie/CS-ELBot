@@ -47,6 +47,21 @@ namespace cs_elbot.AdvancedCommunication
 
         private void OnGotPM(object sender, BasicCommunication.MessageParser.Got_PM_EventArgs e)
         {
+	    string Message = e.Message.ToLower().Replace("\'","\\\'").Replace("\"","\\\"");
+
+            if (Message[0] != '#')
+            {
+                Message = "#" + Message;
+            }
+
+            string[] CommandArray = Message.Split(' ');
+
+            if (CommandArray[0] == "#automessage" || CommandArray[0] == "#automessage:" || CommandArray[0] == "#afk")
+            {
+                return;
+            }
+
+            return;
 
         }
     }

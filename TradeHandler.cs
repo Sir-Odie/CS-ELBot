@@ -964,7 +964,7 @@ namespace cs_elbot
             uint reservedAmountForUser = TheMySqlManager.ReservedAmountForUser(SQLID, username);
             Inventory.inventory_item MyInventoryItem = new Inventory.inventory_item();
             Storage.StorageItem MyStorageItem = new Storage.StorageItem();
-            uint totalOnHand = 0;
+            int totalOnHand = 0;
             int itemIndex = 0;
             uint position = 0;
             if (fromInventory)
@@ -975,7 +975,7 @@ namespace cs_elbot
                     if (MyInventoryItem.SqlID == SQLID && MyInventoryItem.pos < 36)
                     {
                         itemFound = true;
-                        totalOnHand += MyInventoryItem.quantity;
+                        totalOnHand += (int)MyInventoryItem.quantity;
                         itemIndex = i;
                         position = MyInventoryItem.pos;
                     }
@@ -989,14 +989,14 @@ namespace cs_elbot
                     if (MyStorageItem.knownItemsID == SQLID && itemFound == false)
                     {
                         itemFound = true;
-                        totalOnHand = MyStorageItem.quantity;
+                        totalOnHand = (int)MyStorageItem.quantity;
                         itemIndex = i;
                         position = MyStorageItem.pos;
                     }
                 }
             }
 
-            totalOnHand = totalOnHand - reservedAmount + reservedAmountForUser;
+            totalOnHand = totalOnHand - (int)reservedAmount + (int)reservedAmountForUser;
             if (totalOnHand < 0)
             {
                 totalOnHand = 0;
@@ -1018,9 +1018,9 @@ namespace cs_elbot
                 }
                 else
                 {
-                    amountToTrade = totalOnHand;
+                    amountToTrade = (uint)totalOnHand;
                 }
-                uint quantityLeftOver = totalOnHand - amountToTrade;
+                uint quantityLeftOver = (uint)totalOnHand - amountToTrade;
                 //Console.WriteLine("Amount to trade: " + amountToTrade);
                 if (fromInventory)
                 {
