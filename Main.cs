@@ -37,6 +37,7 @@ namespace cs_elbot
         public static string mapName = "";
         public static bool tryingToConnect = false;
         public static bool launchedByBotManager = true;
+	public static string launchPath = "";
         public struct homeInfo
         {
             public int x;
@@ -71,13 +72,13 @@ namespace cs_elbot
             if (args.Length > 0)
             {
                 string botName = args[0];
-                string workingDirectory = args[1];
+                launchPath = args[1];
                 SqlServer = args[2];
                 SqlPort = Convert.ToInt16(args[3]);
                 SqlUsername = args[4];
                 SqlPassword = args[5];
                 SqlDatabase = args[6];
-                Environment.CurrentDirectory = workingDirectory + botName;
+                Environment.CurrentDirectory = launchPath + botName;
             }
             if (Environment.CurrentDirectory.ToLower().Contains("Live".ToLower()))
             {
@@ -94,8 +95,9 @@ namespace cs_elbot
             else
             {
                 launchedByBotManager = false;
+		launchPath = "C:\\bot\\test\\";
                 Console.WriteLine("serverName not found in file path, defaulting to test");
-                Console.WriteLine("path containing cs-elbot.exe should be something like c:/bots/test/botname/");
+                Console.WriteLine("path containing cs-elbot.exe should be something like c:/bot/test/botname/");
                 Console.WriteLine("If you're not using bot manager, don't worry about this message");
             }
 

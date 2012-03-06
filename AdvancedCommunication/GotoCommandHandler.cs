@@ -315,14 +315,14 @@ namespace cs_elbot.AdvancedCommunication
                 }
                 if (MainClass.mapName != "")
                 {
-                    string tempMapName = "C:\\bot\\" + MainClass.serverName +"\\" + MainClass.mapName.Replace('/', '\\');
+                    string tempMapName = MainClass.launchPath.Replace('/', '\\') + MainClass.mapName.Replace('/', '\\');
                     {
                         myMapName = tempMapName;
                         if (File.Exists(myMapName))
                         {
                             if (debug)
                             {
-                                Console.WriteLine("File exists!");
+                                Console.WriteLine("File {0} exists!", myMapName);
                             }
                             try
                             {
@@ -347,7 +347,7 @@ namespace cs_elbot.AdvancedCommunication
                         }
                         else
                         {
-                            Console.WriteLine("File not found!");
+                            Console.WriteLine("File {0} not found!", myMapName);
                         }
                     }
                 }

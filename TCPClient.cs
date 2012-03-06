@@ -239,7 +239,7 @@ namespace TCPClient
                             //right here here
                             if (BytesAvailable < 3)
                             {
-                                System.Threading.Thread.Sleep(20);//was 20ms, increased to see if it will fix an infrequent error
+                                System.Threading.Thread.Sleep(30);//was 20ms, increased to see if it will fix an infrequent error
                             }
                             else
                             {
@@ -290,7 +290,7 @@ namespace TCPClient
                             BytesAvailable = this.TCPSocket.Available;
                             while (BytesAvailable < PacketLength - 3)
                             {
-                                System.Threading.Thread.Sleep(20);
+                                System.Threading.Thread.Sleep(30);
                                 if (this.TCPSocket == null)
                                 {
                                     break;
