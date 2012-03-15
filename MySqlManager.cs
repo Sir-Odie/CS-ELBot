@@ -56,7 +56,14 @@ namespace cs_elbot
         public void updatePerks(string botPerks)
         {
             MySqlConnection MyConnection = new MySqlConnection("Server=" + MainClass.SqlServer + ";Port=" + MainClass.SqlPort.ToString() + ";Database=" + MainClass.SqlDatabase + ";Uid=" + MainClass.SqlUsername + ";Pwd=" + MainClass.SqlPassword + ";");
-            MyConnection.Open();
+	    try
+	    {
+            	MyConnection.Open();
+	    }
+	    catch (Exception myException)
+	    {
+		Console.WriteLine(myException.Message); Console.WriteLine(myException.Message); Environment.Exit(0);
+	    }
             string sql = "SELECT id, name FROM perks";
             TheLogger.Debug(sql + "\n");
 
@@ -106,7 +113,14 @@ namespace cs_elbot
         {
             string npcName = "";
             MySqlConnection MyConnection = new MySqlConnection("Server=" + MainClass.SqlServer + ";Port=" + MainClass.SqlPort.ToString() + ";Database=" + MainClass.SqlDatabase + ";Uid=" + MainClass.SqlUsername + ";Pwd=" + MainClass.SqlPassword + ";");
-            MyConnection.Open();
+	    try
+	    {
+            	MyConnection.Open();
+	    }
+	    catch (Exception myException)
+	    {
+		Console.WriteLine(myException.Message); Console.WriteLine(myException.Message); Environment.Exit(0);
+	    }
             string sql = "SELECT name FROM npc WHERE id= (SELECT npcid FROM botpath WHERE botpath.id = (SELECT botpathid FROM botdestination " +
                 "WHERE botid = ?botid AND destid = 1 AND npcid IS NOT NULL))";
             TheLogger.Debug(sql + "\n");
@@ -142,7 +156,14 @@ namespace cs_elbot
         public void SetupConstants(int botid)
         {
             MySqlConnection MyConnection = new MySqlConnection("Server=" + MainClass.SqlServer + ";Port=" + MainClass.SqlPort.ToString() + ";Database=" + MainClass.SqlDatabase + ";Uid=" + MainClass.SqlUsername + ";Pwd=" + MainClass.SqlPassword + ";");
-            MyConnection.Open();
+	    try
+	    {
+            	MyConnection.Open();
+	    }
+	    catch (Exception myException)
+	    {
+		Console.WriteLine(myException.Message); Environment.Exit(0);
+	    }
 
             string sql = "SELECT botid, locationdescription, welcomedescription, infodescription, name FROM bots WHERE id=?botid;";
             int err = 0;
@@ -191,7 +212,14 @@ namespace cs_elbot
         {
             AdvancedCommunication.ActorHandler.position NPCPosition = new cs_elbot.AdvancedCommunication.ActorHandler.position();
             MySqlConnection MyConnection = new MySqlConnection("Server=" + MainClass.SqlServer + ";Port=" + MainClass.SqlPort.ToString() + ";Database=" + MainClass.SqlDatabase + ";Uid=" + MainClass.SqlUsername + ";Pwd=" + MainClass.SqlPassword + ";");
-            MyConnection.Open();
+	    try
+	    {
+            	MyConnection.Open();
+	    }
+	    catch (Exception myException)
+	    {
+		Console.WriteLine(myException.Message); Environment.Exit(0);
+	    }
             string sql = "SELECT x,y FROM npc WHERE id = ?npcID;";
             MySqlCommand cmd = new MySqlCommand(sql, MyConnection);
 
@@ -226,7 +254,14 @@ namespace cs_elbot
             AdvancedCommunication.ActorHandler.position objectPosition = new cs_elbot.AdvancedCommunication.ActorHandler.position();
             useWithObject = -1;
             MySqlConnection MyConnection = new MySqlConnection("Server=" + MainClass.SqlServer + ";Port=" + MainClass.SqlPort.ToString() + ";Database=" + MainClass.SqlDatabase + ";Uid=" + MainClass.SqlUsername + ";Pwd=" + MainClass.SqlPassword + ";");
-            MyConnection.Open();
+	    try
+	    {
+            	MyConnection.Open();
+	    }
+	    catch (Exception myException)
+	    {
+		Console.WriteLine(myException.Message); Environment.Exit(0);
+	    }
             string sql = "SELECT x,y,use_with_item FROM mapobjects, maps_area, maps WHERE object_id = ?objectID " +
                 "AND maps_area.id = mapobjects.maps_area_in AND maps.id = maps_area.maps_id AND maps.file_name = ?mapName LIMIT 1";
             MySqlCommand cmd = new MySqlCommand(sql, MyConnection);
@@ -272,7 +307,14 @@ namespace cs_elbot
             destination.x = -1;
             destination.y = -1;
             MySqlConnection MyConnection = new MySqlConnection("Server=" + MainClass.SqlServer + ";Port=" + MainClass.SqlPort.ToString() + ";Database=" + MainClass.SqlDatabase + ";Uid=" + MainClass.SqlUsername + ";Pwd=" + MainClass.SqlPassword + ";");
-            MyConnection.Open();
+	    try
+	    {
+            	MyConnection.Open();
+	    }
+	    catch (Exception myException)
+	    {
+		Console.WriteLine(myException.Message); Environment.Exit(0);
+	    }
             string sql = "SELECT botpath.moveobject,botpath.npcid, botpath.movenumber FROM botpath, maps,botdestination, destination " +
                 "WHERE botpath.mapid = maps.id AND maps.file_name = ?mapName AND botdestination.destid = destination.id " +
                 "AND LOWER(destination.name) = ?targetDest AND botdestination.botid = ?botid AND botdestination.botpathid = botpath.id " +
@@ -342,7 +384,14 @@ namespace cs_elbot
         public void getHomeInfo()
         {
             MySqlConnection MyConnection = new MySqlConnection("Server=" + MainClass.SqlServer + ";Port=" + MainClass.SqlPort.ToString() + ";Database=" + MainClass.SqlDatabase + ";Uid=" + MainClass.SqlUsername + ";Pwd=" + MainClass.SqlPassword + ";");
-            MyConnection.Open();
+	    try
+	    {
+            	MyConnection.Open();
+	    }
+	    catch (Exception myException)
+	    {
+		Console.WriteLine(myException.Message); Environment.Exit(0);
+	    }
             string sql = "SELECT bot_x, bot_y, onmap, heading FROM bots WHERE botid = ?botid";
             MySqlCommand cmd = new MySqlCommand(sql, MyConnection);
 
@@ -388,7 +437,14 @@ namespace cs_elbot
         public string botname(int botid)
         {
             MySqlConnection MyConnection = new MySqlConnection("Server=" + MainClass.SqlServer + ";Port=" + MainClass.SqlPort.ToString() + ";Database=" + MainClass.SqlDatabase + ";Uid=" + MainClass.SqlUsername + ";Pwd=" + MainClass.SqlPassword + ";");
-            MyConnection.Open();
+	    try
+	    {
+            	MyConnection.Open();
+	    }
+	    catch (Exception myException)
+	    {
+		Console.WriteLine(myException.Message); Environment.Exit(0);
+	    }
             // Add Item it the Global Items List and to the Inventory List
             // First check if the Item exists in the global Database, if not Add it.
 
@@ -426,7 +482,14 @@ namespace cs_elbot
         public bool enabledebuging(int botid)
         {
             MySqlConnection MyConnection = new MySqlConnection("Server=" + MainClass.SqlServer + ";Port=" + MainClass.SqlPort.ToString() + ";Database=" + MainClass.SqlDatabase + ";Uid=" + MainClass.SqlUsername + ";Pwd=" + MainClass.SqlPassword + ";");
-            MyConnection.Open();
+	    try
+	    {
+            	MyConnection.Open();
+	    }
+	    catch (Exception myException)
+	    {
+		Console.WriteLine(myException.Message); Environment.Exit(0);
+	    }
             bool disabled = true;
 
             string sql = "SELECT enabledebuging FROM bots WHERE id=?botid;";
@@ -465,7 +528,14 @@ namespace cs_elbot
         public bool sendreceivedpms(int botid)
         {
             MySqlConnection MyConnection = new MySqlConnection("Server=" + MainClass.SqlServer + ";Port=" + MainClass.SqlPort.ToString() + ";Database=" + MainClass.SqlDatabase + ";Uid=" + MainClass.SqlUsername + ";Pwd=" + MainClass.SqlPassword + ";");
-            MyConnection.Open();
+	    try
+	    {
+            	MyConnection.Open();
+	    }
+	    catch (Exception myException)
+	    {
+		Console.WriteLine(myException.Message); Environment.Exit(0);
+	    }
             bool sendreceivedpms = true;
 
             string sql = "SELECT sendreceivedpms FROM bots WHERE id=?botid;";
@@ -504,7 +574,14 @@ namespace cs_elbot
         public bool senderrorpms(int botid)
         {
             MySqlConnection MyConnection = new MySqlConnection("Server=" + MainClass.SqlServer + ";Port=" + MainClass.SqlPort.ToString() + ";Database=" + MainClass.SqlDatabase + ";Uid=" + MainClass.SqlUsername + ";Pwd=" + MainClass.SqlPassword + ";");
-            MyConnection.Open();
+	    try
+	    {
+            	MyConnection.Open();
+	    }
+	    catch (Exception myException)
+	    {
+		Console.WriteLine(myException.Message); Environment.Exit(0);
+	    }
             bool senderrorpms = true;
 
             string sql = "SELECT senderrorpms FROM bots WHERE id=?botid;";
@@ -603,7 +680,14 @@ namespace cs_elbot
         {
             bool showownercoins = false;
             MySqlConnection MyConnection = new MySqlConnection("Server=" + MainClass.SqlServer + ";Port=" + MainClass.SqlPort.ToString() + ";Database=" + MainClass.SqlDatabase + ";Uid=" + MainClass.SqlUsername + ";Pwd=" + MainClass.SqlPassword + ";");
-            MyConnection.Open();
+	    try
+	    {
+            	MyConnection.Open();
+	    }
+	    catch (Exception myException)
+	    {
+		Console.WriteLine(myException.Message); Environment.Exit(0);
+	    }
             string sql = "SELECT showownercoins FROM bots WHERE id = ?botid";
             MySqlCommand cmd = new MySqlCommand(sql, MyConnection);
             cmd.Parameters.AddWithValue("?botid", Settings.botid);
@@ -642,7 +726,14 @@ namespace cs_elbot
                 return;
             bool sendPM = true;
             MySqlConnection MyConnection = new MySqlConnection("Server=" + MainClass.SqlServer + ";Port=" + MainClass.SqlPort.ToString() + ";Database=" + MainClass.SqlDatabase + ";Uid=" + MainClass.SqlUsername + ";Pwd=" + MainClass.SqlPassword + ";");
-            MyConnection.Open();
+	    try
+	    {
+            	MyConnection.Open();
+	    }
+	    catch (Exception myException)
+	    {
+		Console.WriteLine(myException.Message); Environment.Exit(0);
+	    }
             string sql = "[" + MyTradeLogItem.action + "] [" + username + "] [" + MyTradeLogItem.quantity.ToString() + "] [" + GetKnownItemsname(MyTradeLogItem.KnownItemsSqlID) + "] [" + MyTradeLogItem.price * MyTradeLogItem.quantity + "gc";
             string[] names = botowner(Settings.botid).Split('|');
             if (MyTradeLogItem.action.ToLower().Contains("transaction coins") && !sendCoinPMs)
@@ -693,7 +784,14 @@ namespace cs_elbot
         public uint advertchannel(int botid)
         {
             MySqlConnection MyConnection = new MySqlConnection("Server=" + MainClass.SqlServer + ";Port=" + MainClass.SqlPort.ToString() + ";Database=" + MainClass.SqlDatabase + ";Uid=" + MainClass.SqlUsername + ";Pwd=" + MainClass.SqlPassword + ";");
-            MyConnection.Open();
+	    try
+	    {
+            	MyConnection.Open();
+	    }
+	    catch (Exception myException)
+	    {
+		Console.WriteLine(myException.Message); Environment.Exit(0);
+	    }
             uint fl = 128;
             string sql = "SELECT advertchannel FROM bots WHERE id=?botid;";
             TheLogger.Debug(sql + "\n");
@@ -727,7 +825,14 @@ namespace cs_elbot
         public uint altadvertchannel(int botid)
         {
             MySqlConnection MyConnection = new MySqlConnection("Server=" + MainClass.SqlServer + ";Port=" + MainClass.SqlPort.ToString() + ";Database=" + MainClass.SqlDatabase + ";Uid=" + MainClass.SqlUsername + ";Pwd=" + MainClass.SqlPassword + ";");
-            MyConnection.Open();
+	    try
+	    {
+            	MyConnection.Open();
+	    }
+	    catch (Exception myException)
+	    {
+		Console.WriteLine(myException.Message); Environment.Exit(0);
+	    }
             uint fl = 128;
             string sql = "SELECT altadvertchannel FROM bots WHERE id=?botid;";
             TheLogger.Debug(sql + "\n");
@@ -761,7 +866,14 @@ namespace cs_elbot
         public bool loggotpms(int botid)
         {
             MySqlConnection MyConnection = new MySqlConnection("Server=" + MainClass.SqlServer + ";Port=" + MainClass.SqlPort.ToString() + ";Database=" + MainClass.SqlDatabase + ";Uid=" + MainClass.SqlUsername + ";Pwd=" + MainClass.SqlPassword + ";");
-            MyConnection.Open();
+	    try
+	    {
+            	MyConnection.Open();
+	    }
+	    catch (Exception myException)
+	    {
+		Console.WriteLine(myException.Message); Environment.Exit(0);
+	    }
             int fl = 128;
             string sql = "SELECT loggotpms FROM bots WHERE id=?botid;";
             TheLogger.Debug(sql + "\n");
@@ -800,7 +912,14 @@ namespace cs_elbot
         public int numberoftextcommands(int botid)
         {
             MySqlConnection MyConnection = new MySqlConnection("Server=" + MainClass.SqlServer + ";Port=" + MainClass.SqlPort.ToString() + ";Database=" + MainClass.SqlDatabase + ";Uid=" + MainClass.SqlUsername + ";Pwd=" + MainClass.SqlPassword + ";");
-            MyConnection.Open();
+	    try
+	    {
+            	MyConnection.Open();
+	    }
+	    catch (Exception myException)
+	    {
+		Console.WriteLine(myException.Message); Environment.Exit(0);
+	    }
             int fl = 0;
             string sql = "SELECT COUNT(*) FROM textcommands WHERE id=?botid;";
             TheLogger.Debug(sql + "\n");
@@ -834,7 +953,14 @@ namespace cs_elbot
         public bool logsendpms(int botid)
         {
             MySqlConnection MyConnection = new MySqlConnection("Server=" + MainClass.SqlServer + ";Port=" + MainClass.SqlPort.ToString() + ";Database=" + MainClass.SqlDatabase + ";Uid=" + MainClass.SqlUsername + ";Pwd=" + MainClass.SqlPassword + ";");
-            MyConnection.Open();
+	    try
+	    {
+            	MyConnection.Open();
+	    }
+	    catch (Exception myException)
+	    {
+		Console.WriteLine(myException.Message); Environment.Exit(0);
+	    }
             int fl = 128;
             string sql = "SELECT logsendpms FROM bots WHERE id=?botid;";
             TheLogger.Debug(sql + "\n");
@@ -871,7 +997,14 @@ namespace cs_elbot
         public Int32 lastadverttime(int botid)
         {
             MySqlConnection MyConnection = new MySqlConnection("Server=" + MainClass.SqlServer + ";Port=" + MainClass.SqlPort.ToString() + ";Database=" + MainClass.SqlDatabase + ";Uid=" + MainClass.SqlUsername + ";Pwd=" + MainClass.SqlPassword + ";");
-            MyConnection.Open();
+	    try
+	    {
+            	MyConnection.Open();
+	    }
+	    catch (Exception myException)
+	    {
+		Console.WriteLine(myException.Message); Environment.Exit(0);
+	    }
             int fl = 128;
             string sql = "SELECT unix_timestamp(now()) - unix_timestamp(lastadverttime) FROM bots WHERE id=?botid;";
             TheLogger.Debug(sql + "\n");
@@ -905,7 +1038,14 @@ namespace cs_elbot
         public Int32 lastaltadverttime(int botid)
         {
             MySqlConnection MyConnection = new MySqlConnection("Server=" + MainClass.SqlServer + ";Port=" + MainClass.SqlPort.ToString() + ";Database=" + MainClass.SqlDatabase + ";Uid=" + MainClass.SqlUsername + ";Pwd=" + MainClass.SqlPassword + ";");
-            MyConnection.Open();
+	    try
+	    {
+            	MyConnection.Open();
+	    }
+	    catch (Exception myException)
+	    {
+		Console.WriteLine(myException.Message); Environment.Exit(0);
+	    }
             int fl = 128;
             string sql = "SELECT unix_timestamp(now()) - unix_timestamp(lastaltadverttime) FROM bots WHERE id=?botid;";
             TheLogger.Debug(sql + "\n");
@@ -939,7 +1079,14 @@ namespace cs_elbot
         public int newhourcolor(int botid)
         {
             MySqlConnection MyConnection = new MySqlConnection("Server=" + MainClass.SqlServer + ";Port=" + MainClass.SqlPort.ToString() + ";Database=" + MainClass.SqlDatabase + ";Uid=" + MainClass.SqlUsername + ";Pwd=" + MainClass.SqlPassword + ";");
-            MyConnection.Open();
+	    try
+	    {
+            	MyConnection.Open();
+	    }
+	    catch (Exception myException)
+	    {
+		Console.WriteLine(myException.Message); Environment.Exit(0);
+	    }
             int fl = 128;
             string sql = "SELECT newhourcolour FROM bots WHERE id=?botid;";
             TheLogger.Debug(sql + "\n");
@@ -973,7 +1120,14 @@ namespace cs_elbot
         public int SendHNHtoGM(int botid)
         {
             MySqlConnection MyConnection = new MySqlConnection("Server=" + MainClass.SqlServer + ";Port=" + MainClass.SqlPort.ToString() + ";Database=" + MainClass.SqlDatabase + ";Uid=" + MainClass.SqlUsername + ";Pwd=" + MainClass.SqlPassword + ";");
-            MyConnection.Open();
+	    try
+	    {
+            	MyConnection.Open();
+	    }
+	    catch (Exception myException)
+	    {
+		Console.WriteLine(myException.Message); Environment.Exit(0);
+	    }
             int fl = 0;
 
             string sql = "SELECT gmhnhmessage FROM bots WHERE id=?botid;";
@@ -1010,7 +1164,14 @@ namespace cs_elbot
         public int SendHNHtoLocal(int botid)
         {
             MySqlConnection MyConnection = new MySqlConnection("Server=" + MainClass.SqlServer + ";Port=" + MainClass.SqlPort.ToString() + ";Database=" + MainClass.SqlDatabase + ";Uid=" + MainClass.SqlUsername + ";Pwd=" + MainClass.SqlPassword + ";");
-            MyConnection.Open();
+	    try
+	    {
+            	MyConnection.Open();
+	    }
+	    catch (Exception myException)
+	    {
+		Console.WriteLine(myException.Message); Environment.Exit(0);
+	    }
             int fl = 0;
 
             string sql = "SELECT localhnhmessage FROM bots WHERE id=?botid;";
@@ -1047,7 +1208,14 @@ namespace cs_elbot
         public string welcomedescription(int botid)
         {
             MySqlConnection MyConnection = new MySqlConnection("Server=" + MainClass.SqlServer + ";Port=" + MainClass.SqlPort.ToString() + ";Database=" + MainClass.SqlDatabase + ";Uid=" + MainClass.SqlUsername + ";Pwd=" + MainClass.SqlPassword + ";");
-            MyConnection.Open();
+	    try
+	    {
+            	MyConnection.Open();
+	    }
+	    catch (Exception myException)
+	    {
+		Console.WriteLine(myException.Message); Environment.Exit(0);
+	    }
             // Add Item it the Global Items List and to the Inventory List
             // First check if the Item exists in the global Database, if not Add it.
 
@@ -1086,7 +1254,14 @@ namespace cs_elbot
         public string locationdescription(int botid)
         {
             MySqlConnection MyConnection = new MySqlConnection("Server=" + MainClass.SqlServer + ";Port=" + MainClass.SqlPort.ToString() + ";Database=" + MainClass.SqlDatabase + ";Uid=" + MainClass.SqlUsername + ";Pwd=" + MainClass.SqlPassword + ";");
-            MyConnection.Open();
+	    try
+	    {
+            	MyConnection.Open();
+	    }
+	    catch (Exception myException)
+	    {
+		Console.WriteLine(myException.Message); Environment.Exit(0);
+	    }
             // Add Item it the Global Items List and to the Inventory List
             // First check if the Item exists in the global Database, if not Add it.
 
@@ -1125,7 +1300,14 @@ namespace cs_elbot
         public string hnhmessage(int botid)
         {
             MySqlConnection MyConnection = new MySqlConnection("Server=" + MainClass.SqlServer + ";Port=" + MainClass.SqlPort.ToString() + ";Database=" + MainClass.SqlDatabase + ";Uid=" + MainClass.SqlUsername + ";Pwd=" + MainClass.SqlPassword + ";");
-            MyConnection.Open();
+	    try
+	    {
+            	MyConnection.Open();
+	    }
+	    catch (Exception myException)
+	    {
+		Console.WriteLine(myException.Message); Environment.Exit(0);
+	    }
             // Add Item it the Global Items List and to the Inventory List
             // First check if the Item exists in the global Database, if not Add it.
 
@@ -1172,7 +1354,14 @@ namespace cs_elbot
             if (username == "" || username == "console:\\>" || username == "gossip")
                 return "";
             MySqlConnection MyConnection = new MySqlConnection("Server=" + MainClass.SqlServer + ";Port=" + MainClass.SqlPort.ToString() + ";Database=" + MainClass.SqlDatabase + ";Uid=" + MainClass.SqlUsername + ";Pwd=" + MainClass.SqlPassword + ";");
-            MyConnection.Open();
+	    try
+	    {
+            	MyConnection.Open();
+	    }
+	    catch (Exception myException)
+	    {
+		Console.WriteLine(myException.Message); Environment.Exit(0);
+	    }
 
             //TheTCPWrapper.Send(CommandCreator.SEND_PM("gossip", "g? " + username));
             // Add Item it the Global Items List and to the Inventory List
@@ -1222,7 +1411,14 @@ namespace cs_elbot
                 return;
 
             MySqlConnection MyConnection = new MySqlConnection("Server=" + MainClass.SqlServer + ";Port=" + MainClass.SqlPort.ToString() + ";Database=" + MainClass.SqlDatabase + ";Uid=" + MainClass.SqlUsername + ";Pwd=" + MainClass.SqlPassword + ";");
-            MyConnection.Open();
+	    try
+	    {
+            	MyConnection.Open();
+	    }
+	    catch (Exception myException)
+	    {
+		Console.WriteLine(myException.Message); Environment.Exit(0);
+	    }
             int guildval = 0;
             int i;
             if (guildname.Length > 0)
@@ -1316,8 +1512,15 @@ namespace cs_elbot
         public int CheckIfBannedGuild(string username, int botid)
         {
             MySqlConnection MyConnection = new MySqlConnection("Server=" + MainClass.SqlServer + ";Port=" + MainClass.SqlPort.ToString() + ";Database=" + MainClass.SqlDatabase + ";Uid=" + MainClass.SqlUsername + ";Pwd=" + MainClass.SqlPassword + ";");
-            MyConnection.Open();
-            int fl = 0;
+	    try
+	    {
+            	MyConnection.Open();
+	    }
+	    catch (Exception myException)
+	    {
+		Console.WriteLine(myException.Message); Environment.Exit(0);
+	    }
+           int fl = 0;
             
             string sql = "SELECT rank FROM guilds WHERE guildname = ?guildname AND botid = ?botid";
             //'" + PlayerGuild(username).ToLower() + "' AND botid = '" + botid.ToString() + "';";
@@ -1356,7 +1559,14 @@ namespace cs_elbot
         public string guildlongname(int botid)
         {
             MySqlConnection MyConnection = new MySqlConnection("Server=" + MainClass.SqlServer + ";Port=" + MainClass.SqlPort.ToString() + ";Database=" + MainClass.SqlDatabase + ";Uid=" + MainClass.SqlUsername + ";Pwd=" + MainClass.SqlPassword + ";");
-            MyConnection.Open();
+	    try
+	    {
+            	MyConnection.Open();
+	    }
+	    catch (Exception myException)
+	    {
+		Console.WriteLine(myException.Message); Environment.Exit(0);
+	    }
             // Add Item it the Global Items List and to the Inventory List
             // First check if the Item exists in the global Database, if not Add it.
 
@@ -1395,7 +1605,14 @@ namespace cs_elbot
         public void deleteBuddy(string buddyName)
         {
             MySqlConnection MyConnection = new MySqlConnection("Server=" + MainClass.SqlServer + ";Port=" + MainClass.SqlPort.ToString() + ";Database=" + MainClass.SqlDatabase + ";Uid=" + MainClass.SqlUsername + ";Pwd=" + MainClass.SqlPassword + ";");
-            MyConnection.Open();
+	    try
+	    {
+            	MyConnection.Open();
+	    }
+	    catch (Exception myException)
+	    {
+		Console.WriteLine(myException.Message); Environment.Exit(0);
+	    }
             string sql = "DELETE FROM botbuddy WHERE lower(buddyname) = lower(?buddyname);";
             TheLogger.Debug(sql + "\n");
             MySqlCommand cmd = new MySqlCommand(sql, MyConnection);
@@ -1420,7 +1637,14 @@ namespace cs_elbot
         public int playerloggedoncolor(int botid)
         {
             MySqlConnection MyConnection = new MySqlConnection("Server=" + MainClass.SqlServer + ";Port=" + MainClass.SqlPort.ToString() + ";Database=" + MainClass.SqlDatabase + ";Uid=" + MainClass.SqlUsername + ";Pwd=" + MainClass.SqlPassword + ";");
-            MyConnection.Open();
+	    try
+	    {
+            	MyConnection.Open();
+	    }
+	    catch (Exception myException)
+	    {
+		Console.WriteLine(myException.Message); Environment.Exit(0);
+	    }
             int fl = 128;
             string sql = "SELECT playerloggedoncolor FROM bots WHERE id=?botid;";
             TheLogger.Debug(sql + "\n");
@@ -1453,7 +1677,14 @@ namespace cs_elbot
         public int playerloggedoffcolor(int botid)
         {
             MySqlConnection MyConnection = new MySqlConnection("Server=" + MainClass.SqlServer + ";Port=" + MainClass.SqlPort.ToString() + ";Database=" + MainClass.SqlDatabase + ";Uid=" + MainClass.SqlUsername + ";Pwd=" + MainClass.SqlPassword + ";");
-            MyConnection.Open();
+	    try
+	    {
+            	MyConnection.Open();
+	    }
+	    catch (Exception myException)
+	    {
+		Console.WriteLine(myException.Message); Environment.Exit(0);
+	    }
             int fl = 128;
             string sql = "SELECT playerloggedoffcolor FROM bots WHERE id=?botid;";
             TheLogger.Debug(sql + "\n");
@@ -1489,7 +1720,14 @@ namespace cs_elbot
         public int playerjoinedguildcolor(int botid)
         {
             MySqlConnection MyConnection = new MySqlConnection("Server=" + MainClass.SqlServer + ";Port=" + MainClass.SqlPort.ToString() + ";Database=" + MainClass.SqlDatabase + ";Uid=" + MainClass.SqlUsername + ";Pwd=" + MainClass.SqlPassword + ";");
-            MyConnection.Open();
+	    try
+	    {
+            	MyConnection.Open();
+	    }
+	    catch (Exception myException)
+	    {
+		Console.WriteLine(myException.Message); Environment.Exit(0);
+	    }
             int fl = 128;
             string sql = "SELECT playerjoinedguildcolor FROM bots WHERE id=?botid;";
             TheLogger.Debug(sql + "\n");
@@ -1524,7 +1762,14 @@ namespace cs_elbot
         public int playerleftguildcolor(int botid)
         {
             MySqlConnection MyConnection = new MySqlConnection("Server=" + MainClass.SqlServer + ";Port=" + MainClass.SqlPort.ToString() + ";Database=" + MainClass.SqlDatabase + ";Uid=" + MainClass.SqlUsername + ";Pwd=" + MainClass.SqlPassword + ";");
-            MyConnection.Open();
+	    try
+	    {
+            	MyConnection.Open();
+	    }
+	    catch (Exception myException)
+	    {
+		Console.WriteLine(myException.Message); Environment.Exit(0);
+	    }
             int fl = 128;
             string sql = "SELECT playerleftguildcolor FROM bots WHERE id=?botid;";
             TheLogger.Debug(sql + "\n");
@@ -1557,7 +1802,14 @@ namespace cs_elbot
         public int foodlevel(int botid)
         {
             MySqlConnection MyConnection = new MySqlConnection("Server=" + MainClass.SqlServer + ";Port=" + MainClass.SqlPort.ToString() + ";Database=" + MainClass.SqlDatabase + ";Uid=" + MainClass.SqlUsername + ";Pwd=" + MainClass.SqlPassword + ";");
-            MyConnection.Open();
+	    try
+	    {
+            	MyConnection.Open();
+	    }
+	    catch (Exception myException)
+	    {
+		Console.WriteLine(myException.Message); Environment.Exit(0);
+	    }
             int fl = 0;
             string sql = "SELECT foodlevel FROM bots WHERE id = '" + botid.ToString() + "';";
             TheLogger.Debug(sql + "\n");
@@ -1590,7 +1842,14 @@ namespace cs_elbot
         public int currenthealth(int botid)
         {
             MySqlConnection MyConnection = new MySqlConnection("Server=" + MainClass.SqlServer + ";Port=" + MainClass.SqlPort.ToString() + ";Database=" + MainClass.SqlDatabase + ";Uid=" + MainClass.SqlUsername + ";Pwd=" + MainClass.SqlPassword + ";");
-            MyConnection.Open();
+	    try
+	    {
+            	MyConnection.Open();
+	    }
+	    catch (Exception myException)
+	    {
+		Console.WriteLine(myException.Message); Environment.Exit(0);
+	    }
             int fl = 0;
             string sql = "SELECT materialpointscur FROM bots WHERE id=?botid;";
             TheLogger.Debug(sql + "\n");
@@ -1623,7 +1882,14 @@ namespace cs_elbot
         public int maxhealth(int botid)
         {
             MySqlConnection MyConnection = new MySqlConnection("Server=" + MainClass.SqlServer + ";Port=" + MainClass.SqlPort.ToString() + ";Database=" + MainClass.SqlDatabase + ";Uid=" + MainClass.SqlUsername + ";Pwd=" + MainClass.SqlPassword + ";");
-            MyConnection.Open();
+	    try
+	    {
+            	MyConnection.Open();
+	    }
+	    catch (Exception myException)
+	    {
+		Console.WriteLine(myException.Message); Environment.Exit(0);
+	    }
             int fl = 0;
             string sql = "SELECT materialpointsbase FROM bots WHERE id=?botid;";
             TheLogger.Debug(sql + "\n");
@@ -1659,7 +1925,14 @@ namespace cs_elbot
             if (name.Length == 0)
                 return;
             MySqlConnection MyConnection = new MySqlConnection("Server=" + MainClass.SqlServer + ";Port=" + MainClass.SqlPort.ToString() + ";Database=" + MainClass.SqlDatabase + ";Uid=" + MainClass.SqlUsername + ";Pwd=" + MainClass.SqlPassword + ";");
-            MyConnection.Open();
+	    try
+	    {
+            	MyConnection.Open();
+	    }
+	    catch (Exception myException)
+	    {
+		Console.WriteLine(myException.Message); Environment.Exit(0);
+	    }
             string sql = "SELECT id,istrademember FROM users WHERE lower(name)=?name AND botid=?botid LIMIT 1;";
             TheLogger.Debug(sql + "\n");
             MySqlCommand cmd = new MySqlCommand(sql, MyConnection);
@@ -1750,7 +2023,14 @@ namespace cs_elbot
             if (name.Length == 0)
                 return;
             MySqlConnection MyConnection = new MySqlConnection("Server=" + MainClass.SqlServer + ";Port=" + MainClass.SqlPort.ToString() + ";Database=" + MainClass.SqlDatabase + ";Uid=" + MainClass.SqlUsername + ";Pwd=" + MainClass.SqlPassword + ";");
-            MyConnection.Open();
+	    try
+	    {
+            	MyConnection.Open();
+	    }
+	    catch (Exception myException)
+	    {
+		Console.WriteLine(myException.Message); Environment.Exit(0);
+	    }
             string sql = "SELECT id FROM players WHERE lower(name)=?name;";
             TheLogger.Debug(sql + "\n");
             MySqlCommand cmd = new MySqlCommand(sql, MyConnection);
@@ -1832,7 +2112,14 @@ namespace cs_elbot
             if (adverttext.Length < 5)
                 return;
             MySqlConnection MyConnection = new MySqlConnection("Server=" + MainClass.SqlServer + ";Port=" + MainClass.SqlPort.ToString() + ";Database=" + MainClass.SqlDatabase + ";Uid=" + MainClass.SqlUsername + ";Pwd=" + MainClass.SqlPassword + ";");
-            MyConnection.Open();
+	    try
+	    {
+            	MyConnection.Open();
+	    }
+	    catch (Exception myException)
+	    {
+		Console.WriteLine(myException.Message); Environment.Exit(0);
+	    }
 
             string advert = adverttext.Replace("\\", "\\\\");
             advert = advert.Replace("\'", "\\\'");
@@ -1869,7 +2156,14 @@ namespace cs_elbot
             }
 
             MySqlConnection MyConnection = new MySqlConnection("Server=" + MainClass.SqlServer + ";Port=" + MainClass.SqlPort.ToString() + ";Database=" + MainClass.SqlDatabase + ";Uid=" + MainClass.SqlUsername + ";Pwd=" + MainClass.SqlPassword + ";");
-            MyConnection.Open();
+	    try
+	    {
+            	MyConnection.Open();
+	    }
+	    catch (Exception myException)
+	    {
+		Console.WriteLine(myException.Message); Environment.Exit(0);
+	    }
             int UserRank = 0;
             string sql = "SELECT rank FROM users WHERE LOWER(name)=?name AND botid=?botid;";
             TheLogger.Debug(sql + "\n");
@@ -1906,7 +2200,14 @@ namespace cs_elbot
         public int GetTimeoutInterval(int botid)
         {
             MySqlConnection MyConnection = new MySqlConnection("Server=" + MainClass.SqlServer + ";Port=" + MainClass.SqlPort.ToString() + ";Database=" + MainClass.SqlDatabase + ";Uid=" + MainClass.SqlUsername + ";Pwd=" + MainClass.SqlPassword + ";");
-            MyConnection.Open();
+	    try
+	    {
+            	MyConnection.Open();
+	    }
+	    catch (Exception myException)
+	    {
+		Console.WriteLine(myException.Message); Environment.Exit(0);
+	    }
             int timeoutInterval = 0;
             string sql = "SELECT tradetimeoutinterval FROM bots WHERE botid=?botid;";
             TheLogger.Debug(sql + "\n");
@@ -1943,7 +2244,14 @@ namespace cs_elbot
         public int GetGuildRank(string username, int botid)
         {
             MySqlConnection MyConnection = new MySqlConnection("Server=" + MainClass.SqlServer + ";Port=" + MainClass.SqlPort.ToString() + ";Database=" + MainClass.SqlDatabase + ";Uid=" + MainClass.SqlUsername + ";Pwd=" + MainClass.SqlPassword + ";");
-            MyConnection.Open();
+	    try
+	    {
+            	MyConnection.Open();
+	    }
+	    catch (Exception myException)
+	    {
+		Console.WriteLine(myException.Message); Environment.Exit(0);
+	    }
             // Get guildrank of a GuildMember. If no guildrank was found, set it to the default value (6).
             int UserRank = 0;
             string sql = "SELECT guildrank FROM users WHERE LOWER(name)=?name AND botid=?botid;";
@@ -1985,7 +2293,14 @@ namespace cs_elbot
         public bool CheckIfCommandIsDisabled(string Command, int botid)
         {
             MySqlConnection MyConnection = new MySqlConnection("Server=" + MainClass.SqlServer + ";Port=" + MainClass.SqlPort.ToString() + ";Database=" + MainClass.SqlDatabase + ";Uid=" + MainClass.SqlUsername + ";Pwd=" + MainClass.SqlPassword + ";");
-            MyConnection.Open();
+	    try
+	    {
+            	MyConnection.Open();
+	    }
+	    catch (Exception myException)
+	    {
+		Console.WriteLine(myException.Message); Environment.Exit(0);
+	    }
             bool disabled = true;
 
             string sql = "SELECT disabled FROM commands WHERE name=?name AND botid=?botid;";
@@ -2025,7 +2340,14 @@ namespace cs_elbot
         public bool CheckIfTextCommandIsDisabled(string Command, int botid)
         {
             MySqlConnection MyConnection = new MySqlConnection("Server=" + MainClass.SqlServer + ";Port=" + MainClass.SqlPort.ToString() + ";Database=" + MainClass.SqlDatabase + ";Uid=" + MainClass.SqlUsername + ";Pwd=" + MainClass.SqlPassword + ";");
-            MyConnection.Open();
+	    try
+	    {
+            	MyConnection.Open();
+	    }
+	    catch (Exception myException)
+	    {
+		Console.WriteLine(myException.Message); Environment.Exit(0);
+	    }
             bool disabled = true;
             string command = "";
             if (Command[0] != '#')
@@ -2068,7 +2390,14 @@ namespace cs_elbot
         public bool sendtextcommandtogm(string Command, int botid)
         {
             MySqlConnection MyConnection = new MySqlConnection("Server=" + MainClass.SqlServer + ";Port=" + MainClass.SqlPort.ToString() + ";Database=" + MainClass.SqlDatabase + ";Uid=" + MainClass.SqlUsername + ";Pwd=" + MainClass.SqlPassword + ";");
-            MyConnection.Open();
+	    try
+	    {
+            	MyConnection.Open();
+	    }
+	    catch (Exception myException)
+	    {
+		Console.WriteLine(myException.Message); Environment.Exit(0);
+	    }
             bool disabled = true;
             string command = "";
             if (Command[0] != '#')
@@ -2111,7 +2440,14 @@ namespace cs_elbot
         public string TextCommandHelpText(string Command, int botid)
         {
             MySqlConnection MyConnection = new MySqlConnection("Server=" + MainClass.SqlServer + ";Port=" + MainClass.SqlPort.ToString() + ";Database=" + MainClass.SqlDatabase + ";Uid=" + MainClass.SqlUsername + ";Pwd=" + MainClass.SqlPassword + ";");
-            MyConnection.Open();
+	    try
+	    {
+            	MyConnection.Open();
+	    }
+	    catch (Exception myException)
+	    {
+		Console.WriteLine(myException.Message); Environment.Exit(0);
+	    }
             string sql = "SELECT helptext FROM textcommands WHERE LOWER(command)=?command AND botid=?botid LIMIT 1;";
             TheLogger.Debug(sql + "\n");
 
@@ -2150,7 +2486,14 @@ namespace cs_elbot
         public string TextCommandText(string Command, int botid)
         {
             MySqlConnection MyConnection = new MySqlConnection("Server=" + MainClass.SqlServer + ";Port=" + MainClass.SqlPort.ToString() + ";Database=" + MainClass.SqlDatabase + ";Uid=" + MainClass.SqlUsername + ";Pwd=" + MainClass.SqlPassword + ";");
-            MyConnection.Open();
+	    try
+	    {
+            	MyConnection.Open();
+	    }
+	    catch (Exception myException)
+	    {
+		Console.WriteLine(myException.Message); Environment.Exit(0);
+	    }
             string sql = "SELECT text FROM textcommands WHERE LOWER(command)=?command AND botid=?botid;";
             TheLogger.Debug(sql + "\n");
 
@@ -2185,7 +2528,14 @@ namespace cs_elbot
         public string TextCommandlist(int botid)
         {
             MySqlConnection MyConnection = new MySqlConnection("Server=" + MainClass.SqlServer + ";Port=" + MainClass.SqlPort.ToString() + ";Database=" + MainClass.SqlDatabase + ";Uid=" + MainClass.SqlUsername + ";Pwd=" + MainClass.SqlPassword + ";");
-            MyConnection.Open();
+	    try
+	    {
+            	MyConnection.Open();
+	    }
+	    catch (Exception myException)
+	    {
+		Console.WriteLine(myException.Message); Environment.Exit(0);
+	    }
             string sql = "SELECT command FROM textcommands WHERE botid=?botid ORDER BY command ASC;";
             TheLogger.Debug(sql + "\n");
 
@@ -2228,7 +2578,14 @@ namespace cs_elbot
         public bool advertise()
         {
             MySqlConnection MyConnection = new MySqlConnection("Server=" + MainClass.SqlServer + ";Port=" + MainClass.SqlPort.ToString() + ";Database=" + MainClass.SqlDatabase + ";Uid=" + MainClass.SqlUsername + ";Pwd=" + MainClass.SqlPassword + ";");
-            MyConnection.Open();
+	    try
+	    {
+            	MyConnection.Open();
+	    }
+	    catch (Exception myException)
+	    {
+		Console.WriteLine(myException.Message); Environment.Exit(0);
+	    }
             bool advertise = true;
 
             string sql = "SELECT advertise FROM bots WHERE id=?botid LIMIT 1;";
@@ -2267,7 +2624,14 @@ namespace cs_elbot
         public bool altadvertise()
         {
             MySqlConnection MyConnection = new MySqlConnection("Server=" + MainClass.SqlServer + ";Port=" + MainClass.SqlPort.ToString() + ";Database=" + MainClass.SqlDatabase + ";Uid=" + MainClass.SqlUsername + ";Pwd=" + MainClass.SqlPassword + ";");
-            MyConnection.Open();
+	    try
+	    {
+            	MyConnection.Open();
+	    }
+	    catch (Exception myException)
+	    {
+		Console.WriteLine(myException.Message); Environment.Exit(0);
+	    }
             bool advertise = true;
 
             string sql = "SELECT altadvertise FROM bots WHERE id=?botid LIMIT 1;";
@@ -2308,7 +2672,14 @@ namespace cs_elbot
             // Add Item it the Global Items List and to the Inventory List
             // First check if the Item exists in the global Database, if not Add it.
             MySqlConnection MyConnection = new MySqlConnection("Server=" + MainClass.SqlServer + ";Port=" + MainClass.SqlPort.ToString() + ";Database=" + MainClass.SqlDatabase + ";Uid=" + MainClass.SqlUsername + ";Pwd=" + MainClass.SqlPassword + ";");
-            MyConnection.Open();
+	    try
+	    {
+            	MyConnection.Open();
+	    }
+	    catch (Exception myException)
+	    {
+		Console.WriteLine(myException.Message); Environment.Exit(0);
+	    }
 
             string name = "";
             string sql = "SELECT advertendmessage FROM bots WHERE id=?botid LIMIT 1;";
@@ -2345,7 +2716,14 @@ namespace cs_elbot
         public int minadverttime()
         {
             MySqlConnection MyConnection = new MySqlConnection("Server=" + MainClass.SqlServer + ";Port=" + MainClass.SqlPort.ToString() + ";Database=" + MainClass.SqlDatabase + ";Uid=" + MainClass.SqlUsername + ";Pwd=" + MainClass.SqlPassword + ";");
-            MyConnection.Open();
+	    try
+	    {
+            	MyConnection.Open();
+	    }
+	    catch (Exception myException)
+	    {
+		Console.WriteLine(myException.Message); Environment.Exit(0);
+	    }
             int minadverttime = 900;
 
             string sql = "SELECT minadverttime FROM bots WHERE id=?botid LIMIT 1;";
@@ -2383,7 +2761,14 @@ namespace cs_elbot
         public int minaltadverttime()
         {
             MySqlConnection MyConnection = new MySqlConnection("Server=" + MainClass.SqlServer + ";Port=" + MainClass.SqlPort.ToString() + ";Database=" + MainClass.SqlDatabase + ";Uid=" + MainClass.SqlUsername + ";Pwd=" + MainClass.SqlPassword + ";");
-            MyConnection.Open();
+	    try
+	    {
+            	MyConnection.Open();
+	    }
+	    catch (Exception myException)
+	    {
+		Console.WriteLine(myException.Message); Environment.Exit(0);
+	    }
             int minadverttime = 900;
 
             string sql = "SELECT minaltadverttime FROM bots WHERE id=?botid LIMIT 1;";
@@ -2421,7 +2806,14 @@ namespace cs_elbot
         public Int32 randomadvertdelay()
         {
             MySqlConnection MyConnection = new MySqlConnection("Server=" + MainClass.SqlServer + ";Port=" + MainClass.SqlPort.ToString() + ";Database=" + MainClass.SqlDatabase + ";Uid=" + MainClass.SqlUsername + ";Pwd=" + MainClass.SqlPassword + ";");
-            MyConnection.Open();
+	    try
+	    {
+            	MyConnection.Open();
+	    }
+	    catch (Exception myException)
+	    {
+		Console.WriteLine(myException.Message); Environment.Exit(0);
+	    }
             Int32 randomadvertdelay = 0;
 
             string sql = "SELECT randomadvertdelay FROM bots WHERE id=?botid;";
@@ -2461,7 +2853,14 @@ namespace cs_elbot
         public int randomaltadvertdelay()
         {
             MySqlConnection MyConnection = new MySqlConnection("Server=" + MainClass.SqlServer + ";Port=" + MainClass.SqlPort.ToString() + ";Database=" + MainClass.SqlDatabase + ";Uid=" + MainClass.SqlUsername + ";Pwd=" + MainClass.SqlPassword + ";");
-            MyConnection.Open();
+	    try
+	    {
+            	MyConnection.Open();
+	    }
+	    catch (Exception myException)
+	    {
+		Console.WriteLine(myException.Message); Environment.Exit(0);
+	    }
             int randomadvertdelay = 0;
 
             string sql = "SELECT randomaltadvertdelay FROM bots WHERE id=?botid LIMIT 1;";
@@ -2499,7 +2898,14 @@ namespace cs_elbot
         public int GetCommandRank(string Command, int botid)
         {
             MySqlConnection MyConnection = new MySqlConnection("Server=" + MainClass.SqlServer + ";Port=" + MainClass.SqlPort.ToString() + ";Database=" + MainClass.SqlDatabase + ";Uid=" + MainClass.SqlUsername + ";Pwd=" + MainClass.SqlPassword + ";");
-            MyConnection.Open();
+	    try
+	    {
+            	MyConnection.Open();
+	    }
+	    catch (Exception myException)
+	    {
+		Console.WriteLine(myException.Message); Environment.Exit(0);
+	    }
             int CommandRank = 100;
 
             string sql = "SELECT requriedrank FROM commands WHERE LOWER(name)=?name AND botid=?botid LIMIT 1;";
@@ -2536,7 +2942,14 @@ namespace cs_elbot
         public int GetTextCommandRank(string Command, int botid)
         {
             MySqlConnection MyConnection = new MySqlConnection("Server=" + MainClass.SqlServer + ";Port=" + MainClass.SqlPort.ToString() + ";Database=" + MainClass.SqlDatabase + ";Uid=" + MainClass.SqlUsername + ";Pwd=" + MainClass.SqlPassword + ";");
-            MyConnection.Open();
+	    try
+	    {
+            	MyConnection.Open();
+	    }
+	    catch (Exception myException)
+	    {
+		Console.WriteLine(myException.Message); Environment.Exit(0);
+	    }
             int CommandRank = 100;
 
             string sql = "SELECT rank FROM textcommands WHERE LOWER(command)=?command AND botid=?botid LIMIT 1;";
@@ -2573,7 +2986,14 @@ namespace cs_elbot
         public int GetStorageSQLID(TradeHandler.TradeItem MyTradeItem)
         {
             MySqlConnection MyConnection = new MySqlConnection("Server=" + MainClass.SqlServer + ";Port=" + MainClass.SqlPort.ToString() + ";Database=" + MainClass.SqlDatabase + ";Uid=" + MainClass.SqlUsername + ";Pwd=" + MainClass.SqlPassword + ";");
-            MyConnection.Open();
+	    try
+	    {
+            	MyConnection.Open();
+	    }
+	    catch (Exception myException)
+	    {
+		Console.WriteLine(myException.Message); Environment.Exit(0);
+	    }
             TradeHandler.TradeItem MyTempTradeItem = new TradeHandler.TradeItem();
             MyTempTradeItem = MyTradeItem;
             // Add Item it the Global Items List and to the Inventory List
@@ -2706,7 +3126,14 @@ namespace cs_elbot
         public int GetKnownItemsSQLID(TradeHandler.TradeItem MyTradeItem)
         {
             MySqlConnection MyConnection = new MySqlConnection("Server=" + MainClass.SqlServer + ";Port=" + MainClass.SqlPort.ToString() + ";Database=" + MainClass.SqlDatabase + ";Uid=" + MainClass.SqlUsername + ";Pwd=" + MainClass.SqlPassword + ";");
-            MyConnection.Open();
+	    try
+	    {
+            	MyConnection.Open();
+	    }
+	    catch (Exception myException)
+	    {
+		Console.WriteLine(myException.Message); Environment.Exit(0);
+	    }
             TradeHandler.TradeItem MyTempTradeItem = new TradeHandler.TradeItem();
             MyTempTradeItem = MyTradeItem;
             TheLogger.Debug("### SqlConnectionOpen() in GetKnownItemsSQLID\n");
@@ -2831,7 +3258,14 @@ namespace cs_elbot
         public string GetKnownItemsname(int SQLID)
         {
             MySqlConnection MyConnection = new MySqlConnection("Server=" + MainClass.SqlServer + ";Port=" + MainClass.SqlPort.ToString() + ";Database=" + MainClass.SqlDatabase + ";Uid=" + MainClass.SqlUsername + ";Pwd=" + MainClass.SqlPassword + ";");
-            MyConnection.Open();
+	    try
+	    {
+            	MyConnection.Open();
+	    }
+	    catch (Exception myException)
+	    {
+		Console.WriteLine(myException.Message); Environment.Exit(0);
+	    }
             // Add Item it the Global Items List and to the Inventory List
             // First check if the Item exists in the global Database, if not Add it.
 
@@ -2869,7 +3303,14 @@ namespace cs_elbot
         public string botowner(int botid)
         {
             MySqlConnection MyConnection = new MySqlConnection("Server=" + MainClass.SqlServer + ";Port=" + MainClass.SqlPort.ToString() + ";Database=" + MainClass.SqlDatabase + ";Uid=" + MainClass.SqlUsername + ";Pwd=" + MainClass.SqlPassword + ";");
-            MyConnection.Open();
+	    try
+	    {
+            	MyConnection.Open();
+	    }
+	    catch (Exception myException)
+	    {
+		Console.WriteLine(myException.Message); Environment.Exit(0);
+	    }
             // Add Item it the Global Items List and to the Inventory List
             // First check if the Item exists in the global Database, if not Add it.
 
@@ -2907,7 +3348,14 @@ namespace cs_elbot
         public string pmmonitorlist(int botid)
         {
             MySqlConnection MyConnection = new MySqlConnection("Server=" + MainClass.SqlServer + ";Port=" + MainClass.SqlPort.ToString() + ";Database=" + MainClass.SqlDatabase + ";Uid=" + MainClass.SqlUsername + ";Pwd=" + MainClass.SqlPassword + ";");
-            MyConnection.Open();
+	    try
+	    {
+            	MyConnection.Open();
+	    }
+	    catch (Exception myException)
+	    {
+		Console.WriteLine(myException.Message); Environment.Exit(0);
+	    }
             // Add Item it the Global Items List and to the Inventory List
             // First check if the Item exists in the global Database, if not Add it.
 
@@ -2945,7 +3393,14 @@ namespace cs_elbot
         public int SetSQLID(Inventory.inventory_item item)
         {
             MySqlConnection MyConnection = new MySqlConnection("Server=" + MainClass.SqlServer + ";Port=" + MainClass.SqlPort.ToString() + ";Database=" + MainClass.SqlDatabase + ";Uid=" + MainClass.SqlUsername + ";Pwd=" + MainClass.SqlPassword + ";");
-            MyConnection.Open();
+	    try
+	    {
+            	MyConnection.Open();
+	    }
+	    catch (Exception myException)
+	    {
+		Console.WriteLine(myException.Message); Environment.Exit(0);
+	    }
             // Add Item it the Global Items List and to the Inventory List
             // First check if the Item exists in the global Database, if not Add it.
 
@@ -3233,7 +3688,14 @@ namespace cs_elbot
         public void updateknownitems(Inventory.inventory_item item, int id)
         {
             MySqlConnection MyConnection = new MySqlConnection("Server=" + MainClass.SqlServer + ";Port=" + MainClass.SqlPort.ToString() + ";Database=" + MainClass.SqlDatabase + ";Uid=" + MainClass.SqlUsername + ";Pwd=" + MainClass.SqlPassword + ";");
-            MyConnection.Open();
+	    try
+	    {
+            	MyConnection.Open();
+	    }
+	    catch (Exception myException)
+	    {
+		Console.WriteLine(myException.Message); Environment.Exit(0);
+	    }
             string sql = "UPDATE knownitems SET imageid = ?imageid, description=?description, weight=?weight, is_resource=?is_resource, is_reagent=?is_reagent, is_stackable=?is_stackable, use_with_inventory=?use_with_inventory WHERE id=?id;";
             if (item.description == "")
             {
@@ -3282,7 +3744,14 @@ namespace cs_elbot
             //need to fix this section so it only happens if the bot wasn't launched by bot manager...
             //don't really need _every_ bot checking for lost connections, one would suffice...
             MySqlConnection MyConnection = new MySqlConnection("Server=" + MainClass.SqlServer + ";Port=" + MainClass.SqlPort.ToString() + ";Database=" + MainClass.SqlDatabase + ";Uid=" + MainClass.SqlUsername + ";Pwd=" + MainClass.SqlPassword + ";");
-            MyConnection.Open();
+	    try
+	    {
+            	MyConnection.Open();
+	    }
+	    catch (Exception myException)
+	    {
+		Console.WriteLine(myException.Message); Environment.Exit(0);
+	    }
             string sql = "SHOW PROCESSLIST";
             TheLogger.Debug(sql + "\n");
             MySqlCommand cmd = new MySqlCommand(sql, MyConnection);
@@ -3331,7 +3800,14 @@ namespace cs_elbot
         public void ClearInventoryList(int botid)
         {
             MySqlConnection MyConnection = new MySqlConnection("Server=" + MainClass.SqlServer + ";Port=" + MainClass.SqlPort.ToString() + ";Database=" + MainClass.SqlDatabase + ";Uid=" + MainClass.SqlUsername + ";Pwd=" + MainClass.SqlPassword + ";");
-            MyConnection.Open();
+	    try
+	    {
+            	MyConnection.Open();
+	    }
+	    catch (Exception myException)
+	    {
+		Console.WriteLine(myException.Message); Environment.Exit(0);
+	    }
             string sql = "DELETE FROM inventory WHERE botid=?botid;";
             TheLogger.Debug(sql + "\n");
             MySqlCommand cmd = new MySqlCommand(sql, MyConnection);
@@ -3357,7 +3833,14 @@ namespace cs_elbot
         public void raw_sql(string sql)
         {
             MySqlConnection MyConnection = new MySqlConnection("Server=" + MainClass.SqlServer + ";Port=" + MainClass.SqlPort.ToString() + ";Database=" + MainClass.SqlDatabase + ";Uid=" + MainClass.SqlUsername + ";Pwd=" + MainClass.SqlPassword + ";");
-            MyConnection.Open();
+	    try
+	    {
+            	MyConnection.Open();
+	    }
+	    catch (Exception myException)
+	    {
+		Console.WriteLine(myException.Message); Environment.Exit(0);
+	    }
             TheLogger.Debug("### SqlConnectionOpen() in raw_sql\n");
             TheLogger.Debug("raw_sql is [" + sql + "]\n");
             MySqlCommand cmd;
@@ -3388,7 +3871,14 @@ namespace cs_elbot
         public System.Collections.ArrayList GetSellingList(int advertIndcator)
         {
             MySqlConnection MyConnection = new MySqlConnection("Server=" + MainClass.SqlServer + ";Port=" + MainClass.SqlPort.ToString() + ";Database=" + MainClass.SqlDatabase + ";Uid=" + MainClass.SqlUsername + ";Pwd=" + MainClass.SqlPassword + ";");
-            MyConnection.Open();
+	    try
+	    {
+            	MyConnection.Open();
+	    }
+	    catch (Exception myException)
+	    {
+		Console.WriteLine(myException.Message); Environment.Exit(0);
+	    }
             System.Collections.ArrayList SellingItemList = new System.Collections.ArrayList();
 
             MySqlCommand cmd;
@@ -3434,7 +3924,14 @@ namespace cs_elbot
         public System.Collections.Hashtable GetSellingItemList(int advertIndcator)
         {
             MySqlConnection MyConnection = new MySqlConnection("Server=" + MainClass.SqlServer + ";Port=" + MainClass.SqlPort.ToString() + ";Database=" + MainClass.SqlDatabase + ";Uid=" + MainClass.SqlUsername + ";Pwd=" + MainClass.SqlPassword + ";");
-            MyConnection.Open();
+	    try
+	    {
+            	MyConnection.Open();
+	    }
+	    catch (Exception myException)
+	    {
+		Console.WriteLine(myException.Message); Environment.Exit(0);
+	    }
             System.Collections.Hashtable SellingItemList = new System.Collections.Hashtable();
 
             MySqlCommand cmd;
@@ -3484,7 +3981,14 @@ namespace cs_elbot
         public System.Collections.ArrayList GetWantedList(int advertIndicator)
         {
             MySqlConnection MyConnection = new MySqlConnection("Server=" + MainClass.SqlServer + ";Port=" + MainClass.SqlPort.ToString() + ";Database=" + MainClass.SqlDatabase + ";Uid=" + MainClass.SqlUsername + ";Pwd=" + MainClass.SqlPassword + ";");
-            MyConnection.Open();
+	    try
+	    {
+            	MyConnection.Open();
+	    }
+	    catch (Exception myException)
+	    {
+		Console.WriteLine(myException.Message); Environment.Exit(0);
+	    }
             TheLogger.Debug("Entered GetWantedItemList\nMaking connection\n");
             System.Collections.ArrayList WantedItemList = new System.Collections.ArrayList();
 
@@ -3540,7 +4044,14 @@ namespace cs_elbot
         public System.Collections.ArrayList GetWantedItemListIDs()
         {
             MySqlConnection MyConnection = new MySqlConnection("Server=" + MainClass.SqlServer + ";Port=" + MainClass.SqlPort.ToString() + ";Database=" + MainClass.SqlDatabase + ";Uid=" + MainClass.SqlUsername + ";Pwd=" + MainClass.SqlPassword + ";");
-            MyConnection.Open();
+	    try
+	    {
+            	MyConnection.Open();
+	    }
+	    catch (Exception myException)
+	    {
+		Console.WriteLine(myException.Message); Environment.Exit(0);
+	    }
             TheLogger.Debug("Entered GetWantedItemList\nMaking connection\n");
             System.Collections.ArrayList WantedItemList = new System.Collections.ArrayList();
 
@@ -3582,7 +4093,14 @@ namespace cs_elbot
         public System.Collections.Hashtable GetWantedItemList(int advertIndicator)
         {
             MySqlConnection MyConnection = new MySqlConnection("Server=" + MainClass.SqlServer + ";Port=" + MainClass.SqlPort.ToString() + ";Database=" + MainClass.SqlDatabase + ";Uid=" + MainClass.SqlUsername + ";Pwd=" + MainClass.SqlPassword + ";");
-            MyConnection.Open();
+	    try
+	    {
+            	MyConnection.Open();
+	    }
+	    catch (Exception myException)
+	    {
+		Console.WriteLine(myException.Message); Environment.Exit(0);
+	    }
             TheLogger.Debug("Entered GetWantedItemList\nMaking connection\n");
             System.Collections.Hashtable WantedItemList = new System.Collections.Hashtable();
 
@@ -3643,7 +4161,14 @@ namespace cs_elbot
         public string Getgreeting(string username, int botid)
         {
             MySqlConnection MyConnection = new MySqlConnection("Server=" + MainClass.SqlServer + ";Port=" + MainClass.SqlPort.ToString() + ";Database=" + MainClass.SqlDatabase + ";Uid=" + MainClass.SqlUsername + ";Pwd=" + MainClass.SqlPassword + ";");
-            MyConnection.Open();
+	    try
+	    {
+            	MyConnection.Open();
+	    }
+	    catch (Exception myException)
+	    {
+		Console.WriteLine(myException.Message); Environment.Exit(0);
+	    }
             string greeting = "", str = "";
             int i;
             string sql = "SELECT greeting FROM users WHERE LOWER(name)=?name AND botid=?botid AND date_add(last_greet_time, INTERVAL greet_interval MINUTE) < NOW() LIMIT 1;";
@@ -3698,7 +4223,14 @@ namespace cs_elbot
         public System.Collections.ArrayList GetBotAdverts(int botid)
         {
             MySqlConnection MyConnection = new MySqlConnection("Server=" + MainClass.SqlServer + ";Port=" + MainClass.SqlPort.ToString() + ";Database=" + MainClass.SqlDatabase + ";Uid=" + MainClass.SqlUsername + ";Pwd=" + MainClass.SqlPassword + ";");
-            MyConnection.Open();
+	    try
+	    {
+            	MyConnection.Open();
+	    }
+	    catch (Exception myException)
+	    {
+		Console.WriteLine(myException.Message); Environment.Exit(0);
+	    }
             System.Collections.ArrayList AdvertsArrayList = new System.Collections.ArrayList();
 
             string sql = "SELECT adverttext FROM adverts WHERE botid=?botid AND disabled=0;";
@@ -3734,7 +4266,14 @@ namespace cs_elbot
         public System.Collections.ArrayList GetBotAltAdverts(int botid)
         {
             MySqlConnection MyConnection = new MySqlConnection("Server=" + MainClass.SqlServer + ";Port=" + MainClass.SqlPort.ToString() + ";Database=" + MainClass.SqlDatabase + ";Uid=" + MainClass.SqlUsername + ";Pwd=" + MainClass.SqlPassword + ";");
-            MyConnection.Open();
+	    try
+	    {
+            	MyConnection.Open();
+	    }
+	    catch (Exception myException)
+	    {
+		Console.WriteLine(myException.Message); Environment.Exit(0);
+	    }
             System.Collections.ArrayList AdvertsArrayList = new System.Collections.ArrayList();
 
             string sql = "SELECT text FROM otheradverts WHERE botid=?botid AND disabled=0;";
@@ -3770,7 +4309,14 @@ namespace cs_elbot
         public bool CheckIfTradeMember(string username, int botid)
         {
             MySqlConnection MyConnection = new MySqlConnection("Server=" + MainClass.SqlServer + ";Port=" + MainClass.SqlPort.ToString() + ";Database=" + MainClass.SqlDatabase + ";Uid=" + MainClass.SqlUsername + ";Pwd=" + MainClass.SqlPassword + ";");
-            MyConnection.Open();
+	    try
+	    {
+            	MyConnection.Open();
+	    }
+	    catch (Exception myException)
+	    {
+		Console.WriteLine(myException.Message); Environment.Exit(0);
+	    }
             bool istrademember = false;
 
             string sql = "SELECT istrademember FROM users WHERE LOWER(name)=?name AND botid=?botid LIMIT 1;";
@@ -3817,7 +4363,14 @@ namespace cs_elbot
         public bool CheckIfGuildMember(string username, int botid)
         {
             MySqlConnection MyConnection = new MySqlConnection("Server=" + MainClass.SqlServer + ";Port=" + MainClass.SqlPort.ToString() + ";Database=" + MainClass.SqlDatabase + ";Uid=" + MainClass.SqlUsername + ";Pwd=" + MainClass.SqlPassword + ";");
-            MyConnection.Open();
+	    try
+	    {
+            	MyConnection.Open();
+	    }
+	    catch (Exception myException)
+	    {
+		Console.WriteLine(myException.Message); Environment.Exit(0);
+	    }
             bool isguildmember = false;
 
             string sql = "SELECT isguildmember FROM users WHERE LOWER(name)=?name AND botid=?botid LIMIT 1;";
@@ -3861,7 +4414,14 @@ namespace cs_elbot
         public int GetItemID(string name, int botid, bool fromStorage)
         {
             MySqlConnection MyConnection = new MySqlConnection("Server=" + MainClass.SqlServer + ";Port=" + MainClass.SqlPort.ToString() + ";Database=" + MainClass.SqlDatabase + ";Uid=" + MainClass.SqlUsername + ";Pwd=" + MainClass.SqlPassword + ";");
-            MyConnection.Open();
+	    try
+	    {
+            	MyConnection.Open();
+	    }
+	    catch (Exception myException)
+	    {
+		Console.WriteLine(myException.Message); Environment.Exit(0);
+	    }
             int id = -1;
             string itemname = "";
             string namePlural = name.ToLower();
@@ -3935,7 +4495,14 @@ namespace cs_elbot
         public string GetDescription(int ITEMID)
         {
             MySqlConnection MyConnection = new MySqlConnection("Server=" + MainClass.SqlServer + ";Port=" + MainClass.SqlPort.ToString() + ";Database=" + MainClass.SqlDatabase + ";Uid=" + MainClass.SqlUsername + ";Pwd=" + MainClass.SqlPassword + ";");
-            MyConnection.Open();
+	    try
+	    {
+            	MyConnection.Open();
+	    }
+	    catch (Exception myException)
+	    {
+		Console.WriteLine(myException.Message); Environment.Exit(0);
+	    }
             string str = "";
             string sql = "SELECT description FROM knownitems WHERE id=?id;";
             //'" + ITEMID.ToString() + "'";
@@ -3971,7 +4538,14 @@ namespace cs_elbot
         public string GetDescriptionExtra(int ITEMID)
         {
             MySqlConnection MyConnection = new MySqlConnection("Server=" + MainClass.SqlServer + ";Port=" + MainClass.SqlPort.ToString() + ";Database=" + MainClass.SqlDatabase + ";Uid=" + MainClass.SqlUsername + ";Pwd=" + MainClass.SqlPassword + ";");
-            MyConnection.Open();
+	    try
+	    {
+            	MyConnection.Open();
+	    }
+	    catch (Exception myException)
+	    {
+		Console.WriteLine(myException.Message); Environment.Exit(0);
+	    }
             string str = "";
             int i = 0;
             string sql = "SELECT is_resource, is_reagent, is_stackable, use_with_inventory FROM knownitems WHERE id=?id";
@@ -4014,7 +4588,14 @@ namespace cs_elbot
         public int GetBotPhysqiue(int botid)
         {
             MySqlConnection MyConnection = new MySqlConnection("Server=" + MainClass.SqlServer + ";Port=" + MainClass.SqlPort.ToString() + ";Database=" + MainClass.SqlDatabase + ";Uid=" + MainClass.SqlUsername + ";Pwd=" + MainClass.SqlPassword + ";");
-            MyConnection.Open();
+	    try
+	    {
+            	MyConnection.Open();
+	    }
+	    catch (Exception myException)
+	    {
+		Console.WriteLine(myException.Message); Environment.Exit(0);
+	    }
             int Physique = 4;
             //string sql = "SELECT Physique FROM bots WHERE botid='" + botid.ToString() + "' and id='" + botid.ToString() + "';";
             string sql = "SELECT physiquecur FROM bots WHERE id=?botid;";
@@ -4049,7 +4630,14 @@ namespace cs_elbot
         public int GetBotCoordination(int botid)
         {
             MySqlConnection MyConnection = new MySqlConnection("Server=" + MainClass.SqlServer + ";Port=" + MainClass.SqlPort.ToString() + ";Database=" + MainClass.SqlDatabase + ";Uid=" + MainClass.SqlUsername + ";Pwd=" + MainClass.SqlPassword + ";");
-            MyConnection.Open();
+	    try
+	    {
+            	MyConnection.Open();
+	    }
+	    catch (Exception myException)
+	    {
+		Console.WriteLine(myException.Message); Environment.Exit(0);
+	    }
             int Coordination = 4;
             //string sql = "SELECT Coordination FROM bots WHERE botid='" + botid.ToString() + "' and id='" + botid.ToString() + "';";
             string sql = "SELECT coordinationcur FROM bots WHERE id=?botid;";
@@ -4094,7 +4682,14 @@ namespace cs_elbot
         public void UpdateAllStats(int botid, byte[] data)
         {
             MySqlConnection MyConnection = new MySqlConnection("Server=" + MainClass.SqlServer + ";Port=" + MainClass.SqlPort.ToString() + ";Database=" + MainClass.SqlDatabase + ";Uid=" + MainClass.SqlUsername + ";Pwd=" + MainClass.SqlPassword + ";");
-            MyConnection.Open();
+	    try
+	    {
+            	MyConnection.Open();
+	    }
+	    catch (Exception myException)
+	    {
+		Console.WriteLine(myException.Message); Environment.Exit(0);
+	    }
             int i = 3;
 
             int physiquecur = System.BitConverter.ToUInt16(data, i); i += 2;
@@ -4396,7 +4991,14 @@ namespace cs_elbot
         public void UpdateSingleStat(string str, int value)
         {
             MySqlConnection MyConnection = new MySqlConnection("Server=" + MainClass.SqlServer + ";Port=" + MainClass.SqlPort.ToString() + ";Database=" + MainClass.SqlDatabase + ";Uid=" + MainClass.SqlUsername + ";Pwd=" + MainClass.SqlPassword + ";");
-            MyConnection.Open();
+	    try
+	    {
+            	MyConnection.Open();
+	    }
+	    catch (Exception myException)
+	    {
+		Console.WriteLine(myException.Message); Environment.Exit(0);
+	    }
             string sql = "UPDATE `bots` SET `" + str + "` = '" + value.ToString() + "' WHERE id=?botid;";
             MySqlCommand cmd = new MySqlCommand(sql, MyConnection);
             cmd.Parameters.AddWithValue("?botid", Settings.botid);
@@ -4421,7 +5023,14 @@ namespace cs_elbot
         public bool validLaunch(string botName, string userName)
         {
             MySqlConnection MyConnection = new MySqlConnection("Server=" + MainClass.SqlServer + ";Port=" + MainClass.SqlPort.ToString() + ";Database=" + MainClass.SqlDatabase + ";Uid=" + MainClass.SqlUsername + ";Pwd=" + MainClass.SqlPassword + ";");
-            MyConnection.Open();
+	    try
+	    {
+            	MyConnection.Open();
+	    }
+	    catch (Exception myException)
+	    {
+		Console.WriteLine(myException.Message); Environment.Exit(0);
+	    }
             Int16 botid = 0;
             bool launchValid = false;
             string sql = "SELECT users.botid FROM users, bots WHERE LOWER(users.name)=?userName AND users.botid = bots.id AND LOWER(bots.name) = ?botName AND may_launch = 1 LIMIT 1;";
@@ -4467,7 +5076,14 @@ namespace cs_elbot
         public string getConnectionStatus(string botName)
         {
             MySqlConnection MyConnection = new MySqlConnection("Server=" + MainClass.SqlServer + ";Port=" + MainClass.SqlPort.ToString() + ";Database=" + MainClass.SqlDatabase + ";Uid=" + MainClass.SqlUsername + ";Pwd=" + MainClass.SqlPassword + ";");
-            MyConnection.Open();
+	    try
+	    {
+            	MyConnection.Open();
+	    }
+	    catch (Exception myException)
+	    {
+		Console.WriteLine(myException.Message); Environment.Exit(0);
+	    }
             string connectionStatus = "ALREADY LOGGED IN";
             int connectedToServer = 0;
 
@@ -4537,7 +5153,14 @@ namespace cs_elbot
         public void ImLoggedOut(int botID)
         {
             MySqlConnection MyConnection = new MySqlConnection("Server=" + MainClass.SqlServer + ";Port=" + MainClass.SqlPort.ToString() + ";Database=" + MainClass.SqlDatabase + ";Uid=" + MainClass.SqlUsername + ";Pwd=" + MainClass.SqlPassword + ";");
-            MyConnection.Open();
+	    try
+	    {
+            	MyConnection.Open();
+	    }
+	    catch (Exception myException)
+	    {
+		Console.WriteLine(myException.Message); Environment.Exit(0);
+	    }
             string sql = "UPDATE bots SET connectedToServer = 9 WHERE botid = " + botID.ToString();
             MySqlCommand cmd = new MySqlCommand(sql, MyConnection);
             try
@@ -4557,7 +5180,7 @@ namespace cs_elbot
             }
             MyConnection.Close();
             TheLogger.Debug(sql + "\n");
-            //System.Environment.Exit(0);
+            //System.Console.WriteLine(myException.Message); Environment.Exit(0);
             
             //raw_sql(sql);
 
@@ -4569,7 +5192,14 @@ namespace cs_elbot
         public void InsertStorageCategory( Storage.StorageCategory MyStorageCategory )
         {
             MySqlConnection MyConnection = new MySqlConnection("Server=" + MainClass.SqlServer + ";Port=" + MainClass.SqlPort.ToString() + ";Database=" + MainClass.SqlDatabase + ";Uid=" + MainClass.SqlUsername + ";Pwd=" + MainClass.SqlPassword + ";");
-            MyConnection.Open();
+	    try
+	    {
+            	MyConnection.Open();
+	    }
+	    catch (Exception myException)
+	    {
+		Console.WriteLine(myException.Message); Environment.Exit(0);
+	    }
             string sql = "INSERT INTO storagecategory (id, name, botid) VALUES(?id, ?name, ?botid);";
 
             TheLogger.Debug(sql + "\n");
@@ -4599,7 +5229,14 @@ namespace cs_elbot
         public void InsertStorageItems(System.Collections.ArrayList myStorage)
         {
             MySqlConnection MyConnection = new MySqlConnection("Server=" + MainClass.SqlServer + ";Port=" + MainClass.SqlPort.ToString() + ";Database=" + MainClass.SqlDatabase + ";Uid=" + MainClass.SqlUsername + ";Pwd=" + MainClass.SqlPassword + ";");
-            MyConnection.Open();
+	    try
+	    {
+            	MyConnection.Open();
+	    }
+	    catch (Exception myException)
+	    {
+		Console.WriteLine(myException.Message); Environment.Exit(0);
+	    }
             //string sql = "INSERT INTO storage (name, quantity, knownitemsid, categorynum, imageid, botid) VALUES(?name, ?quantity, ?knownitemsid, ?categorynum, ?imageid, ?botid);";
             //string sql = "INSERT INTO storage (name, quantity, knownitemsid, categorynum, imageid, botid) VALUES + ;";
 
@@ -4648,7 +5285,14 @@ namespace cs_elbot
         public void DeleteStorageItem(Storage.StorageItem MyStorageItem)
         {
             MySqlConnection MyConnection = new MySqlConnection("Server=" + MainClass.SqlServer + ";Port=" + MainClass.SqlPort.ToString() + ";Database=" + MainClass.SqlDatabase + ";Uid=" + MainClass.SqlUsername + ";Pwd=" + MainClass.SqlPassword + ";");
-            MyConnection.Open();
+	    try
+	    {
+            	MyConnection.Open();
+	    }
+	    catch (Exception myException)
+	    {
+		Console.WriteLine(myException.Message); Environment.Exit(0);
+	    }
             string sql = "DELETE FROM storage WHERE knownitemsid = ?knownitemsid AND botid = ?botid;";
 
             TheLogger.Debug(sql + "\n");
@@ -4676,7 +5320,14 @@ namespace cs_elbot
         public void UpdateStorageItem(TradeHandler.TradeLogItem MyTradeLogItem, bool replaceQuantity)
         {
             MySqlConnection MyConnection = new MySqlConnection("Server=" + MainClass.SqlServer + ";Port=" + MainClass.SqlPort.ToString() + ";Database=" + MainClass.SqlDatabase + ";Uid=" + MainClass.SqlUsername + ";Pwd=" + MainClass.SqlPassword + ";");
-            MyConnection.Open();
+	    try
+	    {
+            	MyConnection.Open();
+	    }
+	    catch (Exception myException)
+	    {
+		Console.WriteLine(myException.Message); Environment.Exit(0);
+	    }
             int tempQuantity;
             tempQuantity = (int)MyTradeLogItem.quantity;
             if (MyTradeLogItem.action.Contains("sold") || MyTradeLogItem.action.Contains("gave") || MyTradeLogItem.action.ToLower().Contains("withdrew"))
@@ -4793,7 +5444,14 @@ namespace cs_elbot
         public uint ReservedAmountForUser(int SQLID, string userid)
         {
             MySqlConnection MyConnection = new MySqlConnection("Server=" + MainClass.SqlServer + ";Port=" + MainClass.SqlPort.ToString() + ";Database=" + MainClass.SqlDatabase + ";Uid=" + MainClass.SqlUsername + ";Pwd=" + MainClass.SqlPassword + ";");
-            MyConnection.Open();
+	    try
+	    {
+            	MyConnection.Open();
+	    }
+	    catch (Exception myException)
+	    {
+		Console.WriteLine(myException.Message); Environment.Exit(0);
+	    }
             uint amountReserved = 0;
             string sql = "SELECT SUM(quantity) FROM reservedamount WHERE knownitemsid = ?knownitemsid AND botid = ?botid AND reservedBy = ?reservedBy AND claimed = 0 AND expirationdate >= now();";
 
@@ -4835,7 +5493,14 @@ namespace cs_elbot
         public uint ReservedAmount(int SQLID)
         {
             MySqlConnection MyConnection = new MySqlConnection("Server=" + MainClass.SqlServer + ";Port=" + MainClass.SqlPort.ToString() + ";Database=" + MainClass.SqlDatabase + ";Uid=" + MainClass.SqlUsername + ";Pwd=" + MainClass.SqlPassword + ";");
-            MyConnection.Open();
+	    try
+	    {
+            	MyConnection.Open();
+	    }
+	    catch (Exception myException)
+	    {
+		Console.WriteLine(myException.Message); Environment.Exit(0);
+	    }
             uint amountReserved = 0;
             string sql = "SELECT SUM(quantity) FROM reservedamount WHERE knownitemsid = ?knownitemsid AND botid = ?botid AND claimed = 0 AND expirationdate >= now();";
 
@@ -4881,7 +5546,14 @@ namespace cs_elbot
         public bool reserveItem(int itemId, uint numberToReserve, string username, bool prizeIndicator)
         {
             MySqlConnection MyConnection = new MySqlConnection("Server=" + MainClass.SqlServer + ";Port=" + MainClass.SqlPort.ToString() + ";Database=" + MainClass.SqlDatabase + ";Uid=" + MainClass.SqlUsername + ";Pwd=" + MainClass.SqlPassword + ";");
-            MyConnection.Open();
+	    try
+	    {
+            	MyConnection.Open();
+	    }
+	    catch (Exception myException)
+	    {
+		Console.WriteLine(myException.Message); Environment.Exit(0);
+	    }
             bool itemReserved = false;
             int rowsAffected = 0;
             string sql = "";
@@ -4929,7 +5601,14 @@ namespace cs_elbot
         internal void reservedDetails(int botid, string username)
         {
             MySqlConnection MyConnection = new MySqlConnection("Server=" + MainClass.SqlServer + ";Port=" + MainClass.SqlPort.ToString() + ";Database=" + MainClass.SqlDatabase + ";Uid=" + MainClass.SqlUsername + ";Pwd=" + MainClass.SqlPassword + ";");
-            MyConnection.Open();
+	    try
+	    {
+            	MyConnection.Open();
+	    }
+	    catch (Exception myException)
+	    {
+		Console.WriteLine(myException.Message); Environment.Exit(0);
+	    }
             //connect to server and open mysql loop
             string sql = "SELECT knownitems.name, quantity, reservedBy, reservedamount.id, prize FROM reservedamount, knownitems WHERE botid = ?botid AND quantity > 0 AND knownitems.id = reservedamount.knownitemsid AND reservedamount.claimed = 0 ORDER BY knownitems.name, reservedBy";
             MySqlCommand cmd = new MySqlCommand(sql, MyConnection);
@@ -4978,7 +5657,14 @@ namespace cs_elbot
         internal bool reservedDelete(int botid, string username, Int32 rowIndex)
         {
             MySqlConnection MyConnection = new MySqlConnection("Server=" + MainClass.SqlServer + ";Port=" + MainClass.SqlPort.ToString() + ";Database=" + MainClass.SqlDatabase + ";Uid=" + MainClass.SqlUsername + ";Pwd=" + MainClass.SqlPassword + ";");
-            MyConnection.Open();
+	    try
+	    {
+            	MyConnection.Open();
+	    }
+	    catch (Exception myException)
+	    {
+		Console.WriteLine(myException.Message); Environment.Exit(0);
+	    }
             bool rowDeleted = false;
             int rowsAffected = 0;
             string sql = "DELETE FROM reservedAmount WHERE id=?rowIndex;";
@@ -5010,7 +5696,14 @@ namespace cs_elbot
         public bool isBot(string name)
         {
             MySqlConnection MyConnection = new MySqlConnection("Server=" + MainClass.SqlServer + ";Port=" + MainClass.SqlPort.ToString() + ";Database=" + MainClass.SqlDatabase + ";Uid=" + MainClass.SqlUsername + ";Pwd=" + MainClass.SqlPassword + ";");
-            MyConnection.Open();
+	    try
+	    {
+            	MyConnection.Open();
+	    }
+	    catch (Exception myException)
+	    {
+		Console.WriteLine(myException.Message); Environment.Exit(0);
+	    }
             bool nameIsBot = false;
             string botName = "";
             string sql = "SELECT name FROM botsonline";
@@ -5062,7 +5755,14 @@ namespace cs_elbot
         public char getInvFiller()
         {
             MySqlConnection MyConnection = new MySqlConnection("Server=" + MainClass.SqlServer + ";Port=" + MainClass.SqlPort.ToString() + ";Database=" + MainClass.SqlDatabase + ";Uid=" + MainClass.SqlUsername + ";Pwd=" + MainClass.SqlPassword + ";");
-            MyConnection.Open();
+	    try
+	    {
+            	MyConnection.Open();
+	    }
+	    catch (Exception myException)
+	    {
+		Console.WriteLine(myException.Message); Environment.Exit(0);
+	    }
             char invFiller = '~';
             string sql = "SELECT invfiller FROM botconfig WHERE botid = ?botid;";
             MySqlCommand cmd = new MySqlCommand(sql, MyConnection);
@@ -5108,7 +5808,14 @@ namespace cs_elbot
         public char getWantedFiller()
         {
             MySqlConnection MyConnection = new MySqlConnection("Server=" + MainClass.SqlServer + ";Port=" + MainClass.SqlPort.ToString() + ";Database=" + MainClass.SqlDatabase + ";Uid=" + MainClass.SqlUsername + ";Pwd=" + MainClass.SqlPassword + ";");
-            MyConnection.Open();
+	    try
+	    {
+            	MyConnection.Open();
+	    }
+	    catch (Exception myException)
+	    {
+		Console.WriteLine(myException.Message); Environment.Exit(0);
+	    }
             char wantedFiller = '~';
             string sql = "SELECT wantedfiller FROM botconfig WHERE botid = ?botid";
             MySqlCommand cmd = new MySqlCommand(sql, MyConnection);
@@ -5156,7 +5863,14 @@ namespace cs_elbot
         public bool getShowZeroPrice()
         {
             MySqlConnection MyConnection = new MySqlConnection("Server=" + MainClass.SqlServer + ";Port=" + MainClass.SqlPort.ToString() + ";Database=" + MainClass.SqlDatabase + ";Uid=" + MainClass.SqlUsername + ";Pwd=" + MainClass.SqlPassword + ";");
-            MyConnection.Open();
+	    try
+	    {
+            	MyConnection.Open();
+	    }
+	    catch (Exception myException)
+	    {
+		Console.WriteLine(myException.Message); Environment.Exit(0);
+	    }
             bool showZeroPrice = false;
             string sql = "SELECT showzeroprice FROM botconfig WHERE botid = ?botid";
             MySqlCommand cmd = new MySqlCommand(sql, MyConnection);
@@ -5189,7 +5903,14 @@ namespace cs_elbot
         public double getAdvertTextRate()
         {
             MySqlConnection MyConnection = new MySqlConnection("Server=" + MainClass.SqlServer + ";Port=" + MainClass.SqlPort.ToString() + ";Database=" + MainClass.SqlDatabase + ";Uid=" + MainClass.SqlUsername + ";Pwd=" + MainClass.SqlPassword + ";");
-            MyConnection.Open();
+	    try
+	    {
+            	MyConnection.Open();
+	    }
+	    catch (Exception myException)
+	    {
+		Console.WriteLine(myException.Message); Environment.Exit(0);
+	    }
             double myRate = 0;
             string sql = "SELECT textrate FROM advertrate WHERE botid = ?botid;";
             MySqlCommand cmd = new MySqlCommand(sql, MyConnection);
@@ -5222,7 +5943,14 @@ namespace cs_elbot
         public double getSellRate()
         {
             MySqlConnection MyConnection = new MySqlConnection("Server=" + MainClass.SqlServer + ";Port=" + MainClass.SqlPort.ToString() + ";Database=" + MainClass.SqlDatabase + ";Uid=" + MainClass.SqlUsername + ";Pwd=" + MainClass.SqlPassword + ";");
-            MyConnection.Open();
+	    try
+	    {
+            	MyConnection.Open();
+	    }
+	    catch (Exception myException)
+	    {
+		Console.WriteLine(myException.Message); Environment.Exit(0);
+	    }
             double myRate = 0;
             string sql = "SELECT sellrate FROM advertrate WHERE botid = ?botid;";
             MySqlCommand cmd = new MySqlCommand(sql, MyConnection);
@@ -5255,7 +5983,14 @@ namespace cs_elbot
         public string getTextAdvert()
         {
             MySqlConnection MyConnection = new MySqlConnection("Server=" + MainClass.SqlServer + ";Port=" + MainClass.SqlPort.ToString() + ";Database=" + MainClass.SqlDatabase + ";Uid=" + MainClass.SqlUsername + ";Pwd=" + MainClass.SqlPassword + ";");
-            MyConnection.Open();
+	    try
+	    {
+            	MyConnection.Open();
+	    }
+	    catch (Exception myException)
+	    {
+		Console.WriteLine(myException.Message); Environment.Exit(0);
+	    }
             string myAdvert = "";
             string sql = "select adverttext from adverts where botid = ?botid and disabled = 0 order by rand() LIMIT 1;";
             MySqlCommand cmd = new MySqlCommand(sql, MyConnection);
@@ -5289,7 +6024,14 @@ namespace cs_elbot
         {
             int itemPos = -1;
             MySqlConnection MyConnection = new MySqlConnection("Server=" + MainClass.SqlServer + ";Port=" + MainClass.SqlPort.ToString() + ";Database=" + MainClass.SqlDatabase + ";Uid=" + MainClass.SqlUsername + ";Pwd=" + MainClass.SqlPassword + ";");
-            MyConnection.Open();
+	    try
+	    {
+            	MyConnection.Open();
+	    }
+	    catch (Exception myException)
+	    {
+		Console.WriteLine(myException.Message); Environment.Exit(0);
+	    }
             string sql = "SELECT pos FROM inventory WHERE botid = ?botid AND knownitemsid = ?itemID";
             MySqlCommand cmd = new MySqlCommand(sql, MyConnection);
             cmd.Parameters.AddWithValue("?botid", Settings.botid);
@@ -5327,7 +6069,14 @@ namespace cs_elbot
         {
             bool playerLoggedIn = false;
             MySqlConnection MyConnection = new MySqlConnection("Server=" + MainClass.SqlServer + ";Port=" + MainClass.SqlPort.ToString() + ";Database=" + MainClass.SqlDatabase + ";Uid=" + MainClass.SqlUsername + ";Pwd=" + MainClass.SqlPassword + ";");
-            MyConnection.Open();
+	    try
+	    {
+            	MyConnection.Open();
+	    }
+	    catch (Exception myException)
+	    {
+		Console.WriteLine(myException.Message); Environment.Exit(0);
+	    }
             string sql = "SELECT name FROM playersonline WHERE name = ?playerName";
             MySqlCommand cmd = new MySqlCommand(sql, MyConnection);
             cmd.Parameters.AddWithValue("?playerName", playerName);
@@ -5366,7 +6115,14 @@ namespace cs_elbot
         public static void setPlayerOnline(string playerName)
         {
             MySqlConnection MyConnection = new MySqlConnection("Server=" + MainClass.SqlServer + ";Port=" + MainClass.SqlPort.ToString() + ";Database=" + MainClass.SqlDatabase + ";Uid=" + MainClass.SqlUsername + ";Pwd=" + MainClass.SqlPassword + ";");
-            MyConnection.Open();
+	    try
+	    {
+            	MyConnection.Open();
+	    }
+	    catch (Exception myException)
+	    {
+		Console.WriteLine(myException.Message); Environment.Exit(0);
+	    }
             string sql = "REPLACE INTO playersonline VALUES (?playerName)";
             MySqlCommand cmd = new MySqlCommand(sql, MyConnection);
             cmd.Parameters.AddWithValue("?playerName", playerName);
@@ -5397,7 +6153,14 @@ namespace cs_elbot
         public static void setPlayerOffline(string playerName)
         {
             MySqlConnection MyConnection = new MySqlConnection("Server=" + MainClass.SqlServer + ";Port=" + MainClass.SqlPort.ToString() + ";Database=" + MainClass.SqlDatabase + ";Uid=" + MainClass.SqlUsername + ";Pwd=" + MainClass.SqlPassword + ";");
-            MyConnection.Open();
+	    try
+	    {
+            	MyConnection.Open();
+	    }
+	    catch (Exception myException)
+	    {
+		Console.WriteLine(myException.Message); Environment.Exit(0);
+	    }
             string sql = "DELETE FROM playersonline WHERE name = ?playerName";
             MySqlCommand cmd = new MySqlCommand(sql, MyConnection);
             cmd.Parameters.AddWithValue("?playerName", playerName);
@@ -5429,7 +6192,14 @@ namespace cs_elbot
         internal void setBuddyOnline(string playerName)
         {
             MySqlConnection MyConnection = new MySqlConnection("Server=" + MainClass.SqlServer + ";Port=" + MainClass.SqlPort.ToString() + ";Database=" + MainClass.SqlDatabase + ";Uid=" + MainClass.SqlUsername + ";Pwd=" + MainClass.SqlPassword + ";");
-            MyConnection.Open();
+	    try
+	    {
+            	MyConnection.Open();
+	    }
+	    catch (Exception myException)
+	    {
+		Console.WriteLine(myException.Message); Environment.Exit(0);
+	    }
             string sql = "REPLACE INTO botbuddy (botid, buddyname, loggedon, lastloggedon, lastloggedoff) SELECT botid, '" + playerName + "', 1, now(), lastloggedoff FROM botbuddy WHERE botid = ?botid AND buddyname = ?playername AND loggedon = 0";
             MySqlCommand cmd = new MySqlCommand(sql, MyConnection);
             cmd.Parameters.AddWithValue("?playerName", playerName);
@@ -5497,7 +6267,14 @@ namespace cs_elbot
         internal void setBuddyOffline(string playerName)
         {
             MySqlConnection MyConnection = new MySqlConnection("Server=" + MainClass.SqlServer + ";Port=" + MainClass.SqlPort.ToString() + ";Database=" + MainClass.SqlDatabase + ";Uid=" + MainClass.SqlUsername + ";Pwd=" + MainClass.SqlPassword + ";");
-            MyConnection.Open();
+	    try
+	    {
+            	MyConnection.Open();
+	    }
+	    catch (Exception myException)
+	    {
+		Console.WriteLine(myException.Message); Environment.Exit(0);
+	    }
             string sql = "REPLACE INTO botbuddy (botid, buddyname, loggedon, lastloggedon, lastloggedoff) SELECT botid, buddyname, 0, lastloggedon, now() FROM botbuddy WHERE botid = ?botid AND buddyname = ?playername AND loggedon = 1";
             MySqlCommand cmd = new MySqlCommand(sql, MyConnection);
             cmd.Parameters.AddWithValue("?playerName", playerName);
@@ -5535,7 +6312,14 @@ namespace cs_elbot
         {
             bool gamble = false;
             MySqlConnection MyConnection = new MySqlConnection("Server=" + MainClass.SqlServer + ";Port=" + MainClass.SqlPort.ToString() + ";Database=" +MainClass.SqlDatabase + ";Uid=" + MainClass.SqlUsername + ";Pwd=" + MainClass.SqlPassword + ";");
-            MyConnection.Open();
+	    try
+	    {
+            	MyConnection.Open();
+	    }
+	    catch (Exception myException)
+	    {
+		Console.WriteLine(myException.Message); Environment.Exit(0);
+	    }
             string sql = "SELECT gamble FROM botconfig WHERE botid = ?botid";
             MySqlCommand cmd = new MySqlCommand(sql, MyConnection);
             cmd.Parameters.AddWithValue("?botid", Settings.botid);
@@ -5574,7 +6358,14 @@ namespace cs_elbot
         {
             string sql = "SELECT price, odds, levelid, description FROM prizelevel, botticket WHERE description LIKE '%" + argument + "%' AND prizelevel.levelid = botticket.prizelevelid AND botticket.botid = " + Settings.botid;
             MySqlConnection MyConnection = new MySqlConnection("Server=" + MainClass.SqlServer + ";Port=" + MainClass.SqlPort.ToString() + ";Database=" + MainClass.SqlDatabase + ";Uid=" + MainClass.SqlUsername + ";Pwd=" + MainClass.SqlPassword + ";");
-            MyConnection.Open();
+	    try
+	    {
+            	MyConnection.Open();
+	    }
+	    catch (Exception myException)
+	    {
+		Console.WriteLine(myException.Message); Environment.Exit(0);
+	    }
             MySqlCommand cmd = new MySqlCommand(sql, MyConnection);
             MySqlDataReader reader = cmd.ExecuteReader();
             int levelid = 0;
@@ -5671,7 +6462,14 @@ namespace cs_elbot
             priceOfTicket = 0;
             string sql = "SELECT price, odds FROM prizelevel, botticket WHERE description LIKE '%" + prizeLevel + "%' AND prizelevel.levelid = botticket.prizelevelid AND botticket.botid = " + Settings.botid;
             MySqlConnection MyConnection = new MySqlConnection("Server=" + MainClass.SqlServer + ";Port=" + MainClass.SqlPort.ToString() + ";Database=" + MainClass.SqlDatabase + ";Uid=" + MainClass.SqlUsername + ";Pwd=" + MainClass.SqlPassword + ";");
-            MyConnection.Open();
+	    try
+	    {
+            	MyConnection.Open();
+	    }
+	    catch (Exception myException)
+	    {
+		Console.WriteLine(myException.Message); Environment.Exit(0);
+	    }
             MySqlCommand cmd = new MySqlCommand(sql, MyConnection);
             MySqlDataReader reader = cmd.ExecuteReader();
             try
@@ -5709,7 +6507,14 @@ namespace cs_elbot
             //figure out the prize and reserve it for the person...
             string sql = "select botprize.quantity, knownitems.name, knownitems.id, inventory.quantity from knownitems, botprize, inventory, botticket, prizelevel where knownitems.id = botprize.knownitemsid and botprize.botid = ?botid and botprize.prizelevel = botticket.prizelevelid and botticket.prizelevelid = prizelevel.levelid and botticket.botid = botprize.botid and lower(prizelevel.description) like '%" + prizeLevel + "%' and inventory.knownitemsid = botprize.knownitemsid and inventory.botid = botprize.botid and inventory.quantity  - (SELECT IFNULL(SUM(quantity),0) FROM reservedamount WHERE botid = inventory.botid AND claimed = 0 AND knownitemsid = inventory.knownitemsid) >= botprize.quantity ORDER BY RAND() LIMIT 1";
             MySqlConnection MyConnection = new MySqlConnection("Server=" + MainClass.SqlServer + ";Port=" + MainClass.SqlPort.ToString() + ";Database=" + MainClass.SqlDatabase + ";Uid=" + MainClass.SqlUsername + ";Pwd=" + MainClass.SqlPassword + ";");
-            MyConnection.Open();
+	    try
+	    {
+            	MyConnection.Open();
+	    }
+	    catch (Exception myException)
+	    {
+		Console.WriteLine(myException.Message); Environment.Exit(0);
+	    }
             MySqlCommand cmd = new MySqlCommand(sql, MyConnection);
             cmd.Parameters.AddWithValue("?botid", Settings.botid);
             //cmd.Parameters.AddWithValue("?levelid", prizeLevel);
@@ -5749,7 +6554,14 @@ namespace cs_elbot
         {
             string sql = "SELECT buddyname, date_format(lastloggedon, '%m/%d/%Y %h:%i %p'), date_format(lastloggedoff, '%m/%d/%Y %h:%i %p'), loggedon FROM botbuddy WHERE botid = ?botid";
             MySqlConnection MyConnection = new MySqlConnection("Server=" + MainClass.SqlServer + ";Port=" + MainClass.SqlPort.ToString() + ";Database=" + MainClass.SqlDatabase + ";Uid=" + MainClass.SqlUsername + ";Pwd=" + MainClass.SqlPassword + ";");
-            MyConnection.Open();
+	    try
+	    {
+            	MyConnection.Open();
+	    }
+	    catch (Exception myException)
+	    {
+		Console.WriteLine(myException.Message); Environment.Exit(0);
+	    }
             MySqlCommand cmd = new MySqlCommand(sql, MyConnection);
             cmd.Parameters.AddWithValue("?botid", Settings.botid);
             MySqlDataReader reader = cmd.ExecuteReader();
@@ -5786,7 +6598,14 @@ namespace cs_elbot
             //put the prizes in the window and click accept...
             string sql = "SELECT inventory.pos, inventory.knownitemsid, sum(reservedamount.quantity), sum(inventory.quantity) FROM reservedamount, inventory WHERE reservedamount.botid = ?botid AND prize = 1 AND reservedBy = ?username AND claimed = 0 AND reservedamount.knownitemsid = inventory.knownitemsid AND reservedamount.botid = inventory.botid GROUP BY inventory.pos";
             MySqlConnection MyConnection = new MySqlConnection("Server=" + MainClass.SqlServer + ";Port=" + MainClass.SqlPort.ToString() + ";Database=" + MainClass.SqlDatabase + ";Uid=" + MainClass.SqlUsername + ";Pwd=" + MainClass.SqlPassword + ";");
-            MyConnection.Open();
+	    try
+	    {
+            	MyConnection.Open();
+	    }
+	    catch (Exception myException)
+	    {
+		Console.WriteLine(myException.Message); Environment.Exit(0);
+	    }
             MySqlCommand cmd = new MySqlCommand(sql, MyConnection);
             cmd.Parameters.AddWithValue("?botid", Settings.botid);
             cmd.Parameters.AddWithValue("?username", username);
@@ -5851,7 +6670,14 @@ namespace cs_elbot
         internal void updatePrizes(string username)
         {
             MySqlConnection MyConnection = new MySqlConnection("Server=" + MainClass.SqlServer + ";Port=" + MainClass.SqlPort.ToString() + ";Database=" + MainClass.SqlDatabase + ";Uid=" + MainClass.SqlUsername + ";Pwd=" + MainClass.SqlPassword + ";");
-            MyConnection.Open();
+	    try
+	    {
+            	MyConnection.Open();
+	    }
+	    catch (Exception myException)
+	    {
+		Console.WriteLine(myException.Message); Environment.Exit(0);
+	    }
             string sql = "UPDATE reservedamount SET claimed = 1 WHERE botid = ?botid AND reservedBy = ?username AND prize = 1 AND claimed = 0";
             MySqlCommand cmd = new MySqlCommand(sql, MyConnection);
             cmd.Parameters.AddWithValue("?username", username);
@@ -5887,7 +6713,14 @@ namespace cs_elbot
             decimal jackpotNumber = 0;
             string sql = "SELECT jackpotnumber, jackpottotal FROM botticket,prizelevel WHERE botid = ?botid AND prizelevelid = prizelevel.levelid AND prizelevel.description like '%" + prizeLevel + "%'";
             MySqlConnection MyConnection = new MySqlConnection("Server=" + MainClass.SqlServer + ";Port=" + MainClass.SqlPort.ToString() + ";Database=" + MainClass.SqlDatabase + ";Uid=" + MainClass.SqlUsername + ";Pwd=" + MainClass.SqlPassword + ";");
-            MyConnection.Open();
+	    try
+	    {
+            	MyConnection.Open();
+	    }
+	    catch (Exception myException)
+	    {
+		Console.WriteLine(myException.Message); Environment.Exit(0);
+	    }
             MySqlCommand cmd = new MySqlCommand(sql, MyConnection);
             cmd.Parameters.AddWithValue("?botid", Settings.botid);
             MySqlDataReader reader = cmd.ExecuteReader();
@@ -5933,7 +6766,14 @@ namespace cs_elbot
         {
             string sql = "SELECT quantity, knownitems.name, expirationdate FROM reservedamount, knownitems WHERE botid = ?botid AND claimed = 0 AND reservedBy = ?username AND prize = 1 AND reservedamount.knownitemsid = knownitems.id";
             MySqlConnection MyConnection = new MySqlConnection("Server=" + MainClass.SqlServer + ";Port=" + MainClass.SqlPort.ToString() + ";Database=" + MainClass.SqlDatabase + ";Uid=" + MainClass.SqlUsername + ";Pwd=" + MainClass.SqlPassword + ";");
-            MyConnection.Open();
+	    try
+	    {
+            	MyConnection.Open();
+	    }
+	    catch (Exception myException)
+	    {
+		Console.WriteLine(myException.Message); Environment.Exit(0);
+	    }
             MySqlCommand cmd = new MySqlCommand(sql, MyConnection);
             cmd.Parameters.AddWithValue("?botid", Settings.botid);
             cmd.Parameters.AddWithValue("?username", username);
@@ -5977,7 +6817,14 @@ namespace cs_elbot
             string sql = "SELECT name FROM playersonline WHERE name = ?playerName";
             //string sql = "select name from live.playersonline where name = 'lamorian'";
             MySqlConnection MyConnection = new MySqlConnection("Server=" + MainClass.SqlServer + ";Port=" + MainClass.SqlPort.ToString() + ";Database=" + serverName + ";Uid=" + MainClass.SqlUsername + ";Pwd=" + MainClass.SqlPassword + ";");
-            MyConnection.Open();
+	    try
+	    {
+            	MyConnection.Open();
+	    }
+	    catch (Exception myException)
+	    {
+		Console.WriteLine(myException.Message); Environment.Exit(0);
+	    }
             MySqlCommand cmd = new MySqlCommand(sql, MyConnection);
             cmd.Parameters.AddWithValue("?playerName", playerName);
             cmd.Parameters.AddWithValue("?serverName", serverName);
@@ -6015,7 +6862,14 @@ namespace cs_elbot
             int botType = 0;
             string sql = "SELECT type FROM bots WHERE botid = ?botid";
             MySqlConnection MyConnection = new MySqlConnection("Server=" + MainClass.SqlServer + ";Port=" + MainClass.SqlPort.ToString() + ";Database=" + MainClass.SqlDatabase + ";Uid=" + MainClass.SqlUsername + ";Pwd=" + MainClass.SqlPassword + ";");
-            MyConnection.Open();
+	    try
+	    {
+            	MyConnection.Open();
+	    }
+	    catch (Exception myException)
+	    {
+		Console.WriteLine(myException.Message); Environment.Exit(0);
+	    }
             MySqlCommand cmd = new MySqlCommand(sql, MyConnection);
             cmd.Parameters.AddWithValue("?botid", Settings.botid);
             MySqlDataReader reader = cmd.ExecuteReader();
@@ -6051,7 +6905,14 @@ namespace cs_elbot
             int prizeCount = 0;
             string sql = "select botprize.quantity, knownitems.name, knownitems.id, inventory.quantity from knownitems, botprize, inventory, botticket, prizelevel where knownitems.id = botprize.knownitemsid and botprize.botid = ?botid and botprize.prizelevel = botticket.prizelevelid and botticket.prizelevelid = prizelevel.levelid and botticket.botid = botprize.botid and lower(prizelevel.description) like '%" + prizeLevel + "%' and inventory.knownitemsid = botprize.knownitemsid and inventory.botid = botprize.botid and inventory.quantity >= botprize.quantity ORDER BY RAND() LIMIT 1";
             MySqlConnection MyConnection = new MySqlConnection("Server=" + MainClass.SqlServer + ";Port=" + MainClass.SqlPort.ToString() + ";Database=" + MainClass.SqlDatabase + ";Uid=" + MainClass.SqlUsername + ";Pwd=" + MainClass.SqlPassword + ";");
-            MyConnection.Open();
+	    try
+	    {
+            	MyConnection.Open();
+	    }
+	    catch (Exception myException)
+	    {
+		Console.WriteLine(myException.Message); Environment.Exit(0);
+	    }
             MySqlCommand cmd = new MySqlCommand(sql, MyConnection);
             cmd.Parameters.AddWithValue("?botid", Settings.botid);
             MySqlDataReader reader = cmd.ExecuteReader();
@@ -6094,7 +6955,14 @@ namespace cs_elbot
             string URL = "";
             string sql = "SELECT weburl FROM globalsettings WHERE serverport = " + Settings.ServerPort;
             MySqlConnection MyConnection = new MySqlConnection("Server=" + MainClass.SqlServer + ";Port=" + MainClass.SqlPort.ToString() + ";Database=" + MainClass.SqlDatabase + ";Uid=" + MainClass.SqlUsername + ";Pwd=" + MainClass.SqlPassword + ";");
-            MyConnection.Open();
+	    try
+	    {
+            	MyConnection.Open();
+	    }
+	    catch (Exception myException)
+	    {
+		Console.WriteLine(myException.Message); Environment.Exit(0);
+	    }
             MySqlCommand cmd = new MySqlCommand(sql, MyConnection);
             cmd.Parameters.AddWithValue("?botid", Settings.botid);
             MySqlDataReader reader = cmd.ExecuteReader();
@@ -6135,7 +7003,14 @@ namespace cs_elbot
         {
             string sql = "SELECT id, name, weight FROM knownitems WHERE elitemid = ?elitemid";
             MySqlConnection MyConnection = new MySqlConnection("Server=" + MainClass.SqlServer + ";Port=" + MainClass.SqlPort.ToString() + ";Database=" + MainClass.SqlDatabase + ";Uid=" + MainClass.SqlUsername + ";Pwd=" + MainClass.SqlPassword + ";");
-            MyConnection.Open();
+	    try
+	    {
+            	MyConnection.Open();
+	    }
+	    catch (Exception myException)
+	    {
+		Console.WriteLine(myException.Message); Environment.Exit(0);
+	    }
             MySqlCommand cmd = new MySqlCommand(sql, MyConnection);
             cmd.Parameters.AddWithValue("?elitemid", MyTradeItem.ELServerItemID);
             MySqlDataReader reader = cmd.ExecuteReader();

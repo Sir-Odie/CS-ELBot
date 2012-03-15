@@ -72,6 +72,7 @@ namespace cs_elbot
             
             MyCurrentCarryingAmt = System.BitConverter.ToUInt16(data, i); i += 2;
             MyCapacity = System.BitConverter.ToUInt16(data, i); i += 2;
+	    TheLogger.Log("Got carry capacity: " + MyCurrentCarryingAmt + "/" + MyCapacity);
             TheMySqlManager.UpdateAllStats(Settings.botid, data);
         }
 
@@ -212,6 +213,7 @@ namespace cs_elbot
                     case 40:
                         str = "carrycapacitycur";
                         MyCurrentCarryingAmt = value;
+			TheLogger.Log("Got carry capacity: " + MyCurrentCarryingAmt + "/" + MyCapacity);
                         break;
                     case 41:
                         str = "carrycapacitybase";

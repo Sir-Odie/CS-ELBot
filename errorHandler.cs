@@ -12,7 +12,7 @@ namespace cs_elbot
 
         public void errorWriter(Exception oException)
         {
-            TheLogger.Log("ExecSql Error in " + oException.TargetSite + " due to : " + oException.Message + "\n");
+            TheLogger.Log("Error in " + oException.TargetSite + " due to : " + oException.Message + "\n");
             string errorText = oException.ToString();
             errorWriter(errorText);
         }

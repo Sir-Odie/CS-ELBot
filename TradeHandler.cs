@@ -810,7 +810,7 @@ namespace cs_elbot
                 //put my coins on trade
                 MyMoneyOnTrade = Convert.ToUInt32(Math.Abs(totalOwed));
                 uint moneyPutOnTrade = PutItemsOnTrade(1, MyMoneyOnTrade);
-		System.Threading.Thread.Sleep(300);
+		System.Threading.Thread.Sleep(400);
                 if (moneyPutOnTrade < MyMoneyOnTrade)
                 {
                     TheTCPWrapper.Send(CommandCreator.SEND_PM(username, "!!!!!  I DON'T HAVE ENOUGH COINS TO COVER MY SIDE OF THE TRADE. !!!!!"));
