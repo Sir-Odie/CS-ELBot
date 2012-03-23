@@ -83,6 +83,10 @@ namespace cs_elbot.AdvancedCommunication
                 {
                     foreach (string name in names)
                     {
+                   	if (Message.ToLower().Contains("afk") || Message.ToLower().Contains("automessage"))
+               	     	{
+                        	continue;
+                    	}
                         //fix that pm error message here...
                         if (!MySqlManager.playerIsOnline(name))
                         {

@@ -93,6 +93,8 @@ namespace cs_elbot
         {
             GettingInventoryItems = false;
             inventoryRequested = false;
+	    // dirty hack: belongs into the TCPWrapper but we have no MySql access there
+	    TheMySqlManager.ImStarted(Settings.botid);
         }
         public bool isStackable(int SQLID)
         {

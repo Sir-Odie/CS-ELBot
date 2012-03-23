@@ -1497,7 +1497,7 @@ namespace cs_elbot
                     }
                     else
                     {
-                        TheTCPWrapper.Send(CommandCreator.SEND_PM(TradeHandler.username, "!!!I am not buying " + MyTradeItem.name + ".  You will need to remove this item before I will accpet the trade!!!"));
+                        TheTCPWrapper.Send(CommandCreator.SEND_PM(TradeHandler.username, "!!!I am not buying " + MyTradeItem.name + ".  You will need to remove this item before I will accept the trade!!!"));
                         MyTradeItem.validTradeItem = false;
                     }
                 }

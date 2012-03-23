@@ -21,7 +21,7 @@ using System;
 namespace cs_elbot.AdvancedCommunication
 {
     /// <summary>
-    /// description of ABOUTCommandHandler.
+    /// description of AFKCommandHandler.
     /// </summary>
     public class AFKCommandHandler
     {

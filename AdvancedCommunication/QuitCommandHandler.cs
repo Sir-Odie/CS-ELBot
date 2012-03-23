@@ -44,7 +44,9 @@ namespace cs_elbot.AdvancedCommunication
             this.TheLogger = MyLogger;
             this.TheTradeHandler = MyTradeHandler;
             this.TheInventory = MyInventory;
-            TheAdminHelpCommandHandler.AddCommand("#quit - make me shut down");
+            TheAdminHelpCommandHandler.AddCommand("#quit / #exit / #shutdown - make me shut down");
+            TheAdminHelpCommandHandler.AddCommand("#exit - null");
+            TheAdminHelpCommandHandler.AddCommand("#shutdown - null");
             TheMessageParser.Got_PM += new BasicCommunication.MessageParser.Got_PM_EventHandler(OnGotPM);
         }
 
@@ -60,7 +62,7 @@ namespace cs_elbot.AdvancedCommunication
 
             string[] CommandArray = Message.Split(' ');
 
-            if (CommandArray[0] == "#quit")
+            if (CommandArray[0] == "#quit" || CommandArray[0] == "#exit" || CommandArray[0] == "#shutdown")
             {
                 bool disabled = TheMySqlManager.CheckIfCommandIsDisabled("#quit", Settings.botid);
 

@@ -21,7 +21,7 @@ using System;
 namespace cs_elbot.AdvancedCommunication
 {
 	/// <summary>
-	/// description of GreetPlayers.
+	/// description of OpenStorage.
 	/// </summary>
 	public class OpenStorage
 	{
