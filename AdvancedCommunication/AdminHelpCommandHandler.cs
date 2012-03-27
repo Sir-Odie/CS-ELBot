@@ -55,7 +55,7 @@ namespace cs_elbot.AdvancedCommunication
 		
 		private void OnGotPM(object sender, BasicCommunication.MessageParser.Got_PM_EventArgs e)
 		{
-            int lineSize = 55;
+            int lineSize = 56;
             string Message = e.Message.ToLower();
 			
 			if (Message[0]!='#')

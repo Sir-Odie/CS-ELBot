@@ -2000,9 +2000,9 @@ namespace cs_elbot
             if (pos != -1)
                 cmd.Parameters.AddWithValue("?pos", pos);
 
-            cmd.ExecuteNonQuery();
             try
             {
+		cmd.ExecuteNonQuery();
             }
             catch (MySqlException oMySQLException)
             {
@@ -2089,9 +2089,9 @@ namespace cs_elbot
             if (pos != -1)
                 cmd.Parameters.AddWithValue("?pos", pos);
 
-            cmd.ExecuteNonQuery();
             try
             {
+            	cmd.ExecuteNonQuery();
             }
             catch (MySqlException oMySQLException)
             {
@@ -3082,6 +3082,7 @@ namespace cs_elbot
             }
             if (id == -1)
             {
+		if(MyTradeItem.imageid == 0) TheLogger.ErrorLog("Possibly invalid Item: " + MyTradeItem.name + " added by " + Settings.botid + " in GetStorageSQLID()");
                 sql = "INSERT INTO knownitems (name,description,imageid,weight,is_resource,is_reagent,is_stackable,use_with_inventory) VALUES (?name,?description,?imageid,?weight,?is_resource,?is_reagent,?is_stackable,?use_with_inventory)";
                 cmd.Parameters.Clear();
                 cmd = new MySqlCommand(sql, MyConnection);
@@ -3221,6 +3222,7 @@ namespace cs_elbot
 
             if (id == -1)
             {
+                if(MyTradeItem.imageid == 0) TheLogger.ErrorLog("Possibly invalid Item: " + MyTradeItem.name + " added by " + Settings.botid + " in GetKnownItemsSQLID()");
                 sql = "INSERT INTO knownitems (name,description,imageid,weight,is_resource,is_reagent,is_stackable,use_with_inventory) VALUES (?name,?description,?imageid,?weight,?is_resource,?is_reagent,?is_stackable,?use_with_inventory)";
                 cmd.Parameters.Clear();
                 cmd = new MySqlCommand(sql, MyConnection);
@@ -3621,6 +3623,7 @@ namespace cs_elbot
                 cmd.Parameters.Clear();
 
                 // requires unique index on name
+                if(item.imageid == 0) TheLogger.ErrorLog("Possibly invalid Item: " + item.name + " added by " + Settings.botid + " in SetSQLID()");
                 sql = "insert into knownitems (name,description,imageid,weight,is_resource,is_reagent,is_stackable,use_with_inventory) VALUES(?name,?description,?imageid,?weight,?is_resource,?is_reagent,?is_stackable,?use_with_inventory);";
                 cmd = new MySqlCommand(sql, MyConnection);
                 cmd.Parameters.AddWithValue("?name", item.name);
@@ -6324,8 +6327,6 @@ namespace cs_elbot
             MySqlCommand cmd = new MySqlCommand(sql, MyConnection);
             cmd.Parameters.AddWithValue("?botid", Settings.botid);
             MySqlDataReader reader = cmd.ExecuteReader();
-
-            //MySqlDataReader reader = cmd.ExecuteReader();
 
             try
             {
