@@ -354,7 +354,7 @@ namespace cs_elbot
             Int16 TempPartnerUserID = TheActorHandler.GetUserIDFromname(TempPartnerUsername);
             if (Trading == true)
             {
-                TheTCPWrapper.Send(CommandCreator.SEND_PM(TempPartnerUsername, "Sorry, I am busy. Please try the #retrade in a few seconds!"));
+                TheTCPWrapper.Send(CommandCreator.SEND_PM(TempPartnerUsername, "Sorry, I am already trading. Please try #retrade in a few seconds!"));
                 return;
             }
             totalCalculated = false;

@@ -134,7 +134,7 @@ namespace cs_elbot.AdvancedCommunication
 				}
 					
 				UInt32 ItemsDropped = DropItems(SQLID,quantity);
-                TheInventory.GettingInventoryItems = true;
+                //TheInventory.GettingInventoryItems = true;
 				
 				if (ItemsDropped>0)
 				{
