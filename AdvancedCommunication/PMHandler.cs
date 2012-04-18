@@ -105,7 +105,7 @@ namespace cs_elbot.AdvancedCommunication
                     }
                 }
 
-                if (!TheMySqlManager.isBot(e.username))
+                if (!TheMySqlManager.isBot(e.username) && !(Message.ToLower().Contains("afk") || Message.ToLower().Contains("automessage")))
                 {
                     TheTCPWrapper.Send(CommandCreator.SEND_PM(e.username, "To see the list of available commands send me an ingame message with #help (Just type in /" + Settings.Loginname + " #help )"));
                 }
