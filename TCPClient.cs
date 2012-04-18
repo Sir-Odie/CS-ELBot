@@ -196,7 +196,7 @@ namespace TCPClient
                     this.Disconnect();
                     return TotalDataSent;
                 }
-
+		System.Threading.Thread.Sleep(5);
                 DataSent = this.TCPSocket.Send(Buffer, TotalDataSent, DataLeft, System.Net.Sockets.SocketFlags.None);
                 TotalDataSent += DataSent;
                 DataLeft -= DataSent;

@@ -1482,10 +1482,14 @@ namespace cs_elbot
             }
             TheLogger.Debug("Beginning TRIM(1)\n");
             ItemDescription = ItemDescription.Trim();
-            MyTradeItem.name = ItemDescription;
-            MyTradeItem.name = MyTradeItem.name.Replace((char)10, ' ');
-            MyTradeItem.name = MyTradeItem.name.Substring(0, MyTradeItem.name.IndexOf("Weight:"));
-            MyTradeItem.name = MyTradeItem.name.Trim();
+            if (ItemDescription.ToLower().Contains("extract"))
+            {
+                 MyTradeItem.name = ItemDescription.Substring(0, ItemDescription.LastIndexOf(" - ")).Trim();
+            }
+            else
+            {
+                 MyTradeItem.name = ItemDescription.Substring(0, ItemDescription.IndexOf(" - ")).Trim();
+            }
 
             if (Settings.IsTradeBot == true && !(Donating || PutOnSale))
             {

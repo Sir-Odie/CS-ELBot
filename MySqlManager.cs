@@ -6213,6 +6213,7 @@ namespace cs_elbot
             try
             {
                 rowsAffected = cmd.ExecuteNonQuery();
+		Console.WriteLine(sql + "; " + playerName + "; " + Settings.botid + "; " + rowsAffected);
                 if (rowsAffected > 0)
                 {
                     setPlayerOnline(playerName);
@@ -6240,6 +6241,7 @@ namespace cs_elbot
                 cmd = new MySqlCommand(sql, MyConnection); 
                 cmd.Parameters.AddWithValue("?playerName", playerName);
                 cmd.Parameters.AddWithValue("?botid", Settings.botid);
+		Console.WriteLine(sql + "; " + playerName + "; " + Settings.botid);
                 try
                 {
                     rowsAffected = cmd.ExecuteNonQuery();
