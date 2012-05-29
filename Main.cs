@@ -201,7 +201,7 @@ namespace cs_elbot
                 AdvancedCommunication.GuildTextHandler MyGuildTextHandler = new AdvancedCommunication.GuildTextHandler(MyRawText, MyTCPWrapper, MyMessageParser, MyMySqlManager, MyLogger);
 
                 AdvancedCommunication.GreetPlayers MyGreetPlayers = new AdvancedCommunication.GreetPlayers(MyTCPWrapper, MyMySqlManager, MyActorHandler);
-                AdvancedCommunication.AdvertHandler MyAdvertHandler = new AdvancedCommunication.AdvertHandler(MyTCPWrapper, MyMySqlManager, MyLogger, MyTradeHandler, MyInventory, MyErrorHandler);
+                AdvancedCommunication.AdvertHandler MyAdvertHandler = new AdvancedCommunication.AdvertHandler(MyTCPWrapper, MyMySqlManager, MyLogger, MyTradeHandler, MyInventory, MyErrorHandler, MyStats);
                 AdvancedCommunication.HouseKeepingHandler MyHouseKeepingHandler = new AdvancedCommunication.HouseKeepingHandler(MyTCPWrapper, MyMySqlManager, MyLogger, MyErrorHandler);
                 AdvancedCommunication.AltAdvertHandler MyAltAdvertHandler = new AdvancedCommunication.AltAdvertHandler(MyTCPWrapper, MyMySqlManager, MyLogger, MyTradeHandler, MyInventory, MyErrorHandler);
                 //AdvancedCommunication.RulesHandler MyRulesHandler = new AdvancedCommunication.RulesHandler(MyTCPWrapper, MyMySqlManager, MyLogger, MyTradeHandler);

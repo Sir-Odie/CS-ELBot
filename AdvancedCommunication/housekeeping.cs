@@ -22,7 +22,7 @@ using System.Timers;
 namespace cs_elbot.AdvancedCommunication
 {
     /// <summary>
-    /// description of AdvertHandler.
+    /// description of HouseKeepingHandler.
     /// </summary>
     public class HouseKeepingHandler
     {
