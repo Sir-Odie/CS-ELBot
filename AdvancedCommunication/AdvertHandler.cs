@@ -173,7 +173,7 @@ namespace cs_elbot.AdvancedCommunication
                             }
                         }
                         randomRate = randomDouble.NextDouble();
-                        if (randomRate < sellRate)
+                        if ((randomRate < sellRate) || ((TheMySqlManager.GetBotPhysqiue(Settings.botid) + TheMySqlManager.GetBotCoordination(Settings.botid)) * 10 - TheStats.MyCurrentCarryingAmt == 0))
                         {
                             //selling
                             advertstr = "Selling:";
@@ -217,7 +217,6 @@ namespace cs_elbot.AdvancedCommunication
                         {
                             //buying
 			    if((TheMySqlManager.GetBotPhysqiue(Settings.botid) + TheMySqlManager.GetBotCoordination(Settings.botid)) * 10 - TheStats.MyCurrentCarryingAmt == 0)
-			    { return; }
                             advertstr = "Buying:";
                             foreach (TradeHandler.WantedItem MyWantedItem in MyWantedItemsList)
                             {
