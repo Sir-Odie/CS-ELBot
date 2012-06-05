@@ -63,7 +63,7 @@ namespace cs_elbot.AdvancedCommunication
 			
 			string[] CommandArray = Message.Split(' ');
 
-            if (CommandArray[0] == "#donate" || (CommandArray[0] == "#donation" || (CommandArray[0] == "#d" && CommandArray.Length==1))
+            if (CommandArray[0] == "#donate" || CommandArray[0] == "#donation" || (CommandArray[0] == "#d" && CommandArray.Length==1))
 			{
                 if (TheMySqlManager.GetUserRank(e.username, Settings.botid) < TheMySqlManager.GetCommandRank("#donate", Settings.botid))
                 {
