@@ -414,12 +414,12 @@ namespace cs_elbot
 
             // Check if I am a trade bot or a storage bot
             //ok, if this person isn't in range at all, we don't wanna try to trade with them
-            if (TheActorHandler.ActorsHashTable.Contains(TheActorHandler.GetUserIDFromname(TradePartnerUsername)) == false)
-            {
-                TheTCPWrapper.Send(CommandCreator.EXIT_TRADE());
-                TheTCPWrapper.Send(CommandCreator.SEND_PM(TradePartnerUsername, "Trying to trade out of range is a no no! please don't do it :P"));
-                return;
-            }
+            //if (TheActorHandler.ActorsHashTable.Contains(TheActorHandler.GetUserIDFromname(TradePartnerUsername)) == false)
+            //{
+            //    TheTCPWrapper.Send(CommandCreator.EXIT_TRADE());
+            //    TheTCPWrapper.Send(CommandCreator.SEND_PM(TradePartnerUsername, "Trying to trade out of range is a no no! please don't do it :P"));
+            //    return;
+            //}
             if (MainClass.botType == 3)
             {
                 TheTCPWrapper.Send(CommandCreator.SEND_PM(TradePartnerUsername, "Hello " + TradePartnerUsername + ", I am a guard bot"));
