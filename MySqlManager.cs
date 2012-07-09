@@ -3219,6 +3219,38 @@ namespace cs_elbot
                 MyConnection.Close();
                 return id;//we found a perfect match
             }
+            count = -1;
+            sql = "SELECT id FROM knownitems WHERE lower(name) = ?name";
+            cmd = new MySqlCommand(sql, MyConnection);
+            cmd.Parameters.AddWithValue("?name", MyTempTradeItem.name.ToLower());
+            TheLogger.Debug(sql + "\n");
+            reader = cmd.ExecuteReader();
+
+            try
+            {
+                while (reader.Read())
+                {
+                    id = reader.GetInt16(0);
+                    count++;
+                }
+            }
+            catch (MySqlException oMySQLException)
+            {
+                myErrorHandler.errorWriter(oMySQLException);
+            }
+            catch (Exception oException)
+            {
+                myErrorHandler.errorWriter(oException);
+            }
+            finally
+            {
+                reader.Close();
+            }
+            if (id != -1 && count == 0)
+            {
+                MyConnection.Close();
+                return id;//we found a perfect match
+            }
 
             if (id == -1)
             {
