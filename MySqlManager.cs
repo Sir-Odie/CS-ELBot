@@ -3516,6 +3516,38 @@ namespace cs_elbot
             }
 
             cmd.Parameters.Clear();
+            sql = "SELECT id FROM knownitems WHERE name = ?name order by name;";
+            cmd = new MySqlCommand(sql, MyConnection);
+            cmd.Parameters.AddWithValue("?name", item.name.ToLower() );
+
+            TheLogger.Debug(sql + "\n");
+            reader = cmd.ExecuteReader();
+            try
+            {
+                while (reader.Read())
+                {
+                    id = reader.GetInt16(0);
+                }
+            }
+            catch (MySqlException oMySQLException)
+            {
+                myErrorHandler.errorWriter(oMySQLException);
+            }
+            catch (Exception oException)
+            {
+                myErrorHandler.errorWriter(oException);
+            }
+            finally
+            {
+                reader.Close();
+            }
+            if (id != -1)
+            {
+                MyConnection.Close();
+                return id;
+            }
+
+            cmd.Parameters.Clear();
             sql = "SELECT id FROM knownitems WHERE imageid = ?imageid and name LIKE ?name order by imageid, name;";
             cmd = new MySqlCommand(sql, MyConnection);
             cmd.Parameters.AddWithValue("?imageid", item.imageid);
