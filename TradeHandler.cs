@@ -26,15 +26,15 @@ namespace cs_elbot
 	/// </summary>
 	public class TradeHandler
 	{
-        private AdvancedCommunication.HelpCommandHandler TheHelpCommandHandler;
-        private errorHandler TheErrorHandler;
+        	private AdvancedCommunication.HelpCommandHandler TheHelpCommandHandler;
+        	private errorHandler TheErrorHandler;
 		private TCPWrapper TheTCPWrapper;
 		private BasicCommunication.MessageParser TheMessageParser;
 		private Logger TheLogger;
 		private MySqlManager TheMySqlManager;
 		private Inventory TheInventory;
-        private AdvancedCommunication.ActorHandler TheActorHandler;
-        private Storage TheStorage;
+        	private AdvancedCommunication.ActorHandler TheActorHandler;
+        	private Storage TheStorage;
 
 		private int TradeTimeElapsed = 0;
 		public System.Timers.Timer TradeTimer = new System.Timers.Timer();
@@ -50,45 +50,39 @@ namespace cs_elbot
 		private System.Collections.ArrayList InventorySnapshop = new System.Collections.ArrayList();
 		private System.Collections.ArrayList InventorySnapshopLoging = new System.Collections.ArrayList();
 
-        private System.Collections.ArrayList StorageSnapshot = new System.Collections.ArrayList();
+        	private System.Collections.ArrayList StorageSnapshot = new System.Collections.ArrayList();
         
-        //private System.Collections.Hashtable MyTradeItemsList = new System.Collections.Hashtable();
-		
 		public System.Collections.Hashtable PartnerTradeItemsList = new System.Collections.Hashtable();
-        //going to need this, btu it needs to be the total trade log, not juse my items
-        //public System.Collections.ArrayList TradeLogItemList = new System.Collections.ArrayList();
-        public System.Collections.ArrayList MyItemList = new System.Collections.ArrayList();
+	        public System.Collections.ArrayList MyItemList = new System.Collections.ArrayList();
 
 
-        public bool storageAvailable = false;
-        public double Billance = 0;
+        	public bool storageAvailable = false;
+        	public double Billance = 0;
 		
 		public static string username = "";
 		public bool Trading = false;
-        public bool SentThanks = false;
+        	public bool SentThanks = false;
 		public bool Donating = false;
-        public bool Gambling = false;
-        public bool claimingPrize = false;
-        public bool Giving = false;
+        	public bool Gambling = false;
+        	public bool claimingPrize = false;
+        	public bool Giving = false;
 		public bool PutOnSale = false;
 
-        //variables for new total command
-        public bool totalCalculated = false;
-        public double totalOwed = 0;
-        public bool invalidItem = false;
-        public int idleTradeTime = 0;
-        public bool idleWarningSent = false;
+        	//variables for new total command
+        	public bool totalCalculated = false;
+        	public double totalOwed = 0;
+        	public bool invalidItem = false;
+        	public int idleTradeTime = 0;
+        	public bool idleWarningSent = false;
 
 
-
-
-        public struct TradeLogItem
+        	public struct TradeLogItem
 		{
 			public double price;
 			public uint quantity;
 			public int KnownItemsSqlID;
 			public string action;
-            public int categoryNum;
+            		public int categoryNum;
 		}
 		
 		public struct SellingItem
@@ -100,7 +94,6 @@ namespace cs_elbot
 			public double pricesale;
 			public double pricesalemembers;
 		}
-
 		
 		public struct WantedItem
 		{
@@ -108,12 +101,12 @@ namespace cs_elbot
 			public int SellingItemsSqlID;
 			public int KnownItemsSqlID;
 			public bool announce;
-            public double pricepurchase;
-            public double pricepurchasemembers;
-            public int maxquantity;
-            public string name;
-            public int weight;
-        }
+            		public double pricepurchase;
+            		public double pricepurchasemembers;
+            		public int maxquantity;
+            		public string name;
+            		public int weight;
+        	}
 		
 		public struct TradeItem
 		{
@@ -122,27 +115,27 @@ namespace cs_elbot
 			public uint quantity;
 			public string name;
 			public int KnownItemsSqlID;
-            public double pricepurchase;
-            public double pricepurchasemembers;
-            public int weight;
-            public int maxQuantity;
-            public bool validTradeItem;
-            public int ELServerItemID;
-        }
+            		public double pricepurchase;
+            		public double pricepurchasemembers;
+            		public int weight;
+            		public int maxQuantity;
+            		public bool validTradeItem;
+            		public int ELServerItemID;
+        	}
 
 		
 		public TradeHandler(TCPWrapper MyTCPWrapper, BasicCommunication.MessageParser MyMessageParser, MySqlManager MyMySqlManager, Inventory MyInventory, AdvancedCommunication.ActorHandler MyActorHandler, Logger MyLogger, Storage MyStorage, errorHandler MyErrorHandler, AdvancedCommunication.HelpCommandHandler MyHelpCommandHandler)
 		{
-            this.TheErrorHandler = MyErrorHandler;
-            this.TheHelpCommandHandler = MyHelpCommandHandler;
+            		this.TheErrorHandler = MyErrorHandler;
+            		this.TheHelpCommandHandler = MyHelpCommandHandler;
 			this.TheTCPWrapper = MyTCPWrapper;
 			this.TheMessageParser = MyMessageParser;
 			this.TheMySqlManager = MyMySqlManager;
 			this.TheInventory = MyInventory;
 			this.TheActorHandler = MyActorHandler;
 			this.TheLogger = MyLogger;
-            this.TheStorage = MyStorage;
-            //this.TheErrorHandler = MyErrorHandler;
+            		this.TheStorage = MyStorage;
+            		//this.TheErrorHandler = MyErrorHandler;
 
 			
 			TradeTimer.Stop();
@@ -153,45 +146,43 @@ namespace cs_elbot
 			this.TheMessageParser.Got_TradeRequest += new BasicCommunication.MessageParser.Got_TradeRequest_EventHandler(OnGotTradeRequest);
 			this.TheMessageParser.Got_AbortTrade += new BasicCommunication.MessageParser.Got_AbortTrade_EventHandler(OnGotAbortTrade);
 			this.TheInventory.GotNewInventoryList += new Inventory.GotNewInventoryListEventHandler(OnGotNewInventoryList);
-            if (Settings.IsTradeBot == true)
-            {
-                MyHelpCommandHandler.AddCommand("#total - get a detailed total of your transaction");
-            }
+            		if (Settings.IsTradeBot == true)
+            		{
+            		    MyHelpCommandHandler.AddCommand("#total - get a detailed total of your transaction");
+            		}
 
-            TheMessageParser.Got_PM += new BasicCommunication.MessageParser.Got_PM_EventHandler(OnGotPM);
-
+            		TheMessageParser.Got_PM += new BasicCommunication.MessageParser.Got_PM_EventHandler(OnGotPM);
 		}
 
-        public bool AmITrading()
-        {
-            return Trading;
-        }
+
+       		public bool AmITrading()
+        	{
+        	    return Trading;
+        	}
+
 
 		private void OnGotNewInventoryList(object sender, Inventory.GotNewInventoryListEventArgs e)
 		{
-            if (Trading == true)
-            {
-                Console.WriteLine("Getting inventory list while trading!!!");
-                return;
-            }
-            bool Member = (TheMySqlManager.CheckIfTradeMember(TradeHandler.username, Settings.botid) == true);
-            //Log items got
+	            	if (Trading == true)
+        	    	{
+                		Console.WriteLine("Getting inventory list while trading!!!");
+                		return;
+	            	}
+ 	        	bool Member = (TheMySqlManager.CheckIfTradeMember(TradeHandler.username, Settings.botid) == true);
+            		//Log items got
 			foreach (TradeItem MyTradeItem in PartnerTradeItemsList.Values)
 			{
 				if (MyTradeItem.name!="Gold Coins")
 				{
 					string action = "";
-					//if (this.Donating==true)
-					{
-                        if (storageAvailable)
-                        {
-                            action = "received from (to sto)";
-                        }
-                        else
-                        {
-                            action = "received from (to inv)";
-                        }
-					}
+                        		if (storageAvailable)
+                        		{
+                            			action = "received from (to sto)";
+                        		}
+                        		else
+                        		{
+                            			action = "received from (to inv)";
+                        		}
 					if (this.PutOnSale==true)
 					{
 						action = "putonsale";
@@ -200,154 +191,138 @@ namespace cs_elbot
 					{
 						action = "bought from";
 					}
-                    if (((!Member && MyTradeItem.pricepurchase == 0) || (!Member && MyTradeItem.pricepurchase == 0)) && action == "bought from")
+                    			if (((!Member && MyTradeItem.pricepurchase == 0) || (!Member && MyTradeItem.pricepurchase == 0)) && action == "bought from")
 					{
 						action = "received from (to inv)";
 					}
-                    AddTrade(MyTradeItem.KnownItemsSqlID, (Member ? MyTradeItem.pricepurchasemembers : MyTradeItem.pricepurchase), MyTradeItem.quantity, action);
-                }
+                    			AddTrade(MyTradeItem.KnownItemsSqlID, (Member ? MyTradeItem.pricepurchasemembers : MyTradeItem.pricepurchase), MyTradeItem.quantity, action);
+                		}
 				else
 				{
 					//Check if money was donated
-                    string action = "";
-                    if (this.Donating == true)
-                    {
-                        if (storageAvailable)
-                        {
-                            action = "received from (to sto)";
-                        }
-                        else
-                        {
-                            action = "received from (to inv)";
-                        }
-                    }
-                    else
-                    {
-                        action = "transaction coins from";
-                    }
-                    AddTrade(MyTradeItem.KnownItemsSqlID, (Member ? MyTradeItem.pricepurchasemembers : MyTradeItem.pricepurchase), (uint)(MyTradeItem.quantity - System.Convert.ToInt32(System.Math.Ceiling(this.Billance))), action);
-                }
+                    			string action = "";
+                    			if (this.Donating == true)
+                    			{
+                        			if (storageAvailable)
+                        			{
+                            				action = "received from (to sto)";
+                        			}
+                        			else
+                        			{
+                            				action = "received from (to inv)";
+                        			}
+                    			}
+                    			else
+                    			{
+                        			action = "transaction coins from";
+                    			}
+                    			AddTrade(MyTradeItem.KnownItemsSqlID, (Member ? MyTradeItem.pricepurchasemembers : MyTradeItem.pricepurchase), (uint)(MyTradeItem.quantity - System.Convert.ToInt32(System.Math.Ceiling(this.Billance))), action);
+                		}
 			}
 
-            //can't we just check the tradeloglist, if we have a trade to log, we log it?
-            //Check this later!!!
-            if (this.MyItemList.Count > 0)
-            {
-                LogTrade();
-            }
+            		//can't we just check the tradeloglist, if we have a trade to log, we log it?
+            		//Check this later!!!
+            		if (this.MyItemList.Count > 0)
+            		{
+                		LogTrade();
+            		}
 
-            // Check if there was a change in the inventory list
-            //if (e.TheInventory.Count!=InventorySnapshopLoging.Count && InventorySnapshopLoging.Count!=0)
-            //{
-            //    LogTrade();
-            //    return;
-            //}
-			
-            //Inventory.inventory_item[] MyInventoryItemsArrayA = (Inventory.inventory_item[])InventorySnapshopLoging.ToArray(typeof(Inventory.inventory_item));
-            //Inventory.inventory_item[] MyInventoryItemsArrayB = (Inventory.inventory_item[])e.TheInventory.ToArray(typeof(Inventory.inventory_item));
-			
-            //for (int i=0;i<MyInventoryItemsArrayA.Length;i++)
-            //{
-            //    if ((MyInventoryItemsArrayA[i].name != MyInventoryItemsArrayB[i].name) || (MyInventoryItemsArrayA[i].quantity!=MyInventoryItemsArrayB[i].quantity))
-            //    {
-            //        LogTrade();
-            //        return;
-            //    }
-            //}
-            Trading = false;
-            itemTraded = false;
-            return;
+            		Trading = false;
+            		itemTraded = false;
+            		return;
 		}
 		
+
 		public void LogTrade()
 		{
-            if (SentThanks == false)
-            {
-                // Log the trade
-                // get the flag to say if coins should be displayed to the owner...
-                bool sendOwnerCoinPMs = this.TheMySqlManager.sendCoinPMs();
-                foreach (TradeLogItem MyTradeLogItem in MyItemList)
-                {
-                    if (MyTradeLogItem.action.ToLower().Contains("transaction coins"))
-                    {
-                        continue;
-                    }
-                    this.TheMySqlManager.LogTrade(MyTradeLogItem, TradeHandler.username, Settings.botid, sendOwnerCoinPMs);
+            		if (SentThanks == false)
+            		{
+                		// Log the trade
+                		// get the flag to say if coins should be displayed to the owner...
+                		bool sendOwnerCoinPMs = this.TheMySqlManager.sendCoinPMs();
+                		foreach (TradeLogItem MyTradeLogItem in MyItemList)
+                		{
+                    			if (MyTradeLogItem.action.ToLower().Contains("transaction coins"))
+                    			{
+                        			continue;
+                    			}
+                    			this.TheMySqlManager.LogTrade(MyTradeLogItem, TradeHandler.username, Settings.botid, sendOwnerCoinPMs);
 
-                    if (Settings.IsTradeBot == false && !MyTradeLogItem.action.Contains("inv") && Donating == false && !withdrawMade && !depositMade)
-                    {
-                        TheMySqlManager.UpdateStorageItem(MyTradeLogItem, false);
-                    }
-                }
-                foreach (TradeLogItem MyTradeLogItem in MyItemList)
-                {
-                    if (!MyTradeLogItem.action.ToLower().Contains("transaction coins"))
-                    {
-                        continue;
-                    }
-                    this.TheMySqlManager.LogTrade(MyTradeLogItem, TradeHandler.username, Settings.botid, sendOwnerCoinPMs);
+                    			if (Settings.IsTradeBot == false && !MyTradeLogItem.action.Contains("inv") && Donating == false && !withdrawMade && !depositMade)
+                    			{
+                        			TheMySqlManager.UpdateStorageItem(MyTradeLogItem, false);
+                    			}
+                		}
+                		foreach (TradeLogItem MyTradeLogItem in MyItemList)
+                		{
+                    			if (!MyTradeLogItem.action.ToLower().Contains("transaction coins"))
+                    			{
+                        			continue;
+                    			}
+                    			this.TheMySqlManager.LogTrade(MyTradeLogItem, TradeHandler.username, Settings.botid, sendOwnerCoinPMs);
 
-                    if (Settings.IsTradeBot == false && !MyTradeLogItem.action.Contains("inv") && Donating == false && !withdrawMade && !depositMade)
-                    {
-                        TheMySqlManager.UpdateStorageItem(MyTradeLogItem, false);
-                    }
-                }
+                    			if (Settings.IsTradeBot == false && !MyTradeLogItem.action.Contains("inv") && Donating == false && !withdrawMade && !depositMade)
+                    			{
+                        			TheMySqlManager.UpdateStorageItem(MyTradeLogItem, false);
+                    			}
+                		}
 
-                this.PartnerTradeItemsList = new System.Collections.Hashtable();
-                //Check this later
-                this.MyItemList = new System.Collections.ArrayList();
+                		this.PartnerTradeItemsList = new System.Collections.Hashtable();
+                		//Check this later
+                		this.MyItemList = new System.Collections.ArrayList();
 
-                this.InventorySnapshop = TheInventory.GetInventoryList();
-                this.InventorySnapshopLoging = (System.Collections.ArrayList)InventorySnapshop.Clone();
+                		this.InventorySnapshop = TheInventory.GetInventoryList();
+                		this.InventorySnapshopLoging = (System.Collections.ArrayList)InventorySnapshop.Clone();
 
-                this.Donating = false;
-                this.PutOnSale = false;
-                //this.storageAvailable = false;
-                TheTCPWrapper.Send(CommandCreator.SEND_PM(TradeHandler.username, "Thank you for using my services!"));
-                TheLogger.Log("Trade was successful!");
-                SentThanks = true;
-                openingStorage = false;
-                TradeHandler.username = "";
-//              TheTCPWrapper.Send(CommandCreator.SIT_DOWN(false));
-            }
-            this.storageAvailable = false;
-        }
+                		this.Donating = false;
+                		this.PutOnSale = false;
+                		TheTCPWrapper.Send(CommandCreator.SEND_PM(TradeHandler.username, "Thank you for using my services!"));
+                		TheLogger.Log("Trade was successful!");
+                		SentThanks = true;
+                		openingStorage = false;
+                		TradeHandler.username = "";
+            		}
+            		this.storageAvailable = false;
+        	}
 		
+
 		public void AddTrade(int KnownItemsSqlID, double price, uint quantity, string action)
 		{
-            TradeLogItem MyTradeLogItem;
+            		TradeLogItem MyTradeLogItem;
 			MyTradeLogItem.action = action;
 			MyTradeLogItem.quantity = quantity;
 			MyTradeLogItem.price = price;
 			MyTradeLogItem.KnownItemsSqlID = KnownItemsSqlID;
-            MyTradeLogItem.categoryNum = -1;
-            int count = 0;
-            bool found = false;
-            for (count = 0; count < MyItemList.Count; count++)
-            {
-                TradeLogItem tempItem = (TradeLogItem)MyItemList[count];
-                if (tempItem.KnownItemsSqlID == MyTradeLogItem.KnownItemsSqlID && tempItem.action == MyTradeLogItem.action)
-                {
-                    tempItem.quantity += quantity;
-                    MyItemList[count] = tempItem;
-                    found = true;
-                    break;
-                }
-            }
-            if (!found)
-            {
-                MyItemList.Add(MyTradeLogItem);
-            }
-            TheLogger.Debug("AddTrade " + KnownItemsSqlID.ToString() + "\n");
+            		MyTradeLogItem.categoryNum = -1;
+            		int count = 0;
+            		bool found = false;
+            		for (count = 0; count < MyItemList.Count; count++)
+            		{
+                		TradeLogItem tempItem = (TradeLogItem)MyItemList[count];
+                		if (tempItem.KnownItemsSqlID == MyTradeLogItem.KnownItemsSqlID && tempItem.action == MyTradeLogItem.action)
+                		{
+                    			tempItem.quantity += quantity;
+                    			MyItemList[count] = tempItem;
+                    			found = true;
+                    			break;
+                		}
+            		}
+            		if (!found)
+            		{
+                		MyItemList.Add(MyTradeLogItem);
+            		}
+            		TheLogger.Debug("AddTrade " + KnownItemsSqlID.ToString() + "\n");
 		}
 
-        private void OnGotTradeRequest(object sender, BasicCommunication.MessageParser.Got_TradeRequest_EventArgs e, bool junk)
-        {
-            string TradePartnerUsername = e.username;
-            Int16 TradePartnerUserID = TheActorHandler.GetUserIDFromname(TradePartnerUsername);
-            TheTCPWrapper.Send(CommandCreator.TRADE_WITH(TradePartnerUserID));
-        }
-        
+
+        	private void OnGotTradeRequest(object sender, BasicCommunication.MessageParser.Got_TradeRequest_EventArgs e, bool junk)
+        	{
+            		string TradePartnerUsername = e.username;
+            		Int16 TradePartnerUserID = TheActorHandler.GetUserIDFromname(TradePartnerUsername);
+            		TheTCPWrapper.Send(CommandCreator.TRADE_WITH(TradePartnerUserID));
+        	}
+
+
         private void OnGotTradeRequest(object sender, BasicCommunication.MessageParser.Got_TradeRequest_EventArgs e)
         {
             string TempPartnerUsername = e.username;
@@ -413,13 +388,6 @@ namespace cs_elbot
 			}
 
             // Check if I am a trade bot or a storage bot
-            //ok, if this person isn't in range at all, we don't wanna try to trade with them
-            //if (TheActorHandler.ActorsHashTable.Contains(TheActorHandler.GetUserIDFromname(TradePartnerUsername)) == false)
-            //{
-            //    TheTCPWrapper.Send(CommandCreator.EXIT_TRADE());
-            //    TheTCPWrapper.Send(CommandCreator.SEND_PM(TradePartnerUsername, "Trying to trade out of range is a no no! please don't do it :P"));
-            //    return;
-            //}
             if (MainClass.botType == 3)
             {
                 TheTCPWrapper.Send(CommandCreator.SEND_PM(TradePartnerUsername, "Hello " + TradePartnerUsername + ", I am a guard bot"));
@@ -704,26 +672,6 @@ namespace cs_elbot
                     TheTCPWrapper.Send(CommandCreator.LOOK_AT_STORAGE_ITEM(pos));
                 }
             }
-            //if (item_count > 0)
-            //{
-            //    itemsFoundInStorage = true;
-            //    for (int i = 0; i < item_count; i++)
-            //    {
-            //        imageid = System.BitConverter.ToUInt16(data, i * 8 + 5);
-            //        quantity = System.BitConverter.ToUInt32(data, i * 8 + 5 + 2);
-            //        //pos = data[i * 8 + 5 + 6];
-            //        //pos = System.BitConverter.ToUInt16(data, i * 8 + 5 + 6);
-            //        pos = System.BitConverter.ToUInt16(data, i * 8 + 5 + 6);
-            //        MyStorageItem.imageid = imageid;
-            //        MyStorageItem.pos = pos;
-            //        MyStorageItem.quantity = quantity;
-            //        MyStorageItem.name = "";
-            //        MyStorageItem.category_num = (int)category_num;
-            //        TheStorage.AddItem(MyStorageItem);
-            //        TheTCPWrapper.Send(CommandCreator.LOOK_AT_STORAGE_ITEM(pos));
-            //        //System.Threading.Thread.Sleep(20);
-            //    }
-            //}
             categoryCount++;
             if (categoryCount == total_categories && !itemsFoundInStorage)
             {
@@ -890,67 +838,6 @@ namespace cs_elbot
             storageAvailable = false;
         }
 		
-        //public void ChangeBillance(double Billance)
-        //{
-        //    // Trying to fix floating point operations
-        //    Billance = Billance * 1000;
-        //    Billance = System.Math.Round(Billance);
-        //    Billance = Billance / 1000;
-			
-        //    this.Billance = this.Billance * 1000;
-        //    this.Billance = System.Math.Round(this.Billance);
-        //    this.Billance = this.Billance / 1000;
-			
-        //    this.Billance += Billance;
-			
-        //    this.Billance = this.Billance * 1000;
-        //    this.Billance = System.Math.Round(this.Billance);
-        //    this.Billance = this.Billance / 1000;
-        //    int RoundedBillance = System.Convert.ToInt32(System.Math.Floor(this.Billance));
-			
-        //    if (RoundedBillance>this.MyMoneyOnTrade)
-        //    {
-        //        this.MyMoneyOnTrade += PutItemsOnTrade(1, (System.Convert.ToUInt32(RoundedBillance - this.MyMoneyOnTrade)),true);
-        //        if (this.MyMoneyOnTrade<RoundedBillance)
-        //        {
-        //            TheTCPWrapper.Send(CommandCreator.SEND_PM(username,"Sorry, I don't have enough change!"));
-        //        }
-        //    }
-			
-        //    if (this.MyMoneyOnTrade>RoundedBillance && this.MyMoneyOnTrade>0)
-        //    {
-        //        if (RoundedBillance<=0)
-        //        {
-        //            // Update the InventorySnapshop
-        //            Inventory.inventory_item MyInventoryItem = (Inventory.inventory_item)InventorySnapshop[this.MyMoneySlotID];
-        //            MyInventoryItem.quantity += this.MyMoneyOnTrade;
-        //            InventorySnapshop[this.MyMoneySlotID] = MyInventoryItem;
-					
-        //            // Remove the items from trade
-        //            TheTCPWrapper.Send(CommandCreator.REMOVE_OBJECT_FROM_TRADE(System.Convert.ToByte(this.MyMoneyOnTradeSlotID),this.MyMoneyOnTrade));
-        //            this.MyMoneyOnTrade = 0;
-        //        }
-        //        else
-        //        {
-        //            // Update the InventorySnapshop
-        //            Inventory.inventory_item MyInventoryItem = (Inventory.inventory_item)InventorySnapshop[this.MyMoneySlotID];
-        //            MyInventoryItem.quantity += System.Convert.ToUInt32((this.MyMoneyOnTrade-RoundedBillance));
-        //            InventorySnapshop[this.MyMoneySlotID] = MyInventoryItem;
-					
-        //            // Remove the items from trade
-        //            TheTCPWrapper.Send(CommandCreator.REMOVE_OBJECT_FROM_TRADE(System.Convert.ToByte(this.MyMoneyOnTradeSlotID),System.Convert.ToUInt32((this.MyMoneyOnTrade-RoundedBillance))));
-        //            this.MyMoneyOnTrade -= System.Convert.ToUInt32((this.MyMoneyOnTrade-RoundedBillance));
-        //        }
-        //    }
-			
-        //    if (RoundedBillance<this.MyMoneyOnTrade)
-        //    {
-        //        TheTCPWrapper.Send(CommandCreator.SEND_PM(username,"You owe me " + (-RoundedBillance).ToString() + " gc!"));
-        //    }
-			
-        //    TheLogger.Debug("Billance:" + this.Billance.ToString() + "\n");
-        //    TheLogger.Debug("RoundedBillance:" + RoundedBillance.ToString() + "\n");
-        //}
 
         public uint PutItemsOnTrade(int SQLID, uint quantity)
         { 
@@ -1049,267 +936,7 @@ namespace cs_elbot
             Console.WriteLine("Amount to trade: " + amountToTrade);
             return amountToTrade;
         }
-        //public uint PutItemsOnTrade(int SQLID, uint quantity, bool fromInventory)  //old code saved for reference...
-        //{
-        //    itemTraded = true;
-        //    uint QuantityPutOnTrade = 0;
-        //    bool itemFound = false;
-        //    uint reservedAmount = TheMySqlManager.ReservedAmount(SQLID);
-        //    uint reservedAmountForUser = TheMySqlManager.ReservedAmountForUser(SQLID, username);
-        //    Console.WriteLine("SQLID: " + SQLID);
-        //    Console.WriteLine("Quantity: " + quantity);
-        //    Console.WriteLine("reservedAmount: " + reservedAmount);
-        //    Console.WriteLine("reservedAmountForUser: " + reservedAmountForUser);
-        //    uint totalOnHand = 0;
-        //    if (fromInventory)
-        //    {
-        //        for (int i = 0; i < InventorySnapshop.Count; i++)
-        //        {
-        //            Inventory.inventory_item MyInventoryItem = (Inventory.inventory_item)InventorySnapshop[i];
-        //            if (MyInventoryItem.SqlID == SQLID && MyInventoryItem.pos < 36)
-        //            {
-        //                itemFound = true;
-        //                totalOnHand += MyInventoryItem.quantity;
-        //            }
-        //        }
-        //    }
-        //    else
-        //    {
-        //        Storage.StorageItem MyStorageItem = (Storage.StorageItem)StorageSnapshot[i];
-        //        for (int i = 0; i < StorageSnapshot.Count; i++)
-        //        {
-        //            if (MyStorageItem.knownItemsID == SQLID && itemFound == false)
-        //            {
-        //                itemFound = true;
-        //                totalOnHand = MyStorageItem.quantity;
-        //            }
-        //        }
-        //    }
-
-        //    if (fromInventory == true)
-        //    {
-        //        for (int i = 0; i < InventorySnapshop.Count; i++)
-        //        {
-        //            Inventory.inventory_item MyInventoryItem = (Inventory.inventory_item)InventorySnapshop[i];
-
-        //            if (MyInventoryItem.SqlID == SQLID && MyInventoryItem.pos < 36)
-        //            {
-        //                Console.WriteLine("Inventory Quantity: " + MyInventoryItem.quantity);
-        //                if (MyInventoryItem.is_stackable == true)
-        //                {
-        //                    if (MyInventoryItem.quantity > (reservedAmount + quantity))
-        //                    {
-        //                        QuantityPutOnTrade += (uint)(quantity);
-        //                        TheTCPWrapper.Send(CommandCreator.PUT_OBJECT_ON_TRADE(MyInventoryItem.pos, (uint)(QuantityPutOnTrade), fromInventory));
-        //                        if ((MyInventoryItem.quantity - (uint)QuantityPutOnTrade) < 0)
-        //                        {
-        //                            MyInventoryItem.quantity = 0;
-        //                        }
-        //                        else
-        //                        {
-        //                            MyInventoryItem.quantity -= (uint)QuantityPutOnTrade;
-        //                        }
-        //                        InventorySnapshop[i] = MyInventoryItem;
-        //                    }
-        //                    else
-        //                    {
-        //                        int qtyAvailableForTrade = (int)(MyInventoryItem.quantity - (reservedAmount - reservedAmountForUser));
-        //                        if (qtyAvailableForTrade > 0)
-        //                        {
-        //                            if (qtyAvailableForTrade < MyInventoryItem.quantity)
-        //                            {
-        //                                if (qtyAvailableForTrade > quantity)
-        //                                {
-        //                                    QuantityPutOnTrade = quantity;
-        //                                }
-        //                                else
-        //                                {
-        //                                    QuantityPutOnTrade = (uint)qtyAvailableForTrade;
-        //                                }
-        //                            }
-        //                            else
-        //                            {
-        //                                if (qtyAvailableForTrade > quantity)
-        //                                {
-        //                                    QuantityPutOnTrade = quantity;
-        //                                }
-        //                                else
-        //                                {
-        //                                    QuantityPutOnTrade = (uint)qtyAvailableForTrade;
-        //                                }
-        //                            }
-        //                        }
-        //                        else
-        //                        {
-        //                            QuantityPutOnTrade = 0;
-        //                        }
-        //                        //                                QuantityPutOnTrade += (uint)(MyInventoryItem.quantity - reservedAmount);
-        //                        TheTCPWrapper.Send(CommandCreator.PUT_OBJECT_ON_TRADE(MyInventoryItem.pos, (uint)QuantityPutOnTrade, fromInventory));
-        //                        MyInventoryItem.quantity -= (uint)QuantityPutOnTrade;
-        //                        InventorySnapshop[i] = MyInventoryItem;
-        //                    }
-        //                }
-        //                else
-        //                {
-        //                    if (reservedAmount == 0 && QuantityPutOnTrade < quantity)
-        //                    {
-        //                        QuantityPutOnTrade += (uint)MyInventoryItem.quantity;
-        //                        TheTCPWrapper.Send(CommandCreator.PUT_OBJECT_ON_TRADE(MyInventoryItem.pos, MyInventoryItem.quantity, fromInventory));
-        //                        MyInventoryItem.quantity = 0;
-        //                        InventorySnapshop[i] = MyInventoryItem;
-        //                    }
-        //                    else if (reservedAmount > 0 && reservedAmountForUser > 0 && QuantityPutOnTrade < quantity - (reservedAmount - reservedAmountForUser))
-        //                    {
-        //                        QuantityPutOnTrade += (uint)MyInventoryItem.quantity;
-        //                        TheTCPWrapper.Send(CommandCreator.PUT_OBJECT_ON_TRADE(MyInventoryItem.pos, MyInventoryItem.quantity, fromInventory));
-        //                        MyInventoryItem.quantity = 0;
-        //                        InventorySnapshop[i] = MyInventoryItem;
-        //                    }
-        //                    else if ((quantity - reservedAmount) > QuantityPutOnTrade)
-        //                    {
-        //                        QuantityPutOnTrade += (uint)MyInventoryItem.quantity;
-        //                        TheTCPWrapper.Send(CommandCreator.PUT_OBJECT_ON_TRADE(MyInventoryItem.pos, MyInventoryItem.quantity, fromInventory));
-        //                        MyInventoryItem.quantity = 0;
-        //                        InventorySnapshop[i] = MyInventoryItem;
-        //                    }
-        //                }
-
-        //                if (QuantityPutOnTrade >= quantity)
-        //                {
-        //                    break;
-        //                }
-        //            }
-        //        }
-        //    }
-        //    else //from/to storage
-        //    {
-        //        int total_items = StorageSnapshot.Count;
-        //        for (int i = 0; i < total_items; i++)
-        //        {
-        //            Storage.StorageItem MyStorageItem = (Storage.StorageItem)StorageSnapshot[i];
-        //            if (MyStorageItem.knownItemsID == SQLID && itemFound == false)
-        //            {
-        //                itemFound = true;
-        //                if (MyStorageItem.quantity <= (quantity - QuantityPutOnTrade))
-        //                {
-        //                    if (MyStorageItem.pos > 255)
-        //                    {
-        //                        TheTCPWrapper.Send(CommandCreator.PUT_OBJECT_ON_TRADE(MyStorageItem.pos, MyStorageItem.quantity, false));
-        //                        QuantityPutOnTrade += (uint)MyStorageItem.quantity;
-        //                        MyStorageItem.quantity = 0;
-        //                        StorageSnapshot[i] = MyStorageItem;
-        //                    }
-        //                    else
-        //                    {
-        //                        TheTCPWrapper.Send(CommandCreator.PUT_OBJECT_ON_TRADE((byte)MyStorageItem.pos, MyStorageItem.quantity, false));
-        //                        QuantityPutOnTrade += (uint)MyStorageItem.quantity;
-        //                        MyStorageItem.quantity = 0;
-        //                        StorageSnapshot[i] = MyStorageItem;
-        //                    }
-        //                }
-        //                else
-        //                {
-        //                    if (MyStorageItem.pos > 255)
-        //                    {
-        //                        TheTCPWrapper.Send(CommandCreator.PUT_OBJECT_ON_TRADE(MyStorageItem.pos, (uint)(quantity - QuantityPutOnTrade)));
-        //                        QuantityPutOnTrade += (uint)quantity;
-        //                        MyStorageItem.quantity -= (uint)quantity;
-        //                        StorageSnapshot[i] = MyStorageItem;
-        //                    }
-        //                    else
-        //                    {
-        //                        TheTCPWrapper.Send(CommandCreator.PUT_OBJECT_ON_TRADE((byte)MyStorageItem.pos, (uint)(quantity - QuantityPutOnTrade)));
-        //                        QuantityPutOnTrade += (uint)quantity;
-        //                        MyStorageItem.quantity -= (uint)quantity;
-        //                        StorageSnapshot[i] = MyStorageItem;
-        //                    }
-        //                }
-        //            }
-        //        }
-
-        //    }
-        //    return (uint)QuantityPutOnTrade;
-        //}
 		
-//        private void GET_TRADE_OBJECT(byte [] buffer)
-//        {
-//            if (Gambling || claimingPrize)
-//            {
-//                return;
-//            }
-//            TheLogger.Debug("GET_TRADE_OBJECT\n");
-			
-//            // buffer[11]==1 --> New trade object on the trade partner side
-//            // buffer[11]==0 --> New trade object on my side
-//            if (buffer[11]==1)
-//            {
-//                byte pos = buffer[10];
-
-//                //here here
-//                TradeItem MyTradeItem;
-//                if (PartnerTradeItemsList.Contains(pos)) // is this item already in the trade window?
-//                {
-////                    if (Settings.IsTradeBot == true)
-//                    {
-//                        MyTradeItem = (TradeItem)PartnerTradeItemsList[pos];
-//                        MyTradeItem.quantity += System.BitConverter.ToUInt32(buffer, 5);
-//                        PartnerTradeItemsList[pos] = MyTradeItem;
-//                        if (MyTradeItem.name != "")
-//                        {
-//                            CheckBuyingItems(MyTradeItem, System.BitConverter.ToUInt32(buffer, 5), MyTradeItem.quantity);
-//                        }
-//                    }
-//                }
-//                else
-//                {
-//                    MyTradeItem = new TradeItem();
-//                    MyTradeItem.pos = pos;
-//                    MyTradeItem.imageid = System.BitConverter.ToInt16(buffer,3);
-//                    if (MyTradeItem.imageid == 3 && Billance == 0 && Donating == false)
-//                    {
-//                        TheLogger.Debug("MyWantedItemList.Contains complete\nItem not wanted for purchase\n");
-//                        TheTCPWrapper.Send(CommandCreator.EXIT_TRADE());
-//                        TheTCPWrapper.Send(CommandCreator.SEND_PM(TradeHandler.username, "Sorry, but I am not buying Gold Coins."));
-//                        return;
-//                    }
-//                    MyTradeItem.quantity = System.BitConverter.ToUInt32(buffer, 5);
-//                    MyTradeItem.name="";
-//                    MyTradeItem.pricepurchase = 0;
-//                    MyTradeItem.pricepurchasemembers = 0;
-					
-//                    MyTradeItem.KnownItemsSqlID=-1;
-//                    //PartnerTradeItemsList.Add(pos, MyTradeItem);
-//                    PartnerTradeItemsList.Add(pos,MyTradeItem);
-					
-//                    GettingTradListItemnameID = pos;
-					
-//                    TheLogger.Debug("Got new Item at pos:" + pos.ToString()+"\n");
-//                    TheTCPWrapper.Send(CommandCreator.LOOK_AT_TRADE_ITEM(pos, true));
-//                }
-//            }
-			
-//            // Check the slot of my own money - old comment
-//            // See if this is the money slot or not, if it is, remember it.
-//            if (buffer[11]==0)
-//            {
-//                byte pos = buffer[10];
-//                int imageid = System.BitConverter.ToInt16(buffer,3);
-				
-//                if (imageid==3)
-//                {
-//                    this.MyMoneyOnTradeSlotID = pos;
-//                }
-//            }
-			
-//            // see if they put money in to pay for the trade, if so, adjust the balance.
-//            if (buffer[11]==1 && System.BitConverter.ToUInt16(buffer,3)==3)
-//            {
-//                if (this.Donating==false)
-//                {
-//                    ChangeBillance((int)System.BitConverter.ToUInt32(buffer,5));
-//                }
-//            }
-//        }
         private void GET_TRADE_OBJECT(byte[] buffer)
         {
             if (Gambling || claimingPrize)
@@ -1579,76 +1206,6 @@ namespace cs_elbot
             }
             return buying;
 
-            ////TheLogger.Debug("CheckBuyingItems(1) Entered\n");
-            //Console.WriteLine("CheckBuyingItems(1) Entered + Item ID found in wanted list:" + foundSQLID +  "\n" );
-            //if (this.Donating == true && quantity > 0)
-            //{
-            //    TheLogger.Debug("Donating\n");
-            //    return 0;
-            //}
-			
-            //if (this.PutOnSale==true && quantity>0)
-            //{
-            //    TheLogger.Debug("Putonsale\n");
-            //    return 0;
-            //}
-
-            ////TheLogger.Debug("Passed 2 IF(), entering third: MyTradeItem.imageid = " + MyTradeItem.imageid.ToString() + "\n");
-            //Console.WriteLine("Passed 2 IF(), entering third: MyTradeItem.imageid = " + MyTradeItem.imageid.ToString() + "\n");
-            //if (MyTradeItem.name != "Gold Coins")
-            //{
-            //    System.Collections.ArrayList MyWantedItemList = TheMySqlManager.GetWantedItemListIDs();
-            //    //TheLogger.Debug("Beginning MyWantedItemList.Contains\n");
-            //    Console.WriteLine("Beginning MyWantedItemList.Contains\n");
-            //    if (MyWantedItemList.Contains(MyTradeItem.KnownItemsSqlID))
-            //    {
-            //        //TheLogger.Debug("MyWantedItemList.Contains IF() passed\nBeginning WantedItem\n");
-            //        Console.WriteLine("MyWantedItemList.Contains IF() passed\nBeginning WantedItem\n");
-            //        WantedItem MyWantedItem = (WantedItem)MyWantedItemList[MyTradeItem.KnownItemsSqlID];
-            //        TheLogger.Debug("WantedItem complete\nSending PM");
-            //        if (MyWantedItem.maxquantity > 0)
-            //        {
-            //            count = System.Convert.ToInt32(TotalQuantity);
-            //            TheLogger.Debug("Max " + MyWantedItem.maxquantity.ToString() + "count " + count.ToString() + "\n");
-            //            if (  TheInventory.HaveItem(MyTradeItem.name) != -1)
-            //            {
-            //                if (TheInventory.Quantity(MyTradeItem.name) > MyWantedItem.maxquantity)
-            //                {
-            //                    TheTCPWrapper.Send(CommandCreator.SEND_PM(TradeHandler.username, "I am already carrying more than my allowed quantity of " + MyTradeItem.name + "."));
-            //                    AcceptStateMe = 0;
-            //                    TheTCPWrapper.Send(CommandCreator.EXIT_TRADE());
-            //                    return 0;
-            //                }
-            //                count += TheInventory.Quantity(MyTradeItem.name);
-            //            }
-            //            if (MyWantedItem.maxquantity < count)
-            //            {
-            //                TheLogger.Debug("Too many\n");
-            //                TheTCPWrapper.Send(CommandCreator.SEND_PM(TradeHandler.username, "I am only buying up to " + (MyWantedItem.maxquantity - TheInventory.Quantity(MyTradeItem.name)) + " " + MyTradeItem.name + "."));
-            //                AcceptStateMe = 0;
-            //                //if (itemTraded)
-            //                {
-            //                    TheTCPWrapper.Send(CommandCreator.EXIT_TRADE());
-            //                }
-            //                return 0;
-            //            }
-            //        }
-            //        if (quantity > 0)
-            //        {
-            //            TheTCPWrapper.Send(CommandCreator.SEND_PM(TradeHandler.username, "I am buying " + MyTradeItem.name + " for " + (Member ? MyWantedItem.pricepurchasemembers.ToString() : MyWantedItem.pricepurchase.ToString()) + " gc each."));
-            //        }
-            //        TheLogger.Debug("PM sent\nBegin ChangeBillance\n");
-            //        //ChangeBillance((Member ? MyWantedItem.pricepurchasemembers : MyWantedItem.pricepurchase) * quantity);
-            //        TheLogger.Debug("ChangeBillance complete\n");
-            //        TheLogger.Debug("MyWantedItemList.Contains complete\n");
-            //        return (Member ? MyWantedItem.pricepurchasemembers : MyWantedItem.pricepurchase);
-            //    }
-            //    TheLogger.Debug("MyWantedItemList.Contains complete\nItem not wanted for purchase\n");
-            //    TheTCPWrapper.Send(CommandCreator.EXIT_TRADE());
-            //    TheTCPWrapper.Send(CommandCreator.SEND_PM(TradeHandler.username, "Sorry, but I am not buying " + MyTradeItem.name + "."));
-            //}
-			
-            //return 0;
 		}
 
         private void OnGotPM(object sender, BasicCommunication.MessageParser.Got_PM_EventArgs e)
@@ -1710,7 +1267,7 @@ namespace cs_elbot
             }
             bool Member = (TheMySqlManager.CheckIfTradeMember(TradeHandler.username, Settings.botid) == true);
 
-            double total = 0;
+            decimal total = 0;
             //going to do this twice to fake a sort...
             if (fromPM)
             {
@@ -1736,7 +1293,7 @@ namespace cs_elbot
                     {
                         TheTCPWrapper.Send(CommandCreator.SEND_PM(username, myTradeItem.quantity + " " + myTradeItem.name + (myTradeItem.validTradeItem ? (" @ " + price.ToString() + "gc = " + (Convert.ToString((price * myTradeItem.quantity))) + "gc") : " must be removed!!!")));
                     }
-                    total -= (price * myTradeItem.quantity);
+                    total -= ((decimal)price * myTradeItem.quantity);
                 }
                 foreach (TradeHandler.TradeItem myTradeItem in PartnerTradeItemsList.Values)
                 {
@@ -1772,7 +1329,7 @@ namespace cs_elbot
                     {
                         TheTCPWrapper.Send(CommandCreator.SEND_PM(username, myTradeLogItem.quantity + " " + TheMySqlManager.GetKnownItemsname(myTradeLogItem.KnownItemsSqlID) + " @ " + myTradeLogItem.price.ToString() + "gc = " + (Convert.ToString((myTradeLogItem.price * myTradeLogItem.quantity))) + "gc"));
                     }
-                    total += (myTradeLogItem.price * myTradeLogItem.quantity);
+                    total += ((decimal)myTradeLogItem.price * myTradeLogItem.quantity);
                 }
             }
             else
@@ -1790,7 +1347,9 @@ namespace cs_elbot
             {
                 if (total < -1)
                 {
+		    Console.WriteLine("Total: " + total.ToString());
                     total = Math.Truncate(total);
+		    Console.WriteLine("Total after truncate: " + total.ToString());
                     if (fromPM)
                     {
                         TheTCPWrapper.Send(CommandCreator.SEND_PM(username, "I owe you: " + Math.Abs(total) + "gc"));
@@ -1802,12 +1361,14 @@ namespace cs_elbot
                 }
                 else if (total > 0)
                 {
-                    double remainder = total % 1;
+                    double remainder = (double)total % 1;
                     if (remainder > 0)
                     {
                         total++;
                     }
+		    Console.WriteLine("Total: " + total.ToString());
                     total = Math.Truncate(total);
+		    Console.WriteLine("Total after truncate: " + total.ToString());
                     if (fromPM)
                     {
                         TheTCPWrapper.Send(CommandCreator.SEND_PM(username, "You owe me: " + total + "gc"));
@@ -1834,8 +1395,7 @@ namespace cs_elbot
                 TheTCPWrapper.Send(CommandCreator.SEND_PM(username, "==============================================="));
             }
             totalCalculated = true;
-            totalOwed = total;
-            Console.WriteLine("Total: " + total.ToString());
+            totalOwed = (double)total;
         }
 	}
 }
