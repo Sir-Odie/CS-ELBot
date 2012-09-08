@@ -21,7 +21,7 @@ using System;
 namespace cs_elbot.AdvancedCommunication
 {
     /// <summary>
-    /// description of ACCEPTMECommandHandler.
+    /// description of GTCommandHandler.
     /// </summary>
     public class GTCommandHandler
     {
@@ -39,7 +39,7 @@ namespace cs_elbot.AdvancedCommunication
             this.TheAdminHelpCommandHandler = MyAdminHelpCommandHandler;
             this.TheMySqlManager = MyMySqlManager;
             this.TheLogger = MyLogger;
-            //this.CommandIsDisabled = MyMySqlManager.CheckIfCommandIsDisabled("#kickme", Settings.botid);
+            //this.CommandIsDisabled = MyMySqlManager.CheckIfCommandIsDisabled("#gt", Settings.botid);
 
             //if (this.CommandIsDisabled == false)
             {
