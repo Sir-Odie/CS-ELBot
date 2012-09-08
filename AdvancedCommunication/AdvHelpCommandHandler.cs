@@ -21,7 +21,7 @@ using System;
 namespace cs_elbot.AdvancedCommunication
 {
 	/// <summary>
-	/// description of help_command_handler.
+	/// description of AdvHelpCommandHandler.
 	/// </summary>
 	public class AdvHelpCommandHandler
 	{
@@ -85,9 +85,12 @@ namespace cs_elbot.AdvancedCommunication
                 // display the advanced commands
                 TheTCPWrapper.Send(CommandCreator.SEND_PM(e.username, "[".PadRight(lineSize,'-')));
                 foreach (string MyCommand in CommandArrayList)
-				{
+			{
+				if (!MyCommand.ToLower().Contains("null"))
+                   		{
 					TheTCPWrapper.Send(CommandCreator.SEND_PM(e.username, "[" + MyCommand.PadRight(lineSize-1,' ')));
 				}
+			}
                 TheTCPWrapper.Send(CommandCreator.SEND_PM(e.username, "[".PadRight(lineSize,'=')));
 			}
 		}

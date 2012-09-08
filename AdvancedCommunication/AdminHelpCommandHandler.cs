@@ -28,26 +28,24 @@ namespace cs_elbot.AdvancedCommunication
 		private TCPWrapper TheTCPWrapper;
 		private BasicCommunication.MessageParser TheMessageParser;
 		private PMHandler ThePMHandler;
-        private AdvHelpCommandHandler TheAdvHelpComanndHandler;
+        	private AdvHelpCommandHandler TheAdvHelpComanndHandler;
 		private System.Collections.ArrayList CommandArrayList = new System.Collections.ArrayList();
 		private MySqlManager TheMySqlManager;
-        //private bool CommandIsDisabled;
+        	//private bool CommandIsDisabled;
 		
 		public AdminHelpCommandHandler(TCPWrapper MyTCPWrapper, BasicCommunication.MessageParser MyMessageParser,PMHandler MyPMHandler, MySqlManager MyMySqlManager, AdvHelpCommandHandler MyAdvHelpCommandHandler)
 		{
 			this.TheTCPWrapper = MyTCPWrapper;
 			this.TheMessageParser = MyMessageParser;
 			this.ThePMHandler = MyPMHandler;
-            this.TheAdvHelpComanndHandler = MyAdvHelpCommandHandler;
-            this.TheMySqlManager = MyMySqlManager;
+            		this.TheAdvHelpComanndHandler = MyAdvHelpCommandHandler;
+            		this.TheMySqlManager = MyMySqlManager;
 			//this.CommandIsDisabled = MyMySqlManager.CheckIfCommandIsDisabled("#adminhelp",Settings.botid);
 			
 			//if (CommandIsDisabled == false)
 			{
                 ThePMHandler.AddCommand("#adminhelp");
                 TheAdvHelpComanndHandler.AddCommand("#adminhelp - displays admin help");
-//                TheAdvHelpCommandHandler.AddCommand("#adminhelp - displays admin help");
-                //                ThePMHandler.AddCommand("#adminhelp - displays advanced help");
                 TheMessageParser.Got_PM += new BasicCommunication.MessageParser.Got_PM_EventHandler(OnGotPM);
 			}
 			
@@ -87,9 +85,12 @@ namespace cs_elbot.AdvancedCommunication
                 // display the admin help commands
                 TheTCPWrapper.Send(CommandCreator.SEND_PM(e.username, "[".PadRight(lineSize, '=')));
                 foreach (string MyCommand in CommandArrayList)
-				{
+			{
+				if (!MyCommand.ToLower().Contains("null"))
+                    		{
 					TheTCPWrapper.Send(CommandCreator.SEND_PM(e.username, "[" + MyCommand.PadRight(lineSize-1, ' ')));
 				}
+			}
                 TheTCPWrapper.Send(CommandCreator.SEND_PM(e.username, "[".PadRight(lineSize, '=')));
 			}
 		}
