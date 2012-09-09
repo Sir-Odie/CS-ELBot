@@ -155,6 +155,8 @@ namespace cs_elbot.AdvancedCommunication
                         System.Collections.SortedList TheInventoryList = new System.Collections.SortedList();
                         System.Collections.ArrayList MyWantedItemsList = TheMySqlManager.GetWantedList(1);
 
+			bool advertfilter = TheMySqlManager.advertfilter();
+
                         //add up the inventory stuff
                         foreach (Inventory.inventory_item MyInventoryItem in MyInventoryList)
                         {
@@ -173,7 +175,7 @@ namespace cs_elbot.AdvancedCommunication
                             }
                         }
                         randomRate = randomDouble.NextDouble();
-                        if ((randomRate < sellRate) || ((TheMySqlManager.GetBotPhysqiue(Settings.botid) + TheMySqlManager.GetBotCoordination(Settings.botid)) * 10 - TheStats.MyCurrentCarryingAmt == 0))
+                        if ((randomRate < sellRate) || (advertfilter == true && ((TheMySqlManager.GetBotPhysqiue(Settings.botid) + TheMySqlManager.GetBotCoordination(Settings.botid)) * 10 - TheStats.MyCurrentCarryingAmt == 0)))
                         {
                             //selling
                             advertstr = "Selling:";
@@ -216,14 +218,13 @@ namespace cs_elbot.AdvancedCommunication
                         else
                         {
                             //buying
-			    if((TheMySqlManager.GetBotPhysqiue(Settings.botid) + TheMySqlManager.GetBotCoordination(Settings.botid)) * 10 - TheStats.MyCurrentCarryingAmt == 0)
                             advertstr = "Buying:";
                             foreach (TradeHandler.WantedItem MyWantedItem in MyWantedItemsList)
                             {
                                 if (TheInventoryList.Contains(MyWantedItem.KnownItemsSqlID))
                                 {
                                     Inventory.inventory_item MyInventoryItem = (Inventory.inventory_item)TheInventoryList[MyWantedItem.KnownItemsSqlID];
-                                    if (MyWantedItem.pricepurchase > 0 && MyWantedItem.pricepurchase <= TheInventory.GetMoneyAmount() && MyInventoryItem.quantity < MyWantedItem.maxquantity)
+                                    if (MyWantedItem.pricepurchase > 0 && (advertfilter == false || MyWantedItem.pricepurchase <= TheInventory.GetMoneyAmount()) && MyInventoryItem.quantity < MyWantedItem.maxquantity)
                                     {
                                         str2 = TheMySqlManager.GetKnownItemsname(MyWantedItem.KnownItemsSqlID) + ":" + MyWantedItem.pricepurchase.ToString() + "gc";
                                         if (advertstr.Length + str2.Length + endm.Length < 140)
@@ -236,7 +237,7 @@ namespace cs_elbot.AdvancedCommunication
                                 }
                                 else
                                 {
-                                    if (MyWantedItem.pricepurchase > 0 && MyWantedItem.pricepurchase <= TheInventory.GetMoneyAmount())
+                                    if (MyWantedItem.pricepurchase > 0 && (advertfilter == false || MyWantedItem.pricepurchase <= TheInventory.GetMoneyAmount()))
                                     {
                                         str2 = TheMySqlManager.GetKnownItemsname(MyWantedItem.KnownItemsSqlID) + ":" + MyWantedItem.pricepurchase.ToString() + "gc";
                                         if (advertstr.Length + str2.Length + endm.Length < 140)

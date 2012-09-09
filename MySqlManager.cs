@@ -2575,6 +2575,52 @@ namespace cs_elbot
             MyConnection.Close();
             return buffer;
         }
+        public bool advertfilter()
+        {
+            MySqlConnection MyConnection = new MySqlConnection("Server=" + MainClass.SqlServer + ";Port=" + MainClass.SqlPort.ToString() + ";Database=" + MainClass.SqlDatabase + ";Uid=" + MainClass.SqlUsername + ";Pwd=" + MainClass.SqlPassword + ";");
+	    try
+	    {
+            	MyConnection.Open();
+	    }
+	    catch (Exception myException)
+	    {
+		Console.WriteLine(myException.Message); Environment.Exit(0);
+	    }
+            bool advertfilter = true;
+
+            string sql = "SELECT advertfilter FROM botconfig WHERE botid=?botid LIMIT 1;";
+            TheLogger.Debug(sql + "\n");
+
+            MySqlCommand cmd = new MySqlCommand(sql, MyConnection);
+            cmd.Parameters.AddWithValue("?botid", Settings.botid);
+            TheLogger.Debug("MySQLDataReader start"); MySqlDataReader reader = cmd.ExecuteReader(); TheLogger.Debug("MySQLDataReader complete");
+
+            try
+            {
+                while (reader.Read())
+                {
+                    byte tmp = reader.GetByte(0);
+                    if (tmp == 0)
+                    {
+                        advertfilter = false;
+                    }
+                }
+            }
+            catch (MySqlException oMySQLException)
+            {
+                myErrorHandler.errorWriter(oMySQLException);
+            }
+            catch (Exception oException)
+            {
+                myErrorHandler.errorWriter(oException);
+            }
+            finally
+            {
+                reader.Close();
+            }
+            MyConnection.Close();
+            return advertfilter;
+        }
         public bool advertise()
         {
             MySqlConnection MyConnection = new MySqlConnection("Server=" + MainClass.SqlServer + ";Port=" + MainClass.SqlPort.ToString() + ";Database=" + MainClass.SqlDatabase + ";Uid=" + MainClass.SqlUsername + ";Pwd=" + MainClass.SqlPassword + ";");

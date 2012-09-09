@@ -137,6 +137,7 @@ namespace cs_elbot.AdvancedCommunication
 
                 char wantedFiller = TheMySqlManager.getWantedFiller();
                 bool showZeroPrice = TheMySqlManager.getShowZeroPrice();
+		bool advertfilter = TheMySqlManager.advertfilter();
 
                 System.Collections.Hashtable MyWantedItemsList = TheMySqlManager.GetWantedItemList(0);
 
@@ -172,7 +173,7 @@ namespace cs_elbot.AdvancedCommunication
                 i = 1;
                 foreach (TradeHandler.WantedItem MyWantedItem in MyWantedItemsList.Values)
                 {
-                    if ((MyWantedItem.pricepurchase == 0 && showZeroPrice == false && Member == false) || (MyWantedItem.pricepurchase > TheInventory.GetMoneyAmount() && Member == false))
+                    if ((MyWantedItem.pricepurchase == 0 && showZeroPrice == false && Member == false) || (advertfilter == true && MyWantedItem.pricepurchase > TheInventory.GetMoneyAmount() && Member == false))
                     {
                         continue;
                     }
