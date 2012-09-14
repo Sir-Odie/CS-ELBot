@@ -21,7 +21,7 @@ using System;
 namespace cs_elbot.AdvancedCommunication
 {
 	/// <summary>
-	/// description of DropCommandHandler.
+	/// description of WearCommandHandler.
 	/// </summary>
 	public class WearCommandHandler
 	{
@@ -33,12 +33,12 @@ namespace cs_elbot.AdvancedCommunication
 		private Logger TheLogger;
 		private TradeHandler TheTradeHandler;
 		private Inventory TheInventory;
-        private AdvancedCommunication.ActorHandler TheActorHandler;
-        private string wearAction = "";
-        private string username = "";
-        int SQLID = 0;
+        	private AdvancedCommunication.ActorHandler TheActorHandler;
+        	private string wearAction = "";
+        	private string username = "";
+        	int SQLID = 0;
 
-        public WearCommandHandler(AdvancedCommunication.ActorHandler MyActorHandler, TCPWrapper MyTCPWrapper, BasicCommunication.MessageParser MyMessageParser, AdminHelpCommandHandler MyAdminHelpCommandHandler, MySqlManager MyMySqlManager, Logger MyLogger, TradeHandler MyTradeHandler, Inventory MyInventory)
+        	public WearCommandHandler(AdvancedCommunication.ActorHandler MyActorHandler, TCPWrapper MyTCPWrapper, BasicCommunication.MessageParser MyMessageParser, AdminHelpCommandHandler MyAdminHelpCommandHandler, MySqlManager MyMySqlManager, Logger MyLogger, TradeHandler MyTradeHandler, Inventory MyInventory)
 		{
 			this.TheTCPWrapper = MyTCPWrapper;
 			this.TheMessageParser = MyMessageParser;
@@ -47,16 +47,16 @@ namespace cs_elbot.AdvancedCommunication
 			this.TheLogger = MyLogger;
 			this.TheTradeHandler = MyTradeHandler;
 			this.TheInventory = MyInventory;
-            this.TheActorHandler = MyActorHandler;
+           		 this.TheActorHandler = MyActorHandler;
 			//this.CommandIsDisabled = MyMySqlManager.CheckIfCommandIsDisabled("#drop",Settings.botid);
 			
 			//if (CommandIsDisabled == false)
 			{
 				TheAdminHelpCommandHandler.AddCommand("#wear - make me wear an item");
-                TheAdminHelpCommandHandler.AddCommand("#remove - make me remove an item");
-                TheMessageParser.Got_PM += new BasicCommunication.MessageParser.Got_PM_EventHandler(OnGotPM);
-                TheTCPWrapper.GotCommand += new TCPWrapper.GotCommandEventHandler(OnGotCommand);
-            }
+                		TheAdminHelpCommandHandler.AddCommand("#remove - make me remove an item");
+                		TheMessageParser.Got_PM += new BasicCommunication.MessageParser.Got_PM_EventHandler(OnGotPM);
+                		TheTCPWrapper.GotCommand += new TCPWrapper.GotCommandEventHandler(OnGotCommand);
+            		}
 		}
         private void OnGotCommand(object sender, TCPWrapper.GotCommandEventArgs e)
         {
@@ -81,6 +81,15 @@ namespace cs_elbot.AdvancedCommunication
                 }
 
             }
+	    if (e.CommandBuffer[0] == 20) 
+	    {
+		string Text=System.Text.ASCIIEncoding.ASCII.GetString(e.CommandBuffer,4,e.CommandBuffer.Length-4).Trim();
+		Text = Text.Replace((char)10, ' ');
+		TheLogger.Log(Text);
+		TheTCPWrapper.Send(CommandCreator.SEND_PM(username, "I can't wear that item!"));
+		wearAction = "";
+	    }
+
             if (e.CommandBuffer[0] == 21 && (wearAction != "")) // GET_INVENTORY_ITEM
             {
                 TheInventory.requestInventory();
@@ -110,7 +119,6 @@ namespace cs_elbot.AdvancedCommunication
                     TheTCPWrapper.Send(CommandCreator.SEND_PM(e.username, "This command is disabled"));
                     return;
                 }
-                //start Draavell fix - check correct rank
                 if (CommandArray[0] == "#wear")
                 {
                     if (TheMySqlManager.GetUserRank(e.username, Settings.botid) < TheMySqlManager.GetCommandRank("#wear", Settings.botid))
@@ -128,13 +136,6 @@ namespace cs_elbot.AdvancedCommunication
                         return;
                     }
                 }
-                //end Draavell fix - check correct rank
-
-                /*if (TheMySqlManager.GetUserRank(e.username, Settings.botid) < TheMySqlManager.GetCommandRank("#drop", Settings.botid))
-			    {
-			    	TheTCPWrapper.Send(CommandCreator.SEND_PM(e.username,"You are not authorized to use this command!"));
-			    	return;
-			    }*/
                 if(TheTradeHandler.AmITrading())
                 {
                     TheTCPWrapper.Send(CommandCreator.SEND_PM(e.username, "I am currently trading, please retry shortly."));
@@ -147,9 +148,8 @@ namespace cs_elbot.AdvancedCommunication
                     return;
                 }
 
-
-                try
-                {
+		try
+		{
                     if (CommandArray.Length < 2)
                     {
                         goto WrongArguments;
@@ -166,15 +166,15 @@ namespace cs_elbot.AdvancedCommunication
                     {
                         SQLID = int.Parse(CommandArray[1]);
                     }
-                    if (nameToID != -1)
+                    else
                     {
                         SQLID = nameToID;
                     }
-                }
-                catch
-				{
-                    goto WrongArguments;
-				}
+		}
+		catch
+		{
+			goto WrongArguments;
+		}
                 if (CommandArray[0] == "#wear")
                 { 
                     wearAction = "wore"; 
@@ -197,6 +197,7 @@ namespace cs_elbot.AdvancedCommunication
             TheTCPWrapper.Send(CommandCreator.SEND_PM(e.username, "|Example: #wear warm fur gloves         "));
             TheTCPWrapper.Send(CommandCreator.SEND_PM(e.username, "|Example: #remove warm fur gloves       "));
             TheTCPWrapper.Send(CommandCreator.SEND_PM(e.username, "|---------------------------------------"));
+	    wearAction = "";
             return;
 		}
 		
@@ -205,8 +206,8 @@ namespace cs_elbot.AdvancedCommunication
 			System.Collections.ArrayList InventorySnapshop = TheInventory.GetInventoryList();
 
             bool[] slotfull = new bool[44];
-            byte fromSlot = 1;
-            byte toSlot = 1;
+            byte fromSlot = 128;
+            byte toSlot = 128;
 
             for (int i = 0; i < 44; i++)
             {
@@ -262,8 +263,16 @@ namespace cs_elbot.AdvancedCommunication
                     }
                 }
             }
-            TheTCPWrapper.Send(CommandCreator.MOVE_INVENTORY_ITEM(fromSlot, toSlot));
-			
+	    if(fromSlot != 128 && toSlot != 128)
+	    {
+            	TheTCPWrapper.Send(CommandCreator.MOVE_INVENTORY_ITEM(fromSlot, toSlot));
+	    }
+	    else
+	    {
+		wearAction = "";
+		TheTCPWrapper.Send(CommandCreator.SEND_PM(username, "Wrong item or no free slot!"));
+	    }
+
 		}
 	}
 }
