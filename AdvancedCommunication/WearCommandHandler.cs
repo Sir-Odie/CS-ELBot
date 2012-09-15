@@ -183,9 +183,11 @@ namespace cs_elbot.AdvancedCommunication
                 {
                     wearAction = "removed";
                 }
-                WearItem(SQLID, wearAction);
+                if (!WearItem(SQLID, wearAction))
+		{
+			wearAction = "";
+		}
 			}
-			
 			return;
 
         WrongArguments:
@@ -201,7 +203,7 @@ namespace cs_elbot.AdvancedCommunication
             return;
 		}
 		
-		private void WearItem(int SQLID, string wearAction)
+		private bool WearItem(int SQLID, string wearAction)
 		{
 			System.Collections.ArrayList InventorySnapshop = TheInventory.GetInventoryList();
 
@@ -266,11 +268,13 @@ namespace cs_elbot.AdvancedCommunication
 	    if(fromSlot != 128 && toSlot != 128)
 	    {
             	TheTCPWrapper.Send(CommandCreator.MOVE_INVENTORY_ITEM(fromSlot, toSlot));
+		return true;
 	    }
 	    else
 	    {
 		wearAction = "";
 		TheTCPWrapper.Send(CommandCreator.SEND_PM(username, "Wrong item or no free slot!"));
+		return false;
 	    }
 
 		}
