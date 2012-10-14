@@ -63,6 +63,7 @@ namespace cs_elbot
 		public bool Trading = false;
         	public bool SentThanks = false;
 		public bool Donating = false;
+		public string DonateMessage = "";
         	public bool Gambling = false;
         	public bool claimingPrize = false;
         	public bool Giving = false;
@@ -195,6 +196,10 @@ namespace cs_elbot
 					{
 						action = "received from (to inv)";
 					}
+					if (this.Donating == true && this.DonateMessage != "")
+					{
+						action = DonateMessage;
+					}
                     			AddTrade(MyTradeItem.KnownItemsSqlID, (Member ? MyTradeItem.pricepurchasemembers : MyTradeItem.pricepurchase), MyTradeItem.quantity, action);
                 		}
 				else
@@ -203,14 +208,21 @@ namespace cs_elbot
                     			string action = "";
                     			if (this.Donating == true)
                     			{
-                        			if (storageAvailable)
-                        			{
-                            				action = "received from (to sto)";
-                        			}
-                        			else
-                        			{
-                            				action = "received from (to inv)";
-                        			}
+						if (DonateMessage == "")
+						{
+                        				if (storageAvailable)
+                        				{
+                            					action = "received from (to sto)";
+                        				}
+                        				else
+                        				{
+                            					action = "received from (to inv)";
+                        				}
+						}
+						else
+						{
+							action = DonateMessage;
+						}
                     			}
                     			else
                     			{
@@ -275,6 +287,7 @@ namespace cs_elbot
                 		this.InventorySnapshopLoging = (System.Collections.ArrayList)InventorySnapshop.Clone();
 
                 		this.Donating = false;
+				this.DonateMessage = "";
                 		this.PutOnSale = false;
                 		TheTCPWrapper.Send(CommandCreator.SEND_PM(TradeHandler.username, "Thank you for using my services!"));
                 		TheLogger.Log("Trade was successful!");
@@ -486,6 +499,7 @@ namespace cs_elbot
             SentThanks = true;
             Trading = false;
             Donating = false;
+	    DonateMessage = "";
             //storageAvailable = false;
             storageOpen = false;
             openingStorage = false;

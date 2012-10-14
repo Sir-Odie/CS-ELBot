@@ -21,7 +21,7 @@ using System;
 namespace cs_elbot.AdvancedCommunication
 {
 	/// <summary>
-	/// description of GiveCommandHandler.
+	/// description of GiveToCommandHandler.
 	/// </summary>
 	public class GiveToCommandHandler
 	{
@@ -32,7 +32,7 @@ namespace cs_elbot.AdvancedCommunication
 		private AdvHelpCommandHandler TheAdvHelpCommandHandler;
 		private Logger TheLogger;
 		private TradeHandler TheTradeHandler;
-        private PMHandler ThePMHandler;
+        	private PMHandler ThePMHandler;
 		
 		public GiveToCommandHandler(TCPWrapper MyTCPWrapper, BasicCommunication.MessageParser MyMessageParser,AdvHelpCommandHandler MyAdvHelpCommandHandler, MySqlManager MyMySqlManager, Logger MyLogger, TradeHandler MyTradeHandler, PMHandler MyPMHandler)
 		{
@@ -42,22 +42,18 @@ namespace cs_elbot.AdvancedCommunication
 			this.TheMySqlManager = MyMySqlManager;
 			this.TheLogger = MyLogger;
 			this.TheTradeHandler = MyTradeHandler;
-            this.ThePMHandler = MyPMHandler;
-			//this.CommandIsDisabled = MyMySqlManager.CheckIfCommandIsDisabled("#give",Settings.botid);
-			
-			//if (CommandIsDisabled == false)
-			{
-                TheAdvHelpCommandHandler.AddCommand("#giveto - give item to person trading with bot");
-//                ThePMHandler.AddCommand("#g");
-                TheMessageParser.Got_PM += new BasicCommunication.MessageParser.Got_PM_EventHandler(OnGotPM);
-			}
+            		this.ThePMHandler = MyPMHandler;
+                	TheAdvHelpCommandHandler.AddCommand("#giveto - give item to person trading with bot");
+                	TheMessageParser.Got_PM += new BasicCommunication.MessageParser.Got_PM_EventHandler(OnGotPM);
 		}
 		
 		private void OnGotPM(object sender, BasicCommunication.MessageParser.Got_PM_EventArgs e)
 		{
 			uint quantity = 0;
 			int SQLID = 0;
-            bool fromInventory = false;
+            		bool fromInventory = false;
+			bool hasComment = false;
+			string Comment = ", ";
 			
 			string Message = e.Message.ToLower();
 			
@@ -94,65 +90,6 @@ namespace cs_elbot.AdvancedCommunication
                 {
                     goto WrongArguments;
                 }
-                //try
-                //{
-                //    if (CommandArray.Length < 2)
-                //    {
-                //        goto WrongArguments;
-                //    }
-                //    if (CommandArray.Length < 3)
-                //    {
-                //        quantity = 1;
-                //        nameToID = TheMySqlManager.GetItemID(CommandArray[1], Settings.botid, false);
-                //        if (nameToID != -1)
-                //        {
-                //            SQLID = nameToID;
-                //        }
-                //        if (nameToID == -1)
-                //        {
-                //            SQLID = int.Parse(CommandArray[1]);
-                //        }
-                //    }
-                //    if (CommandArray.Length > 2)
-                //    {
-                //        quantity = uint.Parse(CommandArray[1]);
-                //        string str = "";
-                //        int i;
-                //        for (i = 2; i < CommandArray.Length; i++)
-                //        {
-                //            if (CommandArray[i] == "inv" || CommandArray[i] == "inventory")
-                //            {
-                //                fromInventory = true;
-                //            }
-                //            else
-                //            {
-                //                str += CommandArray[i] + " ";
-                //            }
-                //        }
-                //        str = str.Trim();
-                //        if (fromInventory)
-                //        {
-                //            nameToID = TheMySqlManager.GetItemID(str, Settings.botid, false);
-                //        }
-                //        else
-                //        {
-                //            nameToID = TheMySqlManager.GetItemID(str, Settings.botid, true);
-                //        }
-
-                //        if (nameToID == -1)
-                //        {
-                //            SQLID = int.Parse(CommandArray[2]);
-                //        }
-                //        if (nameToID != -1)
-                //        {
-                //            SQLID = nameToID;
-                //        }
-                //    }
-                //}
-                //catch
-                //{
-                //    goto WrongArguments;
-                //}
                 int i = 0;
                 string itemName = "";
                 try
@@ -178,8 +115,27 @@ namespace cs_elbot.AdvancedCommunication
                         fromInventory = true;
                         break;
                     }
+                    if (CommandArray[i] == "#")
+                    {
+                        hasComment = true;
+                        break;
+                    }
                     itemName += CommandArray[i] + " ";
                 }
+		if (hasComment == true)
+		{
+			i++;
+			for (; i < CommandArray.Length; i++)
+			{
+				Comment += CommandArray[i];
+				if (i < CommandArray.Length - 1)
+				{
+					Comment += " ";
+				}
+			}
+			if (Comment.Length > 31)
+				Comment = Comment.Substring(0,31);
+		}
                 try
                 {
                     SQLID = int.Parse(itemName);
@@ -192,18 +148,32 @@ namespace cs_elbot.AdvancedCommunication
                 uint ItemsPlacedOnTrade = TheTradeHandler.PutItemsOnTrade(SQLID,quantity, fromInventory);
                 if (ItemsPlacedOnTrade>0)
 				{
-                    //turn the trade timer off here, put in cancel trade command to avert
-                    //abuse turning the timer off... (if trade is canceled, it'll be reset)
-//                    TheTradeHandler.TradeTimer.Stop();
-//                    TheTradeHandler.Giving = true;
                     TheTradeHandler.itemTraded = true;
                     if (fromInventory == true)
                     {
-                        TheTradeHandler.AddTrade(SQLID, 0, ItemsPlacedOnTrade, "gave from inv");
+                        if (hasComment == true)
+			{
+				TheTradeHandler.AddTrade(SQLID, 0, ItemsPlacedOnTrade, "gave from inv" + Comment);
+				hasComment = false;
+				Comment = ", ";
+			}
+			else
+			{
+				TheTradeHandler.AddTrade(SQLID, 0, ItemsPlacedOnTrade, "gave from inv");
+			}
                     }
                     else
                     {
-                        TheTradeHandler.AddTrade(SQLID, 0, ItemsPlacedOnTrade, "gave from sto");
+                        if (hasComment == true)
+			{
+				TheTradeHandler.AddTrade(SQLID, 0, ItemsPlacedOnTrade, "gave from sto" + Comment);
+				hasComment = false;
+				Comment = ", ";
+			}
+			else
+			{
+				TheTradeHandler.AddTrade(SQLID, 0, ItemsPlacedOnTrade, "gave from sto");
+			}
                     }
                 }
 				
@@ -224,14 +194,16 @@ namespace cs_elbot.AdvancedCommunication
 			return;
 
         WrongArguments:
-            TheTCPWrapper.Send(CommandCreator.SEND_PM(e.username, "|---------------------------------------"));
-            TheTCPWrapper.Send(CommandCreator.SEND_PM(e.username, "|Here is the usage of the #give command:"));
-            TheTCPWrapper.Send(CommandCreator.SEND_PM(e.username, "|#give <quantity> <name or itemid>      "));
-            TheTCPWrapper.Send(CommandCreator.SEND_PM(e.username, "|---------------------------------------"));
-            TheTCPWrapper.Send(CommandCreator.SEND_PM(e.username, "|Example: #giveto 100 2                 "));
-            TheTCPWrapper.Send(CommandCreator.SEND_PM(e.username, "|Example: #giveto 1 Pickaxe             "));
-            TheTCPWrapper.Send(CommandCreator.SEND_PM(e.username, "|Example: #giveto 1 Pickaxe inv         "));
-            TheTCPWrapper.Send(CommandCreator.SEND_PM(e.username, "|---------------------------------------"));
+            TheTCPWrapper.Send(CommandCreator.SEND_PM(e.username, "|--------------------------------------------"));
+            TheTCPWrapper.Send(CommandCreator.SEND_PM(e.username, "|Here is the usage of the #giveto command:   "));
+            TheTCPWrapper.Send(CommandCreator.SEND_PM(e.username, "|#giveto <quantity> <name or itemid>         "));
+            TheTCPWrapper.Send(CommandCreator.SEND_PM(e.username, "|#giveto <quantity> <name or itemid> # Reason"));
+            TheTCPWrapper.Send(CommandCreator.SEND_PM(e.username, "|--------------------------------------------"));
+            TheTCPWrapper.Send(CommandCreator.SEND_PM(e.username, "|Example: #giveto 100 2                      "));
+            TheTCPWrapper.Send(CommandCreator.SEND_PM(e.username, "|Example: #giveto 1 Pickaxe                  "));
+            TheTCPWrapper.Send(CommandCreator.SEND_PM(e.username, "|Example: #giveto 1 Pickaxe # as a gift      "));
+            TheTCPWrapper.Send(CommandCreator.SEND_PM(e.username, "|Example: #giveto 1 Pickaxe inv              "));
+            TheTCPWrapper.Send(CommandCreator.SEND_PM(e.username, "|--------------------------------------------"));
             return;
 		}
 	}

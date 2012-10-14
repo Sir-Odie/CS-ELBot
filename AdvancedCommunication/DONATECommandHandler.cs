@@ -41,15 +41,11 @@ namespace cs_elbot.AdvancedCommunication
 			this.TheMySqlManager = MyMySqlManager;
 			this.TheLogger = MyLogger;
 			this.TheTradeHandler = MyTradeHandler;
-			//this.CommandIsDisabled = MyMySqlManager.CheckIfCommandIsDisabled("#donate",Settings.botid);
-			
-			//if (CommandIsDisabled == false)
-			{
-                TheAdvHelpCommandHandler.AddCommand("#donate - donate something to me");
-                TheAdvHelpCommandHandler.AddCommand("#donation - null");
-                TheAdvHelpCommandHandler.AddCommand("#d - null");
-                TheMessageParser.Got_PM += new BasicCommunication.MessageParser.Got_PM_EventHandler(OnGotPM);
-			}
+
+            TheAdvHelpCommandHandler.AddCommand("#donate - donate something to me");
+            TheAdvHelpCommandHandler.AddCommand("#donation - null");
+            TheAdvHelpCommandHandler.AddCommand("#d - null");
+            TheMessageParser.Got_PM += new BasicCommunication.MessageParser.Got_PM_EventHandler(OnGotPM);
 		}
 		
 		private void OnGotPM(object sender, BasicCommunication.MessageParser.Got_PM_EventArgs e)
@@ -85,12 +81,6 @@ namespace cs_elbot.AdvancedCommunication
 					return;
 				}
 				
-				if (TheMySqlManager.GetUserRank(e.username,Settings.botid)<TheMySqlManager.GetCommandRank("#donate",Settings.botid))
-			    {
-			    	TheTCPWrapper.Send(CommandCreator.SEND_PM(e.username,"You are not authorized to use this command!"));
-			    	return;
-			    }
-				
 				if (TheTradeHandler.Trading == false || TradeHandler.username.ToLower()!=e.username.ToLower())
 				{
 					TheTCPWrapper.Send(CommandCreator.SEND_PM(e.username,"Please trade with me first!"));
@@ -105,8 +95,26 @@ namespace cs_elbot.AdvancedCommunication
 
                 try
 				{
-					if (CommandArray.Length!=1)
-					goto WrongArguments;
+                    if (CommandArray.Length != 1)
+                    {
+                        if (CommandArray.Length == 2 || CommandArray[1] != "#")
+                            goto WrongArguments;
+                        if (CommandArray.Length > 2)
+                        {
+                            int i;
+                            TheTradeHandler.DonateMessage = "Donate ";
+                            for (i = 2; i < CommandArray.Length; i++)
+                            {
+                                TheTradeHandler.DonateMessage += CommandArray[i];
+                                if (i < CommandArray.Length - 1)
+                                {
+                                    TheTradeHandler.DonateMessage += " ";
+                                }
+                            }
+                            if (TheTradeHandler.DonateMessage.Length > 44)
+                                TheTradeHandler.DonateMessage = TheTradeHandler.DonateMessage.Substring(0, 44);
+                        }
+                    }
 					
 					if (TheTradeHandler.PutOnSale==false && TheTradeHandler.Billance == 0 && TheTradeHandler.PartnerTradeItemsList.Count == 0 && TheTradeHandler.MyItemList.Count==0)
 					{
@@ -120,6 +128,7 @@ namespace cs_elbot.AdvancedCommunication
 					else
 					{
 						TheTCPWrapper.Send(CommandCreator.SEND_PM(e.username,"Plese restart the trade. And put no items on the trade before sending #donate."));
+                        TheTradeHandler.DonateMessage = "";
 					}
 				}
 				catch
@@ -133,8 +142,11 @@ namespace cs_elbot.AdvancedCommunication
 			WrongArguments:
 				TheTCPWrapper.Send(CommandCreator.SEND_PM(e.username,"Here is the usage of the #donate command:"));
 				TheTCPWrapper.Send(CommandCreator.SEND_PM(e.username,"#donate"));
+				TheTCPWrapper.Send(CommandCreator.SEND_PM(e.username,"#donate # Reason"));
 				TheTCPWrapper.Send(CommandCreator.SEND_PM(e.username,"------------------------------------------"));
 				TheTCPWrapper.Send(CommandCreator.SEND_PM(e.username,"Example: #donate"));
+				TheTCPWrapper.Send(CommandCreator.SEND_PM(e.username,"Example: #donate # as a gift"));
+                TheTradeHandler.DonateMessage = "";
 				return;
 		}
 	}
