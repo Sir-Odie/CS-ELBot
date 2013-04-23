@@ -76,16 +76,22 @@ namespace cs_elbot.AdvancedCommunication
                 }
 
                 if (Settings.IsTradeBot == false && TheTradeHandler.storageAvailable == false)
-				{
-                    TheTCPWrapper.Send(CommandCreator.SEND_PM(e.username, "Sorry, I am not a trade bot!"));
-					return;
-				}
+		{
+			TheTCPWrapper.Send(CommandCreator.SEND_PM(e.username, "Sorry, I am not a trade bot!"));
+			return;
+		}
 				
-				if (TheTradeHandler.Trading == false || TradeHandler.username.ToLower()!=e.username.ToLower())
-				{
-					TheTCPWrapper.Send(CommandCreator.SEND_PM(e.username,"Please trade with me first!"));
-					return;
-				}
+		if (TheMySqlManager.GetUserRank(e.username,Settings.botid)<TheMySqlManager.GetCommandRank("#donate",Settings.botid))
+	    	{
+	    		TheTCPWrapper.Send(CommandCreator.SEND_PM(e.username,"You are not authorized to use this command!"));
+	    		return;
+	    	}
+				
+		if (TheTradeHandler.Trading == false || TradeHandler.username.ToLower()!=e.username.ToLower())
+		{
+			TheTCPWrapper.Send(CommandCreator.SEND_PM(e.username,"Please trade with me first!"));
+			return;
+		}
 				
                 if (TheTradeHandler.storageAvailable == true)
                 {
