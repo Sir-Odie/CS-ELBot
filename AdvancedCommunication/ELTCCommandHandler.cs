@@ -60,7 +60,7 @@ namespace cs_elbot.AdvancedCommunication
 
             string[] CommandArray = Message.Split(' ');
 
-            if (CommandArray[0] == "#ty" || CommandArray[0] == "#tyvm" || CommandArray[0] == "#thx" || CommandArray[0] == "#thank" || CommandArray[0] == "#thanks" || CommandArray[0] == "#thy")
+            if (CommandArray[0] == "#ty" || CommandArray[0] == "#tyvm" || CommandArray[0] == "#thx" || CommandArray[0] == "#thank" || CommandArray[0] == "#thanks" || CommandArray[0] == "#thy" || CommandArray[0] == "#thanx")
             {
                 TheTCPWrapper.Send(CommandCreator.SEND_PM(e.username, "You are very welcome, and thank you :)"));
                 return;

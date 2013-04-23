@@ -21,7 +21,7 @@ using System;
 namespace cs_elbot.AdvancedCommunication
 {
 	/// <summary>
-	/// description of GiveCommandHandler.
+	/// description of GiveToCommandHandler.
 	/// </summary>
 	public class GiveToCommandHandler
 	{
@@ -224,14 +224,14 @@ namespace cs_elbot.AdvancedCommunication
 			return;
 
         WrongArguments:
-            TheTCPWrapper.Send(CommandCreator.SEND_PM(e.username, "|---------------------------------------"));
-            TheTCPWrapper.Send(CommandCreator.SEND_PM(e.username, "|Here is the usage of the #give command:"));
-            TheTCPWrapper.Send(CommandCreator.SEND_PM(e.username, "|#give <quantity> <name or itemid>      "));
-            TheTCPWrapper.Send(CommandCreator.SEND_PM(e.username, "|---------------------------------------"));
-            TheTCPWrapper.Send(CommandCreator.SEND_PM(e.username, "|Example: #giveto 100 2                 "));
-            TheTCPWrapper.Send(CommandCreator.SEND_PM(e.username, "|Example: #giveto 1 Pickaxe             "));
-            TheTCPWrapper.Send(CommandCreator.SEND_PM(e.username, "|Example: #giveto 1 Pickaxe inv         "));
-            TheTCPWrapper.Send(CommandCreator.SEND_PM(e.username, "|---------------------------------------"));
+            TheTCPWrapper.Send(CommandCreator.SEND_PM(e.username, "|-----------------------------------------"));
+            TheTCPWrapper.Send(CommandCreator.SEND_PM(e.username, "|Here is the usage of the #giveto command:"));
+            TheTCPWrapper.Send(CommandCreator.SEND_PM(e.username, "|#giveto <quantity> <name or itemid>      "));
+            TheTCPWrapper.Send(CommandCreator.SEND_PM(e.username, "|-----------------------------------------"));
+            TheTCPWrapper.Send(CommandCreator.SEND_PM(e.username, "|Example: #giveto 100 2                   "));
+            TheTCPWrapper.Send(CommandCreator.SEND_PM(e.username, "|Example: #giveto 1 Pickaxe               "));
+            TheTCPWrapper.Send(CommandCreator.SEND_PM(e.username, "|Example: #giveto 1 Pickaxe inv           "));
+            TheTCPWrapper.Send(CommandCreator.SEND_PM(e.username, "|-----------------------------------------"));
             return;
 		}
 	}

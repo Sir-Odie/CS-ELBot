@@ -19,7 +19,7 @@ using System;
 namespace cs_elbot.AdvancedCommunication
 {
     /// <summary>
-    /// Description of help_command_handler.
+    /// Description of UseObject.
     /// </summary>
     public class UseObject
     {
@@ -86,10 +86,10 @@ namespace cs_elbot.AdvancedCommunication
             }
             return;
         WrongArguments:
-            TheTCPWrapper.Send(CommandCreator.SEND_PM(e.username, "[Here is the usage of the #move command:   "));
-            TheTCPWrapper.Send(CommandCreator.SEND_PM(e.username, "[#useobject x                              "));
-            TheTCPWrapper.Send(CommandCreator.SEND_PM(e.username, "[------------------------------------------"));
-            TheTCPWrapper.Send(CommandCreator.SEND_PM(e.username, "[Example: #useobject 520                   "));
+            TheTCPWrapper.Send(CommandCreator.SEND_PM(e.username, "[Here is the usage of the #useobject command:   "));
+            TheTCPWrapper.Send(CommandCreator.SEND_PM(e.username, "[#useobject x                                   "));
+            TheTCPWrapper.Send(CommandCreator.SEND_PM(e.username, "[-----------------------------------------------"));
+            TheTCPWrapper.Send(CommandCreator.SEND_PM(e.username, "[Example: #useobject 520                        "));
             return;
         }
     }
