@@ -4009,8 +4009,8 @@ namespace cs_elbot
                 while (reader.Read())
                 {
                     TradeHandler.SellingItem MySellingItem = new TradeHandler.SellingItem();
-                    MySellingItem.SellingItemsSqlID = reader.GetInt16(0);
-                    MySellingItem.PricelistSqlID = reader.GetInt16(1);
+                    MySellingItem.SellingItemsSqlID = reader.GetInt32(0);
+                    MySellingItem.PricelistSqlID = reader.GetInt32(1);
                     MySellingItem.KnownItemsSqlID = reader.GetInt16(2);
                     MySellingItem.announce = reader.GetBoolean(3);
                     MySellingItem.pricesale = reader.GetDouble(4);
@@ -4066,8 +4066,8 @@ namespace cs_elbot
                 while (reader.Read())
                 {
                     TradeHandler.SellingItem MySellingItem = new TradeHandler.SellingItem();
-                    MySellingItem.SellingItemsSqlID = reader.GetInt16(0);
-                    MySellingItem.PricelistSqlID = reader.GetInt16(1);
+                    MySellingItem.SellingItemsSqlID = reader.GetInt32(0);
+                    MySellingItem.PricelistSqlID = reader.GetInt32(1);
                     MySellingItem.KnownItemsSqlID = reader.GetInt16(2);
                     MySellingItem.announce = reader.GetBoolean(3);
                     MySellingItem.pricesale = reader.GetDouble(4);
@@ -4121,8 +4121,8 @@ namespace cs_elbot
                 while (reader.Read())
                 {
                     TradeHandler.WantedItem MyWantedItem = new TradeHandler.WantedItem();
-                    MyWantedItem.SellingItemsSqlID = reader.GetInt16(0);
-                    MyWantedItem.PricelistSqlID = reader.GetInt16(1);
+                    MyWantedItem.SellingItemsSqlID = reader.GetInt32(0);
+                    MyWantedItem.PricelistSqlID = reader.GetInt32(1);
                     MyWantedItem.KnownItemsSqlID = reader.GetInt16(2);
                     MyWantedItem.announce = reader.GetBoolean(3);
                     if (Settings.IsTradeBot == true)
@@ -4184,7 +4184,7 @@ namespace cs_elbot
                 while (reader.Read())
                 {
                     TradeHandler.WantedItem MyWantedItem = new TradeHandler.WantedItem();
-                    MyWantedItem.SellingItemsSqlID = reader.GetInt16(0);
+                    MyWantedItem.SellingItemsSqlID = reader.GetInt32(0);
                     WantedItemList.Add(MyWantedItem.SellingItemsSqlID);
                 }
             }
@@ -4237,8 +4237,8 @@ namespace cs_elbot
                 while (reader.Read())
                 {
                     TradeHandler.WantedItem MyWantedItem = new TradeHandler.WantedItem();
-                    MyWantedItem.SellingItemsSqlID = reader.GetInt16(0);
-                    MyWantedItem.PricelistSqlID = reader.GetInt16(1);
+                    MyWantedItem.SellingItemsSqlID = reader.GetInt32(0);
+                    MyWantedItem.PricelistSqlID = reader.GetInt32(1);
                     MyWantedItem.KnownItemsSqlID = reader.GetInt16(2);
                     MyWantedItem.announce = reader.GetBoolean(3);
                     if (Settings.IsTradeBot == true)

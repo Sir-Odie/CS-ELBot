@@ -103,11 +103,11 @@ namespace cs_elbot.AdvancedCommunication
             }
             return;
         WrongArguments:
-            TheTCPWrapper.Send(CommandCreator.SEND_PM(e.username, "[Here is the usage of the #move command:   "));
-            TheTCPWrapper.Send(CommandCreator.SEND_PM(e.username, "[#openstorage <name>                       "));
-            TheTCPWrapper.Send(CommandCreator.SEND_PM(e.username, "[------------------------------------------"));
-            TheTCPWrapper.Send(CommandCreator.SEND_PM(e.username, "[Example: #openstorage                     "));
-            TheTCPWrapper.Send(CommandCreator.SEND_PM(e.username, "[Example: #openstorage raven               "));
+            TheTCPWrapper.Send(CommandCreator.SEND_PM(e.username, "[Here is the usage of the #openstorage command: "));
+            TheTCPWrapper.Send(CommandCreator.SEND_PM(e.username, "[#openstorage <name>                            "));
+            TheTCPWrapper.Send(CommandCreator.SEND_PM(e.username, "[-----------------------------------------------"));
+            TheTCPWrapper.Send(CommandCreator.SEND_PM(e.username, "[Example: #openstorage                          "));
+            TheTCPWrapper.Send(CommandCreator.SEND_PM(e.username, "[Example: #openstorage raven                    "));
             return;
         }
 	}
