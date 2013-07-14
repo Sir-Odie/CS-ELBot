@@ -1367,6 +1367,7 @@ namespace cs_elbot.AdvancedCommunication
         WrongArguments:
             TheTCPWrapper.Send(CommandCreator.SEND_PM(e.username, "[Here is the usage of the #goto command:   "));
             TheTCPWrapper.Send(CommandCreator.SEND_PM(e.username, "[#goto x y (or goto x,y)                   "));
+            TheTCPWrapper.Send(CommandCreator.SEND_PM(e.username, "[#goto home / storage                      "));
             TheTCPWrapper.Send(CommandCreator.SEND_PM(e.username, "[------------------------------------------"));
             TheTCPWrapper.Send(CommandCreator.SEND_PM(e.username, "[Example: #goto 192,168                    "));
             return;
