@@ -923,13 +923,32 @@ namespace cs_elbot
                     amountToTrade = (uint)totalOnHand;
                 }
                 uint quantityLeftOver = (uint)totalOnHand - amountToTrade;
-                //Console.WriteLine("Amount to trade: " + amountToTrade);
+                //Console.WriteLine("Quantity LeftOver: " + quantityLeftOver);
                 if (fromInventory)
                 {
                     MyInventoryItem = (Inventory.inventory_item)InventorySnapshop[itemIndex];
 
+		    if (MyInventoryItem.is_stackable)
+		    {
                     MyInventoryItem.quantity = quantityLeftOver;
                     InventorySnapshop[itemIndex] = MyInventoryItem;
+                }
+		    else
+		    {
+			uint toClear = amountToTrade;
+			for (int i = 0; i < InventorySnapshop.Count; i++)
+                	{
+                    		MyInventoryItem = (Inventory.inventory_item)InventorySnapshop[i];
+                    		if (MyInventoryItem.SqlID == SQLID && MyInventoryItem.pos < 36 && MyInventoryItem.quantity > 0)
+                    		{
+					MyInventoryItem.quantity = 0;
+					InventorySnapshop[i] = MyInventoryItem;
+					toClear--;
+                    		}
+				if (toClear == 0) break;
+                	}
+
+		    }
                 }
                 else //from storage
                 {
