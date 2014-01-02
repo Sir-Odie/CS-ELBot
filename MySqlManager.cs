@@ -317,7 +317,7 @@ namespace cs_elbot
 	    }
             string sql = "SELECT botpath.moveobject,botpath.npcid, botpath.movenumber FROM botpath, maps,botdestination, destination " +
                 "WHERE botpath.mapid = maps.id AND maps.file_name = ?mapName AND botdestination.destid = destination.id " +
-                "AND LOWER(destination.name) = ?targetDest AND botdestination.botid = ?botid AND botdestination.botpathid = botpath.id " +
+                "AND destination.name = ?targetDest AND botdestination.botid = ?botid AND botdestination.botpathid = botpath.id " +
                 "AND botpath.movenumber > ?lastMoveNumber ORDER BY botpath.movenumber LIMIT 1";
             if (mapName == "maps/mapunderworld1.elm" && lastMoveNumber > 0)
             {
@@ -1368,7 +1368,7 @@ namespace cs_elbot
             // First check if the Item exists in the global Database, if not Add it.
 
             string name = "";//, lastseen = "";
-            string sql = "SELECT guild FROM players WHERE LOWER(name) = ?name LIMIT 1;";
+            string sql = "SELECT guild FROM players WHERE name = ?name LIMIT 1;";
             TheLogger.Debug(sql + "\n");
 
             MySqlCommand cmd = new MySqlCommand(sql, MyConnection);
@@ -1613,7 +1613,7 @@ namespace cs_elbot
 	    {
 		Console.WriteLine(myException.Message); Environment.Exit(0);
 	    }
-            string sql = "DELETE FROM botbuddy WHERE lower(buddyname) = lower(?buddyname);";
+            string sql = "DELETE FROM botbuddy WHERE buddyname = ?buddyname;";
             TheLogger.Debug(sql + "\n");
             MySqlCommand cmd = new MySqlCommand(sql, MyConnection);
             cmd.Parameters.AddWithValue("?buddyname", buddyName);
@@ -1933,7 +1933,7 @@ namespace cs_elbot
 	    {
 		Console.WriteLine(myException.Message); Environment.Exit(0);
 	    }
-            string sql = "SELECT id,istrademember FROM users WHERE lower(name)=?name AND botid=?botid LIMIT 1;";
+            string sql = "SELECT id,istrademember FROM users WHERE name=?name AND botid=?botid LIMIT 1;";
             TheLogger.Debug(sql + "\n");
             MySqlCommand cmd = new MySqlCommand(sql, MyConnection);
             cmd.Parameters.AddWithValue("?name", name.ToLower());
@@ -2031,7 +2031,7 @@ namespace cs_elbot
 	    {
 		Console.WriteLine(myException.Message); Environment.Exit(0);
 	    }
-            string sql = "SELECT id FROM players WHERE lower(name)=?name;";
+            string sql = "SELECT id FROM players WHERE name=?name;";
             TheLogger.Debug(sql + "\n");
             MySqlCommand cmd = new MySqlCommand(sql, MyConnection);
             cmd.Parameters.AddWithValue("?name", name.ToLower());
@@ -2165,7 +2165,7 @@ namespace cs_elbot
 		Console.WriteLine(myException.Message); Environment.Exit(0);
 	    }
             int UserRank = 0;
-            string sql = "SELECT rank FROM users WHERE LOWER(name)=?name AND botid=?botid;";
+            string sql = "SELECT rank FROM users WHERE name=?name AND botid=?botid;";
             TheLogger.Debug(sql + "\n");
 
             MySqlCommand cmd = new MySqlCommand(sql, MyConnection);
@@ -2254,7 +2254,7 @@ namespace cs_elbot
 	    }
             // Get guildrank of a GuildMember. If no guildrank was found, set it to the default value (6).
             int UserRank = 0;
-            string sql = "SELECT guildrank FROM users WHERE LOWER(name)=?name AND botid=?botid;";
+            string sql = "SELECT guildrank FROM users WHERE name=?name AND botid=?botid;";
             TheLogger.Debug(sql + "\n");
 
             MySqlCommand cmd = new MySqlCommand(sql, MyConnection);
@@ -2353,7 +2353,7 @@ namespace cs_elbot
             if (Command[0] != '#')
                 command += "#";
             command += Command;
-            string sql = "SELECT disabled FROM textcommands WHERE LOWER(command)=?command AND botid=?botid LIMIT 1;";
+            string sql = "SELECT disabled FROM textcommands WHERE command=?command AND botid=?botid LIMIT 1;";
             TheLogger.Debug(sql + "\n");
 
             MySqlCommand cmd = new MySqlCommand(sql, MyConnection);
@@ -2403,7 +2403,7 @@ namespace cs_elbot
             if (Command[0] != '#')
                 command += "#";
             command += Command;
-            string sql = "SELECT sendtogm FROM textcommands WHERE LOWER(command)=?command AND botid=?botid LIMIT 1;";
+            string sql = "SELECT sendtogm FROM textcommands WHERE command=?command AND botid=?botid LIMIT 1;";
             TheLogger.Debug(sql + "\n");
 
             MySqlCommand cmd = new MySqlCommand(sql, MyConnection);
@@ -2448,7 +2448,7 @@ namespace cs_elbot
 	    {
 		Console.WriteLine(myException.Message); Environment.Exit(0);
 	    }
-            string sql = "SELECT helptext FROM textcommands WHERE LOWER(command)=?command AND botid=?botid LIMIT 1;";
+            string sql = "SELECT helptext FROM textcommands WHERE command=?command AND botid=?botid LIMIT 1;";
             TheLogger.Debug(sql + "\n");
 
             MySqlCommand cmd = new MySqlCommand(sql, MyConnection);
@@ -2494,7 +2494,7 @@ namespace cs_elbot
 	    {
 		Console.WriteLine(myException.Message); Environment.Exit(0);
 	    }
-            string sql = "SELECT text FROM textcommands WHERE LOWER(command)=?command AND botid=?botid;";
+            string sql = "SELECT text FROM textcommands WHERE command=?command AND botid=?botid;";
             TheLogger.Debug(sql + "\n");
 
             MySqlCommand cmd = new MySqlCommand(sql, MyConnection);
@@ -2954,7 +2954,7 @@ namespace cs_elbot
 	    }
             int CommandRank = 100;
 
-            string sql = "SELECT requriedrank FROM commands WHERE LOWER(name)=?name AND botid=?botid LIMIT 1;";
+            string sql = "SELECT requriedrank FROM commands WHERE name=?name AND botid=?botid LIMIT 1;";
             TheLogger.Debug(sql + "\n");
 
             MySqlCommand cmd = new MySqlCommand(sql, MyConnection);
@@ -2998,7 +2998,7 @@ namespace cs_elbot
 	    }
             int CommandRank = 100;
 
-            string sql = "SELECT rank FROM textcommands WHERE LOWER(command)=?command AND botid=?botid LIMIT 1;";
+            string sql = "SELECT rank FROM textcommands WHERE command=?command AND botid=?botid LIMIT 1;";
             TheLogger.Debug(sql + "\n");
 
             MySqlCommand cmd = new MySqlCommand(sql, MyConnection);
@@ -3047,7 +3047,7 @@ namespace cs_elbot
             int id = -1;
             int count = -1;
             //string sql = "SELECT id FROM knownitems WHERE imageid = ?imageid and name = ?name order by imageid, name";
-            string sql = "SELECT id FROM knownitems WHERE lower(name) = ?name order by name";
+            string sql = "SELECT id FROM knownitems WHERE name = ?name order by name";
             MySqlCommand cmd = new MySqlCommand(sql, MyConnection);
             cmd.Parameters.AddWithValue("?imageid", MyTempTradeItem.imageid);
             cmd.Parameters.AddWithValue("?name", MyTempTradeItem.name.ToLower());
@@ -3082,7 +3082,7 @@ namespace cs_elbot
                 return id;//we found a perfect match
             }
             count = -1;
-            sql = "SELECT id FROM knownitems WHERE imageid = ?imageid and lower(name) = ?name order by imageid, name";
+            sql = "SELECT id FROM knownitems WHERE imageid = ?imageid and name = ?name order by imageid, name";
             cmd = new MySqlCommand(sql, MyConnection);
             cmd.Parameters.AddWithValue("?imageid", -1);
             cmd.Parameters.AddWithValue("?name", MyTempTradeItem.name.ToLower());
@@ -3188,7 +3188,7 @@ namespace cs_elbot
             // First check if the Item exists in the global Database, if not Add it.
             int id = -1;
             int count = -1;
-            string sql = "SELECT id FROM knownitems WHERE imageid = ?imageid and lower(name) = ?name order by imageid, name";
+            string sql = "SELECT id FROM knownitems WHERE imageid = ?imageid and name = ?name order by imageid, name";
             MySqlCommand cmd = new MySqlCommand(sql, MyConnection);
             cmd.Parameters.AddWithValue("?imageid", MyTempTradeItem.imageid);
             cmd.Parameters.AddWithValue("?name", MyTempTradeItem.name.ToLower());
@@ -3221,7 +3221,7 @@ namespace cs_elbot
                 return id;//we found a perfect match
             }
             count = -1;
-            sql = "SELECT id FROM knownitems WHERE imageid = ?imageid and lower(name) = ?name order by imageid, name";
+            sql = "SELECT id FROM knownitems WHERE imageid = ?imageid and name = ?name order by imageid, name";
             cmd = new MySqlCommand(sql, MyConnection);
             cmd.Parameters.AddWithValue("?imageid", -1);
             cmd.Parameters.AddWithValue("?name", MyTempTradeItem.name.ToLower());
@@ -3266,7 +3266,7 @@ namespace cs_elbot
                 return id;//we found a perfect match
             }
             count = -1;
-            sql = "SELECT id FROM knownitems WHERE lower(name) = ?name";
+            sql = "SELECT id FROM knownitems WHERE name = ?name";
             cmd = new MySqlCommand(sql, MyConnection);
             cmd.Parameters.AddWithValue("?name", MyTempTradeItem.name.ToLower());
             TheLogger.Debug(sql + "\n");
@@ -4284,7 +4284,7 @@ namespace cs_elbot
 	    }
             string greeting = "", str = "";
             int i;
-            string sql = "SELECT greeting FROM users WHERE LOWER(name)=?name AND botid=?botid AND date_add(last_greet_time, INTERVAL greet_interval MINUTE) < NOW() LIMIT 1;";
+            string sql = "SELECT greeting FROM users WHERE name=?name AND botid=?botid AND date_add(last_greet_time, INTERVAL greet_interval MINUTE) < NOW() LIMIT 1;";
             TheLogger.Debug(sql + "\n");
 
             MySqlCommand cmd = new MySqlCommand(sql, MyConnection);
@@ -4432,7 +4432,7 @@ namespace cs_elbot
 	    }
             bool istrademember = false;
 
-            string sql = "SELECT istrademember FROM users WHERE LOWER(name)=?name AND botid=?botid LIMIT 1;";
+            string sql = "SELECT istrademember FROM users WHERE name=?name AND botid=?botid LIMIT 1;";
             TheLogger.Debug(sql + "\n");
 
             MySqlCommand cmd = new MySqlCommand(sql, MyConnection);
@@ -4486,7 +4486,7 @@ namespace cs_elbot
 	    }
             bool isguildmember = false;
 
-            string sql = "SELECT isguildmember FROM users WHERE LOWER(name)=?name AND botid=?botid LIMIT 1;";
+            string sql = "SELECT isguildmember FROM users WHERE name=?name AND botid=?botid LIMIT 1;";
             TheLogger.Debug(sql + "\n");
 
             MySqlCommand cmd = new MySqlCommand(sql, MyConnection);
@@ -4539,18 +4539,18 @@ namespace cs_elbot
             string itemname = "";
             string namePlural = name.ToLower();
             namePlural = namePlural.Replace('s', '%');
-            string sql = "SELECT id,name FROM knownitems WHERE ((LOWER(name)=?name) or (LOWER(name) like ?namelike) or (LOWER(name) sounds like ?namelike)) order by name;";
+            string sql = "SELECT id,name FROM knownitems WHERE ((name=?name) or (name like ?namelike) or (name sounds like ?namelike)) order by name;";
             if (botid > 0)
             {
                 if (fromStorage)
                 {
-                    sql = "SELECT distinct knownitems.id,knownitems.name FROM knownitems, storage WHERE ((LOWER(knownitems.name)=?name) or (LOWER(knownitems.name) like ?namelike) or " +
-                          "(LOWER(knownitems.name) sounds like ?namelike)) AND storage.knownitemsid = knownitems.id AND storage.botid = ?botid AND storage.quantity > 0 order by name;";
+                    sql = "SELECT distinct knownitems.id,knownitems.name FROM knownitems, storage WHERE ((knownitems.name=?name) or (knownitems.name like ?namelike) or " +
+                          "(knownitems.name sounds like ?namelike)) AND storage.knownitemsid = knownitems.id AND storage.botid = ?botid AND storage.quantity > 0 order by name;";
                 }
                 else
                 {
-                    sql = "SELECT distinct knownitems.id,knownitems.name FROM knownitems, inventory WHERE ((LOWER(knownitems.name)=?name) or (LOWER(knownitems.name) like ?namelike) or " +
-                          "(LOWER(knownitems.name) sounds like ?namelike)) AND inventory.knownitemsid = knownitems.id AND inventory.botid = ?botid AND inventory.quantity > 0 order by name;";
+                    sql = "SELECT distinct knownitems.id,knownitems.name FROM knownitems, inventory WHERE ((knownitems.name=?name) or (knownitems.name like ?namelike) or " +
+                          "(knownitems.name sounds like ?namelike)) AND inventory.knownitemsid = knownitems.id AND inventory.botid = ?botid AND inventory.quantity > 0 order by name;";
                 }
             }
             TheLogger.Debug(sql + "\n");
@@ -5146,7 +5146,7 @@ namespace cs_elbot
 	    }
             Int16 botid = 0;
             bool launchValid = false;
-            string sql = "SELECT users.botid FROM users, bots WHERE LOWER(users.name)=?userName AND users.botid = bots.id AND LOWER(bots.name) = ?botName AND may_launch = 1 LIMIT 1;";
+            string sql = "SELECT users.botid FROM users, bots WHERE users.name=?userName AND users.botid = bots.id AND bots.name = ?botName AND may_launch = 1 LIMIT 1;";
             TheLogger.Debug(sql + "\n");
 
             MySqlCommand cmd = new MySqlCommand(sql, MyConnection);
@@ -6618,7 +6618,7 @@ namespace cs_elbot
             uint quantityWon = 0;
             uint prizeWonID = 0;
             //figure out the prize and reserve it for the person...
-            string sql = "select botprize.quantity, knownitems.name, knownitems.id, inventory.quantity from knownitems, botprize, inventory, botticket, prizelevel where knownitems.id = botprize.knownitemsid and botprize.botid = ?botid and botprize.prizelevel = botticket.prizelevelid and botticket.prizelevelid = prizelevel.levelid and botticket.botid = botprize.botid and lower(prizelevel.description) like '%" + prizeLevel + "%' and inventory.knownitemsid = botprize.knownitemsid and inventory.botid = botprize.botid and inventory.quantity  - (SELECT IFNULL(SUM(quantity),0) FROM reservedamount WHERE botid = inventory.botid AND claimed = 0 AND knownitemsid = inventory.knownitemsid) >= botprize.quantity ORDER BY RAND() LIMIT 1";
+            string sql = "select botprize.quantity, knownitems.name, knownitems.id, inventory.quantity from knownitems, botprize, inventory, botticket, prizelevel where knownitems.id = botprize.knownitemsid and botprize.botid = ?botid and botprize.prizelevel = botticket.prizelevelid and botticket.prizelevelid = prizelevel.levelid and botticket.botid = botprize.botid and prizelevel.description like '%" + prizeLevel + "%' and inventory.knownitemsid = botprize.knownitemsid and inventory.botid = botprize.botid and inventory.quantity  - (SELECT IFNULL(SUM(quantity),0) FROM reservedamount WHERE botid = inventory.botid AND claimed = 0 AND knownitemsid = inventory.knownitemsid) >= botprize.quantity ORDER BY RAND() LIMIT 1";
             MySqlConnection MyConnection = new MySqlConnection("Server=" + MainClass.SqlServer + ";Port=" + MainClass.SqlPort.ToString() + ";Database=" + MainClass.SqlDatabase + ";Uid=" + MainClass.SqlUsername + ";Pwd=" + MainClass.SqlPassword + ";");
 	    try
 	    {
@@ -7016,7 +7016,7 @@ namespace cs_elbot
         internal bool checkForPrizes(string prizeLevel)
         {
             int prizeCount = 0;
-            string sql = "select botprize.quantity, knownitems.name, knownitems.id, inventory.quantity from knownitems, botprize, inventory, botticket, prizelevel where knownitems.id = botprize.knownitemsid and botprize.botid = ?botid and botprize.prizelevel = botticket.prizelevelid and botticket.prizelevelid = prizelevel.levelid and botticket.botid = botprize.botid and lower(prizelevel.description) like '%" + prizeLevel + "%' and inventory.knownitemsid = botprize.knownitemsid and inventory.botid = botprize.botid and inventory.quantity >= botprize.quantity ORDER BY RAND() LIMIT 1";
+            string sql = "select botprize.quantity, knownitems.name, knownitems.id, inventory.quantity from knownitems, botprize, inventory, botticket, prizelevel where knownitems.id = botprize.knownitemsid and botprize.botid = ?botid and botprize.prizelevel = botticket.prizelevelid and botticket.prizelevelid = prizelevel.levelid and botticket.botid = botprize.botid and prizelevel.description like '%" + prizeLevel + "%' and inventory.knownitemsid = botprize.knownitemsid and inventory.botid = botprize.botid and inventory.quantity >= botprize.quantity ORDER BY RAND() LIMIT 1";
             MySqlConnection MyConnection = new MySqlConnection("Server=" + MainClass.SqlServer + ";Port=" + MainClass.SqlPort.ToString() + ";Database=" + MainClass.SqlDatabase + ";Uid=" + MainClass.SqlUsername + ";Pwd=" + MainClass.SqlPassword + ";");
 	    try
 	    {

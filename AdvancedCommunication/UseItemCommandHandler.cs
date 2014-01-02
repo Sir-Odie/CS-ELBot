@@ -160,6 +160,10 @@ namespace cs_elbot.AdvancedCommunication
                         str += CommandArray[i] + " ";
                     }
                     str = str.Trim();
+		    if (str == "")
+		    {
+			goto WrongArguments;
+		    }
                     nameToID = TheMySqlManager.GetItemID(str, Settings.botid, false);
                     if (nameToID == -1)
                     {
