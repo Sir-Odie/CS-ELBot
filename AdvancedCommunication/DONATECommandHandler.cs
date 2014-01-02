@@ -105,7 +105,7 @@ namespace cs_elbot.AdvancedCommunication
 
                 try
 				{
-					if (CommandArray.Length!=1)
+					if (CommandArray.Length!=1 && CommandArray[1]!="")
 					goto WrongArguments;
 					
 					if (TheTradeHandler.PutOnSale==false && TheTradeHandler.Billance == 0 && TheTradeHandler.PartnerTradeItemsList.Count == 0 && TheTradeHandler.MyItemList.Count==0)

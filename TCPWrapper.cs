@@ -214,6 +214,11 @@ namespace cs_elbot
 			{
 				ReconnectToServer();
 			}
+			else if (AutoReconnect==false)
+			{
+				System.Threading.Thread.Sleep(10000);
+				System.Environment.Exit(0);
+			}
 		}
 		
 		private void GotData(object Sender, TCPClient.TCPClient.GotDataEventArgs e)
